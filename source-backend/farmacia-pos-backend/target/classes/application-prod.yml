@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+server:
+  error:
+    include-stacktrace: never
+    include-message: never
+
+logging:
+  level:
+    com.tecnoa.pos: WARN
+    org.hibernate.SQL: WARN
+    org.springframework.security: WARN

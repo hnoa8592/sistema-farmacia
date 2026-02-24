@@ -1,0 +1,292 @@
+### Variables
+@baseUrl = http://localhost:8080/api
+@tenantId = farmacia_demo
+@token = {{login.response.body.data.token}}
+
+### ============================================================
+### AUTH
+### ============================================================
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@demo.com",
+  "password": "Admin1234",
+  "tenantId": "farmacia_demo"
+}
+
+### ============================================================
+### TENANTS (Admin)
+### ============================================================
+
+### Crear tenant
+POST {{baseUrl}}/admin/tenants
+Content-Type: application/json
+
+{
+  "nombre": "Mi Farmacia",
+  "schemaName": "mi_farmacia"
+}
+
+### Listar tenants
+GET {{baseUrl}}/admin/tenants
+
+### ============================================================
+### USUARIOS
+### ============================================================
+
+### Listar usuarios
+GET {{baseUrl}}/usuarios?page=0&size=10
+Authorization: Bearer {{token}}
+X-Tenant-ID: {{tenantId}}
+
+### Crear usuario
+POST {{baseUrl}}/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Nuevo Usuario",
+  "email": "nuevo@demo.com",
+  "password": "Password123"
+}
+
+### ============================================================
+### CATÁLOGOS
+### ============================================================
+
+### Listar categorías
+GET {{baseUrl}}/catalogos/categorias
+Authorization: Bearer {{token}}
+
+### Listar formas farmacéuticas
+GET {{baseUrl}}/catalogos/formas-farmaceuticas
+Authorization: Bearer {{token}}
+
+### Listar vías de administración
+GET {{baseUrl}}/catalogos/vias-administracion
+Authorization: Bearer {{token}}
+
+### ============================================================
+### PRINCIPIOS ACTIVOS
+### ============================================================
+
+### Listar principios activos
+GET {{baseUrl}}/principios-activos?page=0&size=20
+Authorization: Bearer {{token}}
+
+### Crear principio activo
+POST {{baseUrl}}/principios-activos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Aspirina",
+  "descripcion": "Ácido acetilsalicílico"
+}
+
+### ============================================================
+### LABORATORIOS
+### ============================================================
+
+### Listar laboratorios
+GET {{baseUrl}}/laboratorios?page=0&size=20
+Authorization: Bearer {{token}}
+
+### Crear laboratorio
+POST {{baseUrl}}/laboratorios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Laboratorio Nuevo",
+  "pais": "Perú",
+  "direccion": "Av. Industrial 100"
+}
+
+### ============================================================
+### SUCURSALES
+### ============================================================
+
+### Listar sucursales
+GET {{baseUrl}}/sucursales
+Authorization: Bearer {{token}}
+
+### Crear sucursal
+POST {{baseUrl}}/sucursales
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Sucursal Sur",
+  "direccion": "Av. Sur 789",
+  "telefono": "01-111-2222",
+  "esMatriz": false
+}
+
+### ============================================================
+### PRODUCTOS
+### ============================================================
+
+### Listar productos
+GET {{baseUrl}}/productos?page=0&size=10
+Authorization: Bearer {{token}}
+
+### Crear producto
+POST {{baseUrl}}/productos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Aspirina 100mg",
+  "codigo": "ASPI-100",
+  "concentracion": "100mg",
+  "presentacion": "Caja x 20 tabletas",
+  "requiereReceta": false,
+  "controlado": false
+}
+
+### Obtener producto por ID
+GET {{baseUrl}}/productos/{{productoId}}
+Authorization: Bearer {{token}}
+
+### Agregar lote a producto
+POST {{baseUrl}}/productos/{{productoId}}/lotes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "laboratorioId": "{{laboratorioId}}",
+  "numeroLote": "LOT-2025-001",
+  "fechaVencimiento": "2027-01-01",
+  "cantidadInicial": 100
+}
+
+### Agregar precio a producto
+POST {{baseUrl}}/productos/{{productoId}}/precios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tipoPrecio": "UNIDAD",
+  "precio": 0.50,
+  "precioCompra": 0.30
+}
+
+### ============================================================
+### INVENTARIO
+### ============================================================
+
+### Ver stock
+GET {{baseUrl}}/inventario/stock
+Authorization: Bearer {{token}}
+
+### Registrar entrada
+POST {{baseUrl}}/inventario/entrada
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "inventarioId": "{{inventarioId}}",
+  "cantidad": 50,
+  "observacion": "Reabastecimiento"
+}
+
+### Registrar ajuste
+POST {{baseUrl}}/inventario/ajuste
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "inventarioId": "{{inventarioId}}",
+  "stockNuevo": 45,
+  "observacion": "Ajuste por inventario físico"
+}
+
+### Listar movimientos
+GET {{baseUrl}}/inventario/movimientos?page=0&size=20
+Authorization: Bearer {{token}}
+
+### ============================================================
+### VENTAS
+### ============================================================
+
+### Registrar venta
+POST {{baseUrl}}/ventas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "detalles": [
+    {
+      "inventarioId": "{{inventarioId}}",
+      "tipoPrecio": "UNIDAD",
+      "cantidad": 2
+    }
+  ],
+  "descuento": 0
+}
+
+### Listar ventas
+GET {{baseUrl}}/ventas?page=0&size=10
+Authorization: Bearer {{token}}
+
+### Anular venta
+PUT {{baseUrl}}/ventas/{{ventaId}}/anular
+Authorization: Bearer {{token}}
+
+### ============================================================
+### REPORTES
+### ============================================================
+
+### Reporte de ventas
+GET {{baseUrl}}/reportes/ventas?desde=2025-01-01T00:00:00&hasta=2025-12-31T23:59:59
+Authorization: Bearer {{token}}
+
+### Reporte de stock
+GET {{baseUrl}}/reportes/stock
+Authorization: Bearer {{token}}
+
+### ============================================================
+### AUDITORÍA
+### ============================================================
+
+### Listar logs de auditoría
+GET {{baseUrl}}/auditoria?page=0&size=20
+Authorization: Bearer {{token}}
+
+### Resumen de auditoría
+GET {{baseUrl}}/auditoria/resumen
+Authorization: Bearer {{token}}
+
+### Historial de un registro
+GET {{baseUrl}}/auditoria/entidad/Venta/{{ventaId}}
+Authorization: Bearer {{token}}
+
+### ============================================================
+### PARÁMETROS
+### ============================================================
+
+### Listar todos los parámetros
+GET {{baseUrl}}/parametros
+Authorization: Bearer {{token}}
+
+### Listar parámetros de un módulo
+GET {{baseUrl}}/parametros/modulo/VENTAS
+Authorization: Bearer {{token}}
+
+### Obtener parámetro por clave
+GET {{baseUrl}}/parametros/MAX_DESCUENTO_PORCENTAJE
+Authorization: Bearer {{token}}
+
+### Actualizar parámetro
+PUT {{baseUrl}}/parametros/MAX_DESCUENTO_PORCENTAJE
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "valor": "25"
+}

@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # Database PostgreSQL
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: noa_users
+      POSTGRES_USER: pos_user
+      POSTGRES_PASSWORD: pos_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Keycloak for authentication
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.5.3
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/noa_users
+      KC_DB_USERNAME: pos_user
+      KC_DB_PASSWORD: pos_password
+    ports:
+      - "7080:8080"
+    depends_on:
+      - postgres
+    command: start-dev
+
+volumes:
+  postgres_data:

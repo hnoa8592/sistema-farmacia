@@ -1,0 +1,1015 @@
+Crea un proyecto backend con Java 25 + Spring Boot 3.x + Maven para un
+sistema POS de farmacia multi-tenant.
+
+## CONFIGURACIÓN DEL PROYECTO
+
+### pom.xml — Dependencias requeridas
+- spring-boot-starter-web
+- spring-boot-starter-data-jpa
+- spring-boot-starter-security
+- spring-boot-starter-validation
+- spring-boot-starter-cache
+- spring-boot-starter-aop
+- postgresql (runtime)
+- jjwt-api, jjwt-impl, jjwt-jackson (0.12.x)
+- lombok
+- springdoc-openapi-starter-webmvc-ui (Swagger)
+- mapstruct
+- jackson-databind (para serialización JSON en auditoría)
+
+### application.yml
+Crea perfiles dev y prod con las siguientes secciones:
+- spring.datasource (PostgreSQL)
+- spring.jpa (Hibernate, ddl-auto: validate para prod / update para dev)
+- jwt.secret y jwt.expiration
+- springdoc.swagger-ui configurado
+- Variables via ${ENV_VAR:default}
+
+Crea también:
+- .env.example con todas las variables necesarias
+- docker-compose.yml con servicio PostgreSQL (puerto 5432) y pgAdmin (puerto 5050)
+
+---
+
+## ESTRUCTURA DE PAQUETES
+
+com.tecnoa.pos/
+├── config/
+│   ├── TenantContext.java
+│   ├── TenantInterceptor.java
+│   ├── MultiTenantConnectionProvider.java
+│   ├── MultiTenantSchemaResolver.java
+│   ├── HibernateMultiTenantConfig.java
+│   └── SecurityConfig.java
+├── modules/
+│   ├── auth/
+│   │   ├── AuthController.java
+│   │   ├── AuthService.java
+│   │   └── dto/
+│   │       ├── LoginRequestDTO.java    # email, password, tenantId
+│   │       └── LoginResponseDTO.java   # token, email, recursos[]
+│   ├── tenant/
+│   │   ├── Tenant.java                 # Entidad en schema public
+│   │   ├── TenantRepository.java
+│   │   ├── TenantService.java
+│   │   ├── TenantController.java
+│   │   ├── TenantInitializer.java      # Crea el schema al registrar tenant
+│   │   └── dto/
+│   │       ├── TenantRequestDTO.java
+│   │       └── TenantResponseDTO.java
+│   ├── usuarios/
+│   │   ├── model/
+│   │   │   ├── Usuario.java
+│   │   │   ├── Perfil.java
+│   │   │   └── Recurso.java
+│   │   ├── repository/
+│   │   │   ├── UsuarioRepository.java
+│   │   │   ├── PerfilRepository.java
+│   │   │   └── RecursoRepository.java
+│   │   ├── service/
+│   │   │   ├── UsuarioService.java
+│   │   │   └── PerfilService.java
+│   │   ├── controller/
+│   │   │   ├── UsuarioController.java
+│   │   │   └── PerfilController.java
+│   │   └── dto/
+│   │       ├── UsuarioRequestDTO.java
+│   │       ├── UsuarioResponseDTO.java
+│   │       ├── PerfilRequestDTO.java
+│   │       └── PerfilResponseDTO.java
+│   ├── ventas/
+│   │   ├── model/
+│   │   │   ├── Venta.java
+│   │   │   └── DetalleVenta.java
+│   │   ├── repository/
+│   │   │   ├── VentaRepository.java
+│   │   │   └── DetalleVentaRepository.java
+│   │   ├── service/
+│   │   │   └── VentaService.java
+│   │   ├── controller/
+│   │   │   └── VentaController.java
+│   │   └── dto/
+│   │       ├── VentaRequestDTO.java
+│   │       ├── VentaResponseDTO.java
+│   │       └── DetalleVentaDTO.java
+│   ├── inventario/
+│   │   ├── model/
+│   │   │   ├── CategoriaTerapeutica.java       # catálogo: Analgésicos, Antibióticos...
+│   │   │   ├── FormaFarmaceutica.java          # catálogo: Tableta, Jarabe, Cápsula...
+│   │   │   ├── ViaAdministracion.java          # catálogo: Oral, Tópica, IV...
+│   │   │   ├── PrincipioActivo.java            # catálogo: Paracetamol, Ibuprofeno...
+│   │   │   ├── Laboratorio.java                # fabricante del lote
+│   │   │   ├── Sucursal.java                   # sede / punto de venta
+│   │   │   ├── Producto.java                   # datos maestros del producto
+│   │   │   ├── ProductoPrincipioActivo.java    # relación N:M con concentración
+│   │   │   ├── ProductoLote.java               # lote físico asociado a laboratorio
+│   │   │   ├── ProductoPrecio.java             # precios por tipo de presentación
+│   │   │   ├── Inventario.java                 # stock de un lote en una sucursal
+│   │   │   └── MovimientoInventario.java       # trazabilidad de movimientos
+│   │   ├── repository/
+│   │   │   ├── CategoriaTerapeuticaRepository.java
+│   │   │   ├── FormaFarmaceuticaRepository.java
+│   │   │   ├── ViaAdministracionRepository.java
+│   │   │   ├── PrincipioActivoRepository.java
+│   │   │   ├── LaboratorioRepository.java
+│   │   │   ├── SucursalRepository.java
+│   │   │   ├── ProductoRepository.java
+│   │   │   ├── ProductoPrincipioActivoRepository.java
+│   │   │   ├── ProductoLoteRepository.java
+│   │   │   ├── ProductoPrecioRepository.java
+│   │   │   ├── InventarioRepository.java
+│   │   │   └── MovimientoRepository.java
+│   │   ├── service/
+│   │   │   ├── CatalogoService.java            # CRUD de categoría, forma, vía
+│   │   │   ├── PrincipioActivoService.java
+│   │   │   ├── LaboratorioService.java
+│   │   │   ├── SucursalService.java
+│   │   │   ├── ProductoService.java
+│   │   │   ├── ProductoLoteService.java
+│   │   │   ├── ProductoPrecioService.java
+│   │   │   └── InventarioService.java
+│   │   ├── controller/
+│   │   │   ├── CatalogoController.java         # /api/catalogos
+│   │   │   ├── PrincipioActivoController.java  # /api/principios-activos
+│   │   │   ├── LaboratorioController.java      # /api/laboratorios
+│   │   │   ├── SucursalController.java         # /api/sucursales
+│   │   │   ├── ProductoController.java         # /api/productos
+│   │   │   ├── ProductoLoteController.java     # /api/productos/{id}/lotes
+│   │   │   ├── ProductoPrecioController.java   # /api/productos/{id}/precios
+│   │   │   └── InventarioController.java       # /api/inventario
+│   │   └── dto/
+│   │       ├── CatalogoDTO.java                # shared para categoria/forma/via
+│   │       ├── PrincipioActivoDTO.java
+│   │       ├── LaboratorioDTO.java
+│   │       ├── SucursalDTO.java
+│   │       ├── ProductoRequestDTO.java
+│   │       ├── ProductoResponseDTO.java
+│   │       ├── ProductoPrincipioActivoDTO.java
+│   │       ├── ProductoLoteRequestDTO.java
+│   │       ├── ProductoLoteResponseDTO.java
+│   │       ├── ProductoPrecioDTO.java
+│   │       ├── InventarioResponseDTO.java
+│   │       ├── MovimientoRequestDTO.java
+│   │       └── MovimientoResponseDTO.java
+│   ├── reportes/
+│   │   ├── service/
+│   │   │   └── ReporteService.java
+│   │   ├── controller/
+│   │   │   └── ReporteController.java
+│   │   └── dto/
+│   │       ├── ReporteVentasDTO.java
+│   │       └── ReporteStockDTO.java
+│   ├── auditoria/                          # NUEVO MÓDULO
+│   │   ├── annotation/
+│   │   │   └── Auditable.java              # Anotación personalizada
+│   │   ├── aspect/
+│   │   │   └── AuditAspect.java            # AOP interceptor
+│   │   ├── model/
+│   │   │   └── AuditLog.java
+│   │   ├── repository/
+│   │   │   └── AuditLogRepository.java
+│   │   ├── service/
+│   │   │   └── AuditService.java
+│   │   ├── controller/
+│   │   │   └── AuditController.java
+│   │   └── dto/
+│   │       ├── AuditLogResponseDTO.java
+│   │       └── AuditFiltroDTO.java
+│   └── parametros/                         # NUEVO MÓDULO
+│       ├── model/
+│       │   └── Parametro.java
+│       ├── repository/
+│       │   └── ParametroRepository.java
+│       ├── service/
+│       │   └── ParametroService.java
+│       ├── controller/
+│       │   └── ParametroController.java
+│       └── dto/
+│           ├── ParametroRequestDTO.java
+│           └── ParametroResponseDTO.java
+└── shared/
+    ├── dto/
+    │   └── ApiResponse.java            # { success, message, data, errors }
+    ├── exception/
+    │   ├── BusinessException.java
+    │   ├── TenantNotFoundException.java
+    │   └── GlobalExceptionHandler.java
+    └── security/
+        ├── JwtService.java
+        ├── JwtAuthFilter.java
+        └── UserDetailsServiceImpl.java
+
+---
+
+## ENTIDADES Y RELACIONES
+
+### Schema PUBLIC (anotado con @Table(schema="public"))
+
+Tenant:
+- id: UUID (PK)
+- nombre: String (not null)
+- schemaName: String (unique, not null)  # ej: "farmacia_001"
+- activo: Boolean (default true)
+- createdAt: LocalDateTime
+
+### Schema por TENANT (sin schema fijo, lo resuelve Hibernate)
+
+Usuario:
+- id: UUID (PK)
+- nombre: String
+- email: String (unique)
+- password: String (BCrypt)
+- activo: Boolean (default true)
+- createdAt: LocalDateTime
+- @ManyToMany con Perfil
+
+Perfil:
+- id: UUID (PK)
+- nombre: String              # ADMIN, SUPERVISOR, CAJERO
+- descripcion: String
+- @ManyToMany con Recurso
+
+Recurso:
+- id: UUID (PK)
+- nombre: String              # "ventas:crear", "inventario:ver"
+- modulo: String (enum)       # VENTAS, INVENTARIO, LABORATORIOS, SUCURSALES,
+                              # CATALOGOS, PRINCIPIOS_ACTIVOS,
+                              # REPORTES, USUARIOS, AUDITORIA, PARAMETROS
+
+Venta:
+- id: UUID (PK)
+- fecha: LocalDateTime
+- total: BigDecimal
+- descuento: BigDecimal (default 0)
+- usuarioId: UUID
+- estado: Enum (COMPLETADA, ANULADA)
+- @OneToMany con DetalleVenta
+
+DetalleVenta:
+- id: UUID (PK)
+- ventaId: UUID (FK → venta)
+- productoId: UUID (FK → producto)        # desnormalizado para reportes
+- loteId: UUID (FK → producto_lote)       # trazabilidad de lote vendido
+- inventarioId: UUID (FK → inventario)    # registro de stock afectado
+- tipoPrecio: Enum (UNIDAD, TIRA, CAJA, FRACCION)
+- cantidad: Integer
+- precioUnitario: BigDecimal              # precio capturado en el momento
+- subtotal: BigDecimal
+
+# ─── CATÁLOGOS FARMACÉUTICOS ────────────────────────────────────────────────
+
+CategoriaTerapeutica:
+- id: UUID (PK)
+- nombre: String (unique, not null)       # ej: "Analgésicos", "Antibióticos"
+- descripcion: String (nullable)
+- activo: Boolean (default true)
+
+FormaFarmaceutica:
+- id: UUID (PK)
+- nombre: String (unique, not null)       # ej: "Tableta", "Jarabe", "Cápsula"
+- descripcion: String (nullable)
+- activo: Boolean (default true)
+
+ViaAdministracion:
+- id: UUID (PK)
+- nombre: String (unique, not null)       # ej: "Oral", "Tópica", "Intravenosa"
+- descripcion: String (nullable)
+- activo: Boolean (default true)
+
+PrincipioActivo:
+- id: UUID (PK)
+- nombre: String (unique, not null)       # ej: "Paracetamol", "Amoxicilina"
+- descripcion: String (nullable)
+- activo: Boolean (default true)
+
+# ─── LABORATORIO ────────────────────────────────────────────────────────────
+
+Laboratorio:
+- id: UUID (PK)
+- nombre: String (not null)
+- pais: String (nullable)
+- direccion: String (nullable)
+- telefono: String (nullable)
+- email: String (nullable)
+- activo: Boolean (default true)
+
+# ─── SUCURSAL ───────────────────────────────────────────────────────────────
+
+Sucursal:
+- id: UUID (PK)
+- nombre: String (not null)
+- direccion: String
+- telefono: String (nullable)
+- esMatriz: Boolean (default false)
+- activo: Boolean (default true)
+
+# ─── PRODUCTO (datos maestros) ───────────────────────────────────────────────
+# No contiene stock ni precio directamente; esos se gestionan
+# en Inventario y ProductoPrecio respectivamente.
+
+Producto:
+- id: UUID (PK)
+- nombre: String (not null)
+- nombreComercial: String (nullable)      # marca comercial
+- codigo: String (unique, not null)       # código interno del sistema
+- codigoBarra: String (nullable)
+- descripcion: String (nullable)
+- concentracion: String (nullable)        # ej: "500mg", "10mg/5ml"
+- presentacion: String (nullable)         # ej: "Caja x 10 tabletas"
+- requiereReceta: Boolean (default false)
+- controlado: Boolean (default false)     # medicamento bajo control
+- activo: Boolean (default true)
+- categoriaId: UUID (FK → categoria_terapeutica)
+- formaFarmaceuticaId: UUID (FK → forma_farmaceutica)
+- viaAdministracionId: UUID (FK → via_administracion)
+- @OneToMany → ProductoPrincipioActivo
+- @OneToMany → ProductoLote
+- @OneToMany → ProductoPrecio
+
+# ─── PRODUCTO_PRINCIPIO_ACTIVO (relación N:M con datos) ─────────────────────
+
+ProductoPrincipioActivo:
+- id: UUID (PK)
+- productoId: UUID (FK → producto)
+- principioActivoId: UUID (FK → principio_activo)
+- concentracion: String (nullable)        # concentración específica en este producto
+- UNIQUE(productoId, principioActivoId)
+
+# ─── PRODUCTO_LOTE ───────────────────────────────────────────────────────────
+
+ProductoLote:
+- id: UUID (PK)
+- productoId: UUID (FK → producto)
+- laboratorioId: UUID (FK → laboratorio)
+- numeroLote: String (not null)
+- fechaFabricacion: LocalDate (nullable)
+- fechaVencimiento: LocalDate (not null, indexed)
+- cantidadInicial: Integer               # cantidad recibida al registrar el lote
+- activo: Boolean (default true)
+- UNIQUE(productoId, numeroLote)
+- @OneToMany → Inventario
+
+# ─── INVENTARIO (stock por lote × sucursal) ──────────────────────────────────
+
+Inventario:
+- id: UUID (PK)
+- loteId: UUID (FK → producto_lote)
+- sucursalId: UUID (FK → sucursal)
+- stockActual: Integer (default 0)
+- stockMinimo: Integer                   # por defecto usa STOCK_MINIMO_DEFAULT
+- ubicacion: String (nullable)           # ej: "Estante A-3"
+- UNIQUE(loteId, sucursalId)
+
+# ─── PRODUCTO_PRECIO ─────────────────────────────────────────────────────────
+
+ProductoPrecio:
+- id: UUID (PK)
+- productoId: UUID (FK → producto)
+- tipoPrecio: Enum (UNIDAD, TIRA, CAJA, FRACCION)
+- precio: BigDecimal (not null)
+- precioCompra: BigDecimal (nullable)
+- vigenciaDesde: LocalDateTime (not null)
+- vigenciaHasta: LocalDateTime (nullable) # null = vigente indefinidamente
+- activo: Boolean (default true)
+- UNIQUE(productoId, tipoPrecio) donde activo=true y vigenciaHasta IS NULL
+
+# ─── MOVIMIENTO_INVENTARIO ───────────────────────────────────────────────────
+
+MovimientoInventario:
+- id: UUID (PK)
+- inventarioId: UUID (FK → inventario)
+- loteId: UUID (FK → producto_lote)      # desnormalizado para consulta rápida
+- productoId: UUID (FK → producto)       # desnormalizado para consulta rápida
+- sucursalId: UUID (FK → sucursal)       # desnormalizado para consulta rápida
+- tipo: Enum (ENTRADA, SALIDA, AJUSTE, TRANSFERENCIA)
+- cantidad: Integer
+- stockAnterior: Integer
+- stockResultante: Integer
+- fecha: LocalDateTime (indexed)
+- usuarioId: UUID
+- observacion: String (nullable)
+
+### AuditLog (NUEVA ENTIDAD — schema por tenant)
+- id: UUID (PK)
+- usuarioId: UUID (referencia al usuario que realizó la acción)
+- usuarioEmail: String (desnormalizado para consulta rápida)
+- accion: Enum (CREAR, EDITAR, ELIMINAR, VER, LOGIN, LOGOUT, ANULAR)
+- modulo: String  # VENTAS, INVENTARIO, LABORATORIOS, SUCURSALES, CATALOGOS,
+                  # PRINCIPIOS_ACTIVOS, USUARIOS, PERFILES, PARAMETROS, AUTH
+- entidad: String # nombre de la clase/tabla afectada, ej: "Venta", "Producto"
+- entidadId: String (nullable) # ID del registro afectado
+- valorAnterior: TEXT (JSON serializado del estado previo, nullable)
+- valorNuevo: TEXT (JSON serializado del estado nuevo, nullable)
+- descripcion: String # descripción legible de la acción
+- ipOrigen: String (nullable)
+- userAgent: String (nullable)
+- fecha: LocalDateTime (not null, indexed)
+- exitoso: Boolean (default true) # false si la operación falló
+
+### Parametro (NUEVA ENTIDAD — schema por tenant)
+- id: UUID (PK)
+- clave: String (unique, not null)     # ej: "IVA_PORCENTAJE"
+- valor: String (not null)             # siempre string, se convierte según tipo
+- descripcion: String
+- tipo: Enum (STRING, INTEGER, DECIMAL, BOOLEAN)  # para parseo correcto
+- modulo: String  # VENTAS, INVENTARIO, GENERAL, SISTEMA, NOTIFICACIONES
+- editable: Boolean (default true)     # false = solo lectura para el tenant
+- activo: Boolean (default true)
+- updatedAt: LocalDateTime
+- updatedBy: String (email del último usuario que lo modificó)
+
+---
+
+## MULTI-TENANT — Implementación completa
+
+### TenantContext.java
+ThreadLocal<String> para almacenar el schema activo del tenant.
+Métodos: setTenant(String), getTenant(), clear().
+
+### TenantInterceptor.java
+Implementa HandlerInterceptor.
+En preHandle: extrae tenantId del JWT (claim "tenantId") y lo setea
+en TenantContext. En afterCompletion: llama TenantContext.clear().
+
+### MultiTenantConnectionProvider.java
+Implementa MultiTenantConnectionProvider de Hibernate.
+En getConnection(tenantId): hace SET search_path TO {tenantId}, public
+
+### MultiTenantSchemaResolver.java
+Implementa CurrentTenantIdentifierResolver.
+Retorna TenantContext.getTenant(), con fallback a "public".
+
+### HibernateMultiTenantConfig.java
+Configura LocalContainerEntityManagerFactoryBean con:
+- MultiTenantType.SCHEMA
+- Inyecta MultiTenantConnectionProvider
+- Inyecta CurrentTenantIdentifierResolver
+
+### TenantInitializer.java
+Servicio que al crear un nuevo Tenant ejecuta un script SQL
+para crear el schema y todas las tablas necesarias en ese schema.
+Usa JdbcTemplate para ejecutar: CREATE SCHEMA IF NOT EXISTS {schemaName}
+Luego ejecuta el DDL completo de todas las tablas del tenant,
+incluyendo audit_logs y parametros.
+
+---
+
+## SEGURIDAD
+
+### JwtService.java
+- generateToken(Usuario usuario, String tenantId): incluye en claims:
+  userId, tenantId, recursos (List<String>), email
+- validateToken(String token): retorna boolean
+- extractClaim(String token, Function<Claims,T>): genérico
+- Expiración configurable desde application.yml
+
+### JwtAuthFilter.java
+Extiende OncePerRequestFilter.
+Extrae Bearer token del header Authorization.
+Valida y setea SecurityContextHolder con los recursos como GrantedAuthority.
+Extrae el IP de la request (X-Forwarded-For o remoteAddr) y lo expone
+como atributo de request para que AuditAspect lo consuma.
+
+### SecurityConfig.java
+- Rutas públicas: POST /api/auth/login, GET /swagger-ui/**
+- Rutas admin: /api/admin/** requieren rol SUPERADMIN
+- Todo lo demás: autenticado
+- Configura JwtAuthFilter antes de UsernamePasswordAuthFilter
+- CORS abierto para localhost:4200 en dev
+
+---
+
+## MÓDULO DE AUDITORÍA — Implementación completa
+
+### @Auditable (annotation)
+Anotación personalizada para marcar métodos de servicio que deben
+ser auditados. Parámetros:
+- accion: AccionAudit enum (CREAR, EDITAR, ELIMINAR, VER, ANULAR)
+- modulo: String (nombre del módulo)
+- entidad: String (nombre de la entidad afectada)
+- descripcion: String (template de descripción, puede usar SpEL)
+
+### AuditAspect.java
+Implementa la lógica de auditoría mediante Spring AOP (@Aspect).
+- Se activa en métodos anotados con @Auditable.
+- Antes de ejecutar el método (@Around): captura el estado anterior
+  del objeto si es una edición/eliminación (serializa a JSON con Jackson).
+- Después de ejecutar: captura el resultado (estado nuevo) y persiste
+  el AuditLog via AuditService.
+- Obtiene el usuarioId y email desde el SecurityContextHolder.
+- Obtiene el IP desde el RequestContextHolder (HttpServletRequest).
+- Si el método lanza excepción: registra el log con exitoso = false.
+- Usa @Async para no bloquear el hilo principal al persistir el log.
+
+### AuditService.java
+- registrar(AuditLog): persiste un nuevo registro de auditoría.
+- El método es @Async y @Transactional(propagation = REQUIRES_NEW)
+  para no verse afectado por rollback de la transacción principal.
+- Nunca debe lanzar excepción al exterior; captura internamente y loguea.
+
+### AuditLogRepository.java
+- findByFiltros(UUID usuarioId, String modulo, String entidad,
+  LocalDateTime desde, LocalDateTime hasta, Pageable pageable):
+  usando Specification o @Query con filtros opcionales.
+- findByEntidadAndEntidadId(String entidad, String entidadId): historial
+  completo de cambios de un registro específico.
+
+### AuditController.java — /api/auditoria
+Requiere recurso "auditoria:ver".
+GET /               # Lista paginada de logs con filtros:
+                    # usuarioId, modulo, entidad, accion,
+                    # desde (ISO datetime), hasta (ISO datetime)
+GET /{id}           # Detalle de un log específico
+GET /entidad/{entidad}/{entidadId}  # Historial de un registro
+GET /usuario/{usuarioId}            # Actividad de un usuario específico
+GET /resumen        # Conteo de acciones agrupado por modulo y accion
+                    # en un rango de fechas (útil para dashboard)
+
+### Integración con servicios existentes
+Anotar con @Auditable los siguientes métodos:
+
+AuthService:
+- login()          → accion=LOGIN, modulo="AUTH", entidad="Usuario"
+- logout()         → accion=LOGOUT, modulo="AUTH", entidad="Usuario"
+
+UsuarioService:
+- crear()          → accion=CREAR, modulo="USUARIOS", entidad="Usuario"
+- actualizar()     → accion=EDITAR, modulo="USUARIOS", entidad="Usuario"
+- eliminar()       → accion=ELIMINAR, modulo="USUARIOS", entidad="Usuario"
+
+PerfilService:
+- crear()          → accion=CREAR, modulo="PERFILES", entidad="Perfil"
+- actualizar()     → accion=EDITAR, modulo="PERFILES", entidad="Perfil"
+- asignarRecursos()→ accion=EDITAR, modulo="PERFILES", entidad="Perfil"
+
+ProductoService:
+- crear()          → accion=CREAR,   modulo="INVENTARIO", entidad="Producto"
+- actualizar()     → accion=EDITAR,  modulo="INVENTARIO", entidad="Producto"
+- eliminar()       → accion=ELIMINAR,modulo="INVENTARIO", entidad="Producto"
+
+ProductoLoteService:
+- crear()          → accion=CREAR,   modulo="INVENTARIO", entidad="ProductoLote"
+- actualizar()     → accion=EDITAR,  modulo="INVENTARIO", entidad="ProductoLote"
+
+ProductoPrecioService:
+- crear()          → accion=CREAR,   modulo="INVENTARIO", entidad="ProductoPrecio"
+- actualizar()     → accion=EDITAR,  modulo="INVENTARIO", entidad="ProductoPrecio"
+
+VentaService:
+- registrarVenta() → accion=CREAR,   modulo="VENTAS", entidad="Venta"
+- anularVenta()    → accion=ANULAR,  modulo="VENTAS", entidad="Venta"
+
+InventarioService:
+- registrarEntrada()   → accion=CREAR, modulo="INVENTARIO", entidad="MovimientoInventario"
+- registrarSalida()    → accion=CREAR, modulo="INVENTARIO", entidad="MovimientoInventario"
+- registrarAjuste()    → accion=EDITAR,modulo="INVENTARIO", entidad="Inventario"
+
+ParametroService:
+- actualizar()     → accion=EDITAR, modulo="PARAMETROS", entidad="Parametro"
+
+---
+
+## MÓDULO DE PARÁMETROS — Implementación completa
+
+### Parametro.java
+Entidad JPA con los campos definidos arriba.
+Usar @Cacheable en el servicio para evitar consultas repetidas a BD.
+
+### ParametroService.java
+- getValor(String clave): retorna el valor como String. Lanza
+  BusinessException si la clave no existe o está inactiva.
+- getValorAsInteger(String clave): parsea y retorna Integer.
+- getValorAsDecimal(String clave): parsea y retorna BigDecimal.
+- getValorAsBoolean(String clave): parsea y retorna Boolean.
+- getByModulo(String modulo): lista todos los parámetros de un módulo.
+- getAll(): lista todos los parámetros activos.
+- actualizar(String clave, String nuevoValor, String usuarioEmail):
+  valida que editable=true, actualiza valor, updatedAt y updatedBy.
+  Invalida caché. Registra auditoría.
+- Cachear con @Cacheable(value="parametros", key="#clave") y
+  @CacheEvict al actualizar.
+
+### ParametroController.java — /api/parametros
+Acceso: todos los autenticados pueden VER; solo "parametros:editar" puede modificar.
+GET  /                      # Lista todos los parámetros activos
+GET  /modulo/{modulo}       # Lista parámetros de un módulo
+GET  /{clave}               # Obtiene un parámetro por clave
+PUT  /{clave}               # Actualiza el valor de un parámetro
+                            # Body: { valor: "..." }
+                            # Requiere @PreAuthorize("parametros:editar")
+                            # Valida que editable=true
+
+### Uso de parámetros en reglas de negocio
+Los servicios deben consultar ParametroService para obtener valores
+configurables en lugar de hardcodear constantes:
+
+VentaService:
+- MAX_DESCUENTO_PORCENTAJE: límite máximo de descuento permitido
+- IVA_PORCENTAJE: porcentaje de IVA aplicado en ventas
+- PERMITIR_VENTA_SIN_STOCK: boolean, si false bloquea la venta
+
+ProductoService:
+- STOCK_MINIMO_DEFAULT: valor por defecto de stockMinimo al crear producto
+- DIAS_ALERTA_VENCIMIENTO: días de anticipación para alertar vencimiento
+
+---
+
+## ENDPOINTS COMPLETOS
+
+### AuthController — /api/auth
+POST /login
+  Body: { email, password, tenantId }
+  Response: { token, email, nombre, recursos[] }
+
+### TenantController — /api/admin/tenants
+GET    /          # Lista todos los tenants
+POST   /          # Crea tenant + inicializa su schema
+PUT    /{id}      # Actualiza tenant
+DELETE /{id}      # Desactiva tenant (soft delete)
+
+### UsuarioController — /api/usuarios
+GET    /                    # Lista paginada @PreAuthorize("usuarios:ver")
+POST   /                    # Crea usuario  @PreAuthorize("usuarios:crear")
+PUT    /{id}                # Edita usuario @PreAuthorize("usuarios:editar")
+DELETE /{id}                # Soft delete   @PreAuthorize("usuarios:editar")
+POST   /{id}/perfiles       # Asigna perfiles a usuario
+
+### PerfilController — /api/perfiles
+GET    /                    # Lista perfiles
+POST   /                    # Crea perfil
+PUT    /{id}                # Edita perfil
+POST   /{id}/recursos       # Asigna recursos al perfil
+GET    /recursos             # Lista todos los recursos disponibles
+
+### CatalogoController — /api/catalogos
+# Gestiona CategoriaTerapeutica, FormaFarmaceutica y ViaAdministracion
+# Se distinguen por el parámetro ?tipo=CATEGORIA|FORMA|VIA o por sub-ruta
+
+GET    /categorias                        # Lista categorías terapéuticas
+POST   /categorias                        # Crea categoría
+PUT    /categorias/{id}                   # Edita categoría
+DELETE /categorias/{id}                   # Soft delete
+
+GET    /formas-farmaceuticas              # Lista formas farmacéuticas
+POST   /formas-farmaceuticas             # Crea forma
+PUT    /formas-farmaceuticas/{id}        # Edita forma
+DELETE /formas-farmaceuticas/{id}        # Soft delete
+
+GET    /vias-administracion              # Lista vías de administración
+POST   /vias-administracion             # Crea vía
+PUT    /vias-administracion/{id}        # Edita vía
+DELETE /vias-administracion/{id}        # Soft delete
+
+### PrincipioActivoController — /api/principios-activos
+GET    /                    # Lista paginada con filtro por nombre
+POST   /                    # Crea principio activo
+PUT    /{id}                # Edita principio activo
+DELETE /{id}                # Soft delete
+
+### LaboratorioController — /api/laboratorios
+GET    /                    # Lista paginada con filtro por nombre, pais
+POST   /                    # Crea laboratorio
+PUT    /{id}                # Edita laboratorio
+DELETE /{id}                # Soft delete
+
+### SucursalController — /api/sucursales
+GET    /                    # Lista todas las sucursales
+POST   /                    # Crea sucursal
+PUT    /{id}                # Edita sucursal
+DELETE /{id}                # Soft delete (no permitir si tiene inventario activo)
+GET    /{id}/inventario     # Stock actual de todos los lotes en esa sucursal
+
+### ProductoController — /api/productos
+GET    /                    # Lista paginada con filtros:
+                            # nombre, nombreComercial, codigo, codigoBarra,
+                            # categoriaId, formaId, laboratorioId, principioActivoId,
+                            # requiereReceta, controlado
+POST   /                    # Crea producto (datos maestros)
+GET    /{id}                # Detalle completo del producto con precios activos,
+                            # principios activos y stock total por sucursal
+PUT    /{id}                # Edita datos maestros
+DELETE /{id}                # Soft delete
+
+# Principios activos de un producto
+GET    /{id}/principios-activos          # Lista PA del producto
+POST   /{id}/principios-activos          # Asocia PA al producto
+DELETE /{id}/principios-activos/{paId}  # Desasocia PA
+
+# Precios del producto
+GET    /{id}/precios         # Lista precios activos del producto
+POST   /{id}/precios         # Crea/actualiza un precio por tipo
+                             # Body: { tipoPrecio, precio, precioCompra, vigenciaDesde }
+PUT    /{id}/precios/{precioId}          # Edita precio existente
+DELETE /{id}/precios/{precioId}          # Desactiva precio
+
+# Lotes del producto
+GET    /{id}/lotes           # Lista lotes del producto con stock por sucursal
+POST   /{id}/lotes           # Registra nuevo lote
+                             # Body: { laboratorioId, numeroLote, fechaVencimiento,
+                             #         fechaFabricacion, cantidadInicial, sucursalId }
+GET    /{id}/lotes/proximos-vencer       # Lotes a vencer en DIAS_ALERTA_VENCIMIENTO días
+GET    /{id}/lotes/vencidos              # Lotes ya vencidos
+
+# Alertas y consultas de stock
+GET    /bajo-stock           # Productos con stockActual <= stockMinimo (cualquier sucursal)
+GET    /proximos-vencer      # Productos con algún lote por vencer
+GET    /sin-stock            # Productos sin ningún lote con stock > 0
+
+### InventarioController — /api/inventario
+POST   /entrada              # Registra entrada de stock a un lote+sucursal
+                             # Body: { inventarioId, cantidad, observacion }
+POST   /salida               # Registra salida manual de stock
+                             # Body: { inventarioId, cantidad, observacion }
+POST   /ajuste               # Ajusta stock al valor exacto indicado
+                             # Body: { inventarioId, stockNuevo, observacion }
+GET    /stock                # Stock actual: filtros por productoId, sucursalId,
+                             # loteId, soloConStock (boolean)
+GET    /movimientos          # Lista de movimientos paginada; filtros:
+                             # productoId, sucursalId, loteId, tipo,
+                             # usuarioId, desde, hasta
+GET    /movimientos/{id}     # Detalle de un movimiento
+
+### VentaController — /api/ventas
+GET    /                    # Lista paginada de ventas
+POST   /                    # Registra venta completa con detalles
+GET    /{id}                # Detalle de una venta
+PUT    /{id}/anular         # Anula venta y revierte stock
+
+### ReporteController — /api/reportes
+GET    /ventas              # Params: desde, hasta, usuarioId, laboratorio
+GET    /productos-vendidos  # Top productos más vendidos con filtro fecha
+GET    /stock               # Estado actual del stock con alertas
+GET    /movimientos         # Movimientos de inventario por rango de fecha
+
+### AuditController — /api/auditoria    (NUEVO)
+GET    /                                # Lista paginada con filtros
+GET    /{id}                            # Detalle de un registro
+GET    /entidad/{entidad}/{entidadId}   # Historial de un registro específico
+GET    /usuario/{usuarioId}             # Actividad de un usuario
+GET    /resumen                         # Dashboard: conteo por módulo/acción
+
+### ParametroController — /api/parametros    (NUEVO)
+GET    /                    # Lista todos los parámetros
+GET    /modulo/{modulo}     # Parámetros de un módulo específico
+GET    /{clave}             # Un parámetro por clave
+PUT    /{clave}             # Actualiza valor (requiere parametros:editar)
+
+---
+
+## REGLAS DE NEGOCIO
+
+VentaService:
+- El DetalleVenta debe recibir inventarioId (lote + sucursal concreto).
+- Validar que Inventario.stockActual >= cantidad del detalle.
+- Si insuficiente y PERMITIR_VENTA_SIN_STOCK=false: lanzar BusinessException.
+- Descontar stock: Inventario.stockActual -= cantidad para cada detalle.
+- Crear un MovimientoInventario tipo SALIDA por cada detalle de la venta.
+- El precioUnitario del detalle se captura desde ProductoPrecio activo
+  del tipo correspondiente en el momento de la venta (no se modifica después).
+- Descuento solo si el usuario tiene recurso "ventas:descuento".
+- Descuento no puede superar MAX_DESCUENTO_PORCENTAJE (leer de ParametroService).
+- Calcular IGV usando IVA_PORCENTAJE (leer de ParametroService).
+- Al anular: revertir Inventario.stockActual para cada detalle y crear
+  MovimientoInventario tipo ENTRADA con observacion "Anulación venta #{id}".
+
+ProductoService:
+- Al guardar: validar que codigo sea único en el tenant.
+- Soft delete: setear activo = false (no eliminar si tiene lotes con stock).
+- Al crear producto no asigna stock; el stock entra por lotes en InventarioService.
+- Al asociar PrincipioActivo: validar que no exista ya la combinación.
+
+ProductoLoteService:
+- Al crear un lote: automáticamente crear un registro Inventario con
+  stockActual = cantidadInicial para la sucursalId indicada en el request.
+- Si la sucursal no se indica: crear el registro Inventario en la sucursal matriz.
+- stockMinimo del Inventario se inicializa desde STOCK_MINIMO_DEFAULT.
+- UNIQUE(productoId, numeroLote): lanzar BusinessException si ya existe.
+- Soft delete solo si el stockActual de todos sus Inventarios es 0.
+
+ProductoPrecioService:
+- Solo puede existir un precio activo por (productoId, tipoPrecio).
+- Al crear un nuevo precio para un tipo existente: cerrar el precio anterior
+  seteando vigenciaHasta = vigenciaDesde del nuevo.
+- Al consultar precios para una venta: retornar el precio con
+  vigenciaDesde <= now() y (vigenciaHasta IS NULL o vigenciaHasta >= now()).
+
+InventarioService:
+- Entrada: aumentar Inventario.stockActual + registrar MovimientoInventario ENTRADA.
+- Salida manual: disminuir stockActual + registrar SALIDA.
+  Si stockActual - cantidad < 0 y PERMITIR_VENTA_SIN_STOCK=false: rechazar.
+- Ajuste: setear stockActual al valor indicado + registrar AJUSTE con
+  stockAnterior y stockResultante correspondientes.
+- Siempre guardar stockAnterior y stockResultante en el movimiento.
+- Al hacer TRANSFERENCIA: crear SALIDA en sucursal origen y ENTRADA en destino.
+
+CatalogoService:
+- CRUD básico para CategoriaTerapeutica, FormaFarmaceutica, ViaAdministracion.
+- Soft delete: no permitir si hay Productos referenciando el catálogo.
+
+LaboratorioService:
+- CRUD completo con paginación.
+- Soft delete: no permitir si tiene ProductoLote activo.
+
+SucursalService:
+- CRUD completo.
+- Soft delete: no permitir si tiene Inventario con stockActual > 0.
+
+AuditService:
+- Nunca lanzar excepción al exterior; si falla el registro de auditoría,
+  solo loguear el error sin afectar la operación principal.
+- Ejecutar en hilo separado (@Async) con transacción independiente.
+
+ParametroService:
+- Si un parámetro tiene editable=false y se intenta modificar,
+  lanzar BusinessException con mensaje descriptivo.
+- Invalidar caché al modificar cualquier parámetro.
+
+---
+
+## BASE DE DATOS — Archivos SQL
+
+Genera estos 6 archivos en src/main/resources/db/:
+
+### 01-init-public.sql
+CREATE SCHEMA IF NOT EXISTS public;
+Tabla tenants en schema public.
+INSERT del tenant superadmin de prueba:
+  schemaName = 'farmacia_demo'
+
+### 02-tenant-schema-template.sql
+Script completo con CREATE TABLE para todas las tablas del tenant,
+en el siguiente orden de dependencias:
+
+1. categorias_terapeuticas
+2. formas_farmaceuticas
+3. vias_administracion
+4. principios_activos
+5. laboratorios
+6. sucursales
+7. productos
+8. producto_principios_activos
+9. producto_lotes
+10. producto_precios
+11. inventario
+12. movimientos_inventario
+13. usuarios, perfiles, recursos (tablas de seguridad)
+14. ventas, detalle_ventas
+15. audit_logs
+16. parametros
+
+Índices a crear:
+- productos: (codigo), (codigo_barra), (nombre), (categoria_id), (forma_farmaceutica_id)
+- principios_activos: (nombre)
+- laboratorios: (nombre)
+- sucursales: (nombre)
+- producto_lotes: (producto_id), (laboratorio_id), (fecha_vencimiento), (numero_lote)
+- producto_precios: (producto_id, tipo_precio) WHERE activo = true
+- inventario: (lote_id), (sucursal_id), (lote_id, sucursal_id) UNIQUE
+- movimientos_inventario: (inventario_id), (producto_id), (sucursal_id), (fecha), (tipo)
+- detalle_ventas: (venta_id), (producto_id), (lote_id)
+- audit_logs: (usuario_id), (modulo), (entidad), (fecha), (entidad, entidad_id)
+- parametros: (clave) UNIQUE, (modulo)
+
+### 03-seed-recursos.sql
+INSERT de todos los recursos del sistema:
+ventas:ver, ventas:crear, ventas:anular, ventas:descuento
+inventario:ver, inventario:crear, inventario:editar, inventario:movimientos
+inventario:lotes, inventario:precios, inventario:ajuste
+laboratorios:ver, laboratorios:editar
+sucursales:ver, sucursales:editar
+catalogos:ver, catalogos:editar
+principios-activos:ver, principios-activos:editar
+reportes:ventas, reportes:inventario, reportes:stock
+usuarios:ver, usuarios:crear, usuarios:editar
+perfiles:ver, perfiles:crear, perfiles:editar
+auditoria:ver
+parametros:ver, parametros:editar
+
+### 04-seed-perfiles.sql
+INSERT de perfiles ADMIN, SUPERVISOR, CAJERO con sus
+recursos asignados según esta matriz:
+
+ADMIN      → todos los recursos
+SUPERVISOR → ventas:*, inventario:*, reportes:*, laboratorios:ver,
+             sucursales:ver, catalogos:ver, principios-activos:ver,
+             usuarios:ver, auditoria:ver, parametros:ver
+CAJERO     → ventas:ver, ventas:crear, inventario:ver, catalogos:ver,
+             sucursales:ver
+
+### 05-seed-parametros.sql   (NUEVO)
+INSERT de parámetros iniciales del sistema en la tabla parametros
+del schema de cada tenant. Este seed se ejecuta también en TenantInitializer.
+
+Parámetros a insertar:
+
+-- Módulo GENERAL
+('MONEDA', 'PEN', 'Moneda del sistema', 'STRING', 'GENERAL', false)
+('NOMBRE_FARMACIA', 'Mi Farmacia', 'Nombre de la farmacia', 'STRING', 'GENERAL', true)
+('RUC', '', 'RUC de la empresa', 'STRING', 'GENERAL', true)
+('DIRECCION', '', 'Dirección de la farmacia', 'STRING', 'GENERAL', true)
+('TELEFONO', '', 'Teléfono de la farmacia', 'STRING', 'GENERAL', true)
+('LOGO_URL', '', 'URL del logo para comprobantes', 'STRING', 'GENERAL', true)
+
+-- Módulo VENTAS
+('IVA_PORCENTAJE', '18', 'Porcentaje de IGV/IVA aplicado', 'INTEGER', 'VENTAS', false)
+('MAX_DESCUENTO_PORCENTAJE', '20', 'Descuento máximo permitido por venta (%)', 'INTEGER', 'VENTAS', true)
+('PERMITIR_VENTA_SIN_STOCK', 'false', 'Permite vender productos sin stock', 'BOOLEAN', 'VENTAS', true)
+('IMPRIMIR_TICKET_AUTO', 'true', 'Imprime ticket automáticamente al finalizar venta', 'BOOLEAN', 'VENTAS', true)
+('FORMATO_COMPROBANTE', 'TICKET', 'Formato por defecto del comprobante (TICKET, A4)', 'STRING', 'VENTAS', true)
+
+-- Módulo INVENTARIO
+('STOCK_MINIMO_DEFAULT', '5', 'Stock mínimo por defecto al crear producto', 'INTEGER', 'INVENTARIO', true)
+('DIAS_ALERTA_VENCIMIENTO', '30', 'Días de anticipación para alertar vencimiento', 'INTEGER', 'INVENTARIO', true)
+('ALERTAR_STOCK_BAJO', 'true', 'Activar alertas de stock bajo', 'BOOLEAN', 'INVENTARIO', true)
+
+-- Módulo SISTEMA
+('ZONA_HORARIA', 'America/Lima', 'Zona horaria del sistema', 'STRING', 'SISTEMA', false)
+('INTENTOS_LOGIN_MAX', '5', 'Intentos máximos de login antes de bloquear', 'INTEGER', 'SISTEMA', false)
+('SESION_DURACION_HORAS', '8', 'Duración máxima de sesión en horas', 'INTEGER', 'SISTEMA', false)
+('REGISTROS_POR_PAGINA', '20', 'Número de registros por página por defecto', 'INTEGER', 'SISTEMA', true)
+
+### 06-seed-catalogos.sql
+INSERT de catálogos farmacéuticos iniciales para el tenant demo:
+
+-- Categorías terapéuticas (10 registros):
+Analgésicos y Antipiréticos, Antibióticos, Antiinflamatorios,
+Antihistamínicos, Antihipertensivos, Antidiabéticos,
+Vitaminas y Suplementos, Antiácidos y Gastroprotectores,
+Antiparasitarios, Dermatológicos
+
+-- Formas farmacéuticas (10 registros):
+Tableta, Cápsula, Jarabe, Suspensión, Crema, Pomada,
+Ampolla, Solución oral, Parche transdérmico, Supositorio
+
+-- Vías de administración (8 registros):
+Oral, Tópica, Intravenosa, Intramuscular,
+Subcutánea, Oftálmica, Ótica, Rectal
+
+-- Principios activos (15 registros):
+Paracetamol, Ibuprofeno, Amoxicilina, Azitromicina,
+Diclofenaco, Loratadina, Enalapril, Metformina,
+Omeprazol, Ranitidina, Vitamina C, Calcio + Vitamina D,
+Albendazol, Clotrimazol, Dexametasona
+
+### 07-seed-data-demo.sql
+INSERT de datos de prueba para el tenant farmacia_demo:
+
+Infraestructura:
+- 1 sucursal matriz (Farmacia Central)
+- 1 sucursal adicional (Sucursal Norte)
+- 3 laboratorios (ej: BAYER, PFIZER, GENFAR)
+
+Usuarios:
+- admin@demo.com / Admin1234 (perfil ADMIN)
+- supervisor@demo.com / Super1234 (perfil SUPERVISOR)
+- cajero@demo.com / Cajero1234 (perfil CAJERO)
+
+Productos con lotes, precios e inventario (5 registros completos):
+1. Paracetamol 500mg (Tableta, Analgésicos) — con 2 lotes activos
+2. Ibuprofeno 400mg (Tableta, Antiinflamatorios) — con 1 lote
+3. Amoxicilina 500mg Cápsula (Antibióticos) — con 1 lote
+4. Loratadina 10mg (Tableta, Antihistamínicos) — con 1 lote
+5. Omeprazol 20mg (Cápsula, Antiácidos) — con 1 lote
+
+Por cada producto incluir:
+- Al menos un precio tipo UNIDAD y uno tipo CAJA activos
+- Inventario en la sucursal matriz con stock > 0
+- Inventario en la sucursal norte con stock > 0
+
+---
+
+## RESPUESTA ESTÁNDAR API
+
+Toda respuesta debe usar ApiResponse<T>:
+{
+  "success": true,
+  "message": "Operación exitosa",
+  "data": { ... },
+  "errors": null
+}
+
+En errores:
+{
+  "success": false,
+  "message": "Error de validación",
+  "data": null,
+  "errors": ["El email ya existe", "El stock no puede ser negativo"]
+}
+
+GlobalExceptionHandler maneja:
+- BusinessException → 400
+- EntityNotFoundException → 404
+- MethodArgumentNotValidException → 400 con lista de errores
+- AccessDeniedException → 403
+- Exception genérica → 500
+
+---
+
+## ARCHIVOS FINALES A GENERAR
+
+- docker-compose.yml
+- .env.example
+- README.md con pasos: clonar, configurar .env,
+  levantar docker, ejecutar SQL seeds, correr la app
+- Colección básica de Postman o requests.http con
+  ejemplos de cada endpoint (incluyendo auditoría y parámetros)

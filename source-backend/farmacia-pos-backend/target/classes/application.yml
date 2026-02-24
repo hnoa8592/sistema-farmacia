@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: farmacia-pos-backend
+  profiles:
+    active: ${SPRING_PROFILE:dev}
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/farmacia_pos}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+
+  cache:
+    type: simple
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: /api
+
+jwt:
+  secret: ${JWT_SECRET:mySecretKeyForJWTThatIsLongEnoughToBeSecure1234567890}
+  expiration: ${JWT_EXPIRATION:28800000}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+
+logging:
+  level:
+    com.tecnoa.pos: ${LOG_LEVEL:INFO}
+    org.hibernate.SQL: WARN
+    org.springframework.security: WARN

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn compile 2>&1)",
+      "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn --version 2>&1)",
+      "Bash(grep:*)",
+      "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn clean compile 2>&1)",
+      "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn test -Dtest=\"TenantContextTest\" -pl . 2>&1)",
+      "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn test -Dtest=\"AuthLoginIntegrationTest\" -Dspring.profiles.active=test 2>&1)",
+      "Bash(python3:*)",
+      "Bash(PGPASSWORD=postgres psql:*)"
+    ]
+  }
+}
