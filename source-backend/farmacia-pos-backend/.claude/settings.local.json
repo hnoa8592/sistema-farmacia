@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(cd \"D:\\\\WORKSPACE\\\\sistema-farmacia\\\\source-backend\\\\farmacia-pos-backend\" && mvn compile -q 2>&1)"
+    ]
+  }
+}

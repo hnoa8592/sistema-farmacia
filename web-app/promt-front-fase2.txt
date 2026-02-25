@@ -883,7 +883,7 @@ Funcionalidades:
    - botón eliminar ítem (p-button icon="pi pi-trash")
 5. Panel resumen:
    - Subtotal, descuento (p-inputNumber, solo si ventas:descuento),
-     IGV (calculado con parámetro IVA_PORCENTAJE), total
+     IVA (calculado con parámetro IVA_PORCENTAJE), total
 6. Botón "Confirmar Venta" → POST /api/ventas → p-toast de éxito →
    limpiar carrito
 7. Botón "Cancelar" limpia el carrito (con p-confirmDialog previo)
@@ -1044,7 +1044,7 @@ Funcionalidades:
 - Para parámetros con editable=true: botón editar → p-inplace o
   p-dialog con input según tipo:
   - STRING: p-inputText
-  - INTEGER/DECIMAL: p-inputNumber
+  - INTEGER/DECIMAL: p-inputNumber (currency="BOB" locale="es-BO" para montos)
   - BOOLEAN: p-toggleButton o p-inputSwitch
 - PUT /api/parametros/{clave} con { valor: "..." }
 - Requiere *appPermiso="'parametros:ver'" para ver

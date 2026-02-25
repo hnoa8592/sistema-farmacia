@@ -1,0 +1,40 @@
+<div class="surface-card shadow-2 border-round p-4">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h2 class="m-0 text-900 font-bold"><i class="pi pi-map-marker mr-2 text-indigo-500"></i>Sucursales</h2>
+    <p-button *appPermiso="'sucursales:editar'" label="Nueva" icon="pi pi-plus" (onClick)="nuevo()"></p-button>
+  </div>
+  <p-table [value]="sucursales" [loading]="cargando" responsiveLayout="scroll" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr><th>Nombre</th><th>Dirección</th><th>Teléfono</th><th class="text-center">Matriz</th><th class="text-center">Activo</th><th class="text-center" *appPermiso="'sucursales:editar'">Acciones</th></tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-suc>
+      <tr>
+        <td class="font-medium">{{ suc.nombre }}</td>
+        <td class="text-500">{{ suc.direccion }}</td>
+        <td>{{ suc.telefono || '—' }}</td>
+        <td class="text-center">
+          <p-badge *ngIf="suc.esMatriz" value="Matriz" severity="info"></p-badge>
+        </td>
+        <td class="text-center"><p-tag [value]="suc.activo ? 'Activo' : 'Inactivo'" [severity]="suc.activo ? 'success' : 'danger'"></p-tag></td>
+        <td class="text-center" *appPermiso="'sucursales:editar'">
+          <p-button icon="pi pi-pencil" styleClass="p-button-text p-button-sm" (onClick)="editar(suc)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-text p-button-sm p-button-danger" [disabled]="suc.esMatriz" (onClick)="eliminar(suc)"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage"><tr><td colspan="6" class="text-center text-500 py-4">Sin sucursales</td></tr></ng-template>
+  </p-table>
+</div>
+<p-dialog [header]="sucursalSeleccionada ? 'Editar Sucursal' : 'Nueva Sucursal'" [(visible)]="mostrarFormulario" [modal]="true" [style]="{width:'450px'}">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="field"><label class="font-medium">Nombre *</label><input type="text" pInputText formControlName="nombre" /></div>
+    <div class="field"><label class="font-medium">Dirección *</label><input type="text" pInputText formControlName="direccion" /></div>
+    <div class="field"><label class="font-medium">Teléfono</label><input type="text" pInputText formControlName="telefono" /></div>
+    <div class="field"><div class="flex align-items-center gap-2"><p-checkbox formControlName="esMatriz" [binary]="true" inputId="matriz"></p-checkbox><label for="matriz" class="font-medium">Es Sucursal Matriz</label></div></div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" styleClass="p-button-outlined" (onClick)="mostrarFormulario = false"></p-button>
+    <p-button label="Guardar" [loading]="guardando" (onClick)="guardar()"></p-button>
+  </ng-template>
+</p-dialog>
+<p-confirmDialog></p-confirmDialog><p-toast></p-toast>

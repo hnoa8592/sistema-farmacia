@@ -1,2 +1,14 @@
 com\tecnoa\pos\config\TenantContextTest.class
 com\tecnoa\pos\modules\auth\AuthLoginIntegrationTest.class
+com\tecnoa\pos\modules\inventario\service\InventarioServiceTest$RegistrarEntrada.class
+com\tecnoa\pos\modules\inventario\service\InventarioServiceTest$RegistrarSalida.class
+com\tecnoa\pos\modules\inventario\service\InventarioServiceTest$GetStock.class
+com\tecnoa\pos\modules\ventas\service\VentaServiceTest$RegistrarVentaValidaciones.class
+com\tecnoa\pos\modules\inventario\service\InventarioServiceTest.class
+com\tecnoa\pos\modules\ventas\service\VentaServiceTest$RegistrarVentaTotales.class
+com\tecnoa\pos\modules\ventas\service\VentaServiceTest$AnularVenta.class
+com\tecnoa\pos\modules\ventas\VentaIntegrationTest.class
+com\tecnoa\pos\modules\ventas\service\VentaServiceTest.class
+com\tecnoa\pos\modules\ventas\service\VentaServiceTest$RegistrarVentaEfectos.class
+com\tecnoa\pos\modules\inventario\InventarioIntegrationTest.class
+com\tecnoa\pos\modules\inventario\service\InventarioServiceTest$RegistrarAjuste.class

@@ -101,7 +101,7 @@ public class ProductoLoteService {
                         .sucursalId(i.getSucursal().getId()).sucursalNombre(i.getSucursal().getNombre())
                         .stockActual(i.getStockActual()).stockMinimo(i.getStockMinimo())
                         .ubicacion(i.getUbicacion())
-                        .bajoPStock(i.getStockActual() <= i.getStockMinimo()).build())
+                        .bajoStock(i.getStockActual() <= i.getStockMinimo()).build())
                 .collect(Collectors.toList());
 
         return ProductoLoteResponseDTO.builder()

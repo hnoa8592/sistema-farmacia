@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -54,9 +55,10 @@ public class InventarioController {
     public ResponseEntity<ApiResponse<List<InventarioResponseDTO>>> stock(
             @RequestParam(required = false) UUID productoId,
             @RequestParam(required = false) UUID sucursalId,
-            @RequestParam(required = false) UUID loteId) {
+            @RequestParam(required = false) UUID loteId,
+            @RequestParam(required = false) Boolean soloConStock) {
         return ResponseEntity.ok(ApiResponse.success(
-                inventarioService.getStock(productoId, sucursalId, loteId), "Stock obtenido"));
+                inventarioService.getStock(productoId, sucursalId, loteId, soloConStock), "Stock obtenido"));
     }
 
     @GetMapping("/movimientos")
@@ -67,8 +69,8 @@ public class InventarioController {
             @RequestParam(required = false) UUID loteId,
             @RequestParam(required = false) TipoMovimiento tipo,
             @RequestParam(required = false) UUID usuarioId,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime desde,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime hasta,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta,
             Pageable pageable) {
         return ResponseEntity.ok(ApiResponse.success(
                 inventarioService.listarMovimientos(productoId, sucursalId, loteId, tipo, usuarioId, desde, hasta, pageable),

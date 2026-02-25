@@ -1,0 +1,60 @@
+<div class="surface-card shadow-2 border-round p-4">
+  <h2 class="text-900 font-bold mt-0 mb-4">
+    <i class="pi pi-cog mr-2 text-indigo-500"></i>Parámetros del Sistema
+  </h2>
+
+  <div *ngIf="cargando" class="text-center py-6"><p-progressSpinner></p-progressSpinner></div>
+
+  <p-tabView *ngIf="!cargando">
+    <p-tabPanel *ngFor="let modulo of modulos" [header]="modulo">
+      <p-table [value]="parametrosPorModulo[modulo]" responsiveLayout="scroll" styleClass="p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Clave</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th class="text-center" *appPermiso="'parametros:editar'">Acción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-p>
+          <tr>
+            <td><code class="text-sm">{{ p.clave }}</code></td>
+            <td class="text-500">{{ p.descripcion }}</td>
+            <td><p-tag [value]="p.tipo" severity="info"></p-tag></td>
+            <td>
+              <ng-container *ngIf="editandoClave === p.clave; else valorDisplay">
+                <div class="flex gap-2 align-items-center">
+                  <ng-container [ngSwitch]="p.tipo">
+                    <p-inputSwitch *ngSwitchCase="'BOOLEAN'"
+                      [(ngModel)]="nuevoValor" [trueValue]="'true'" [falseValue]="'false'">
+                    </p-inputSwitch>
+                    <p-inputNumber *ngSwitchCase="'INTEGER'" [(ngModel)]="nuevoValor"
+                      [useGrouping]="false" styleClass="w-8rem">
+                    </p-inputNumber>
+                    <p-inputNumber *ngSwitchCase="'DECIMAL'" [(ngModel)]="nuevoValor"
+                      [minFractionDigits]="2" [maxFractionDigits]="4" styleClass="w-8rem">
+                    </p-inputNumber>
+                    <input *ngSwitchDefault type="text" pInputText [(ngModel)]="nuevoValor" style="width:200px" />
+                  </ng-container>
+                  <p-button icon="pi pi-check" styleClass="p-button-success p-button-sm" [loading]="guardando" (onClick)="guardar(p)"></p-button>
+                  <p-button icon="pi pi-times" styleClass="p-button-outlined p-button-sm" (onClick)="cancelarEdicion()"></p-button>
+                </div>
+              </ng-container>
+              <ng-template #valorDisplay>
+                <span class="font-medium">{{ p.valor }}</span>
+              </ng-template>
+            </td>
+            <td class="text-center" *appPermiso="'parametros:editar'">
+              <p-button *ngIf="p.editable && editandoClave !== p.clave"
+                icon="pi pi-pencil" styleClass="p-button-text p-button-sm"
+                pTooltip="Editar" (onClick)="iniciarEdicion(p)">
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+<p-toast></p-toast>

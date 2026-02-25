@@ -1,0 +1,223 @@
+<div class="grid">
+    <div class="col-12 mb-2">
+        <h2 class="m-0 text-900 font-bold">
+            <i class="pi pi-shopping-cart mr-2 text-indigo-500"></i>Punto de Venta
+        </h2>
+    </div>
+
+    <!-- Búsqueda de producto + sucursal -->
+    <div class="col-12 md:col-8">
+        <label class="block font-medium mb-2">
+            <i class="pi pi-search mr-1 text-indigo-400"></i>Buscar producto
+        </label>
+        <p-autoComplete
+            [(ngModel)]="busquedaTexto"
+            [suggestions]="sugerencias"
+            (completeMethod)="onBuscar($event)"
+            (onSelect)="agregarAlCarrito($event)"
+            field="productoNombre"
+            placeholder="Nombre del producto, código o lote..."
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            [forceSelection]="true"
+            [minLength]="2">
+            <ng-template let-item pTemplate="item">
+                <div class="flex justify-content-between align-items-center py-1 px-1">
+                    <div>
+                        <span class="font-medium">{{ item.productoNombre }}</span>
+                        <br>
+                        <small class="text-500">
+                            Lote: {{ item.numeroLote }} &nbsp;|&nbsp;
+                            Vence: {{ item.fechaVencimiento | date:'dd/MM/yyyy' }}
+                        </small>
+                    </div>
+                    <p-badge
+                        [value]="'Stock: ' + item.stockActual"
+                        [severity]="item.stockActual <= item.stockMinimo ? 'danger' : 'success'"
+                        class="ml-3">
+                    </p-badge>
+                </div>
+            </ng-template>
+        </p-autoComplete>
+        <small class="text-400 mt-1 block">
+            <i class="pi pi-info-circle mr-1"></i>Escriba al menos 2 caracteres y seleccione el producto
+        </small>
+    </div>
+
+    <div class="col-12 md:col-4">
+        <label class="block font-medium mb-2">
+            <i class="pi pi-map-marker mr-1 text-indigo-400"></i>Sucursal activa
+        </label>
+        <p-dropdown
+            [options]="sucursales"
+            [(ngModel)]="sucursalSeleccionada"
+            optionLabel="nombre"
+            optionValue="id"
+            placeholder="Seleccione sucursal"
+            styleClass="w-full">
+        </p-dropdown>
+    </div>
+
+    <!-- Alerta lotes por vencer -->
+    <div class="col-12" *ngIf="lotesProximosVencer.length > 0">
+        <p-message severity="warn"
+            [text]="'⚠ ' + lotesProximosVencer.length + ' producto(s) en el carrito tienen lote(s) próximos a vencer (≤ 30 días).'">
+        </p-message>
+    </div>
+
+    <!-- Carrito -->
+    <div class="col-12 lg:col-8">
+        <div class="surface-card shadow-2 border-round p-4">
+            <div class="flex align-items-center justify-content-between mb-3">
+                <h3 class="text-900 font-semibold m-0">
+                    <i class="pi pi-list mr-2"></i>Carrito
+                    <p-badge *ngIf="carrito.length > 0"
+                        [value]="carrito.length.toString()"
+                        severity="info" class="ml-2">
+                    </p-badge>
+                </h3>
+            </div>
+
+            <p-table [value]="carrito" responsiveLayout="scroll" >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Producto / Lote</th>
+                        <th style="width:140px">Tipo precio</th>
+                        <th style="width:90px" class="text-right">P.Unit.</th>
+                        <th style="width:130px" class="text-center">Cantidad</th>
+                        <th style="width:95px" class="text-right">Subtotal</th>
+                        <th style="width:42px"></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            <span class="font-medium">{{ item.productoNombre }} ({{item.stockDisponible}} Unid.)</span>
+                            <br>
+                            <small class="text-400">
+                                Lote: {{ item.numeroLote }}
+                                <span *ngIf="item.fechaVencimiento" class="ml-1 text-orange-400">
+                                    | Vence: {{ item.fechaVencimiento | date:'dd/MM/yy' }}
+                                </span>
+                            </small>
+                        </td>
+                        <td>
+                            <p-dropdown
+                                [options]="tiposPrecio"
+                                [(ngModel)]="item.tipoPrecio"
+                                optionLabel="label"
+                                optionValue="value"
+                                styleClass="w-full"
+                                [style]="{'min-width':'120px'}"
+                                (onChange)="cambiarTipoPrecio(item)">
+                            </p-dropdown>
+                        </td>
+                        <td class="text-right text-600">
+                            Bs.{{ item.precioUnitario | number:'1.2-2' }}
+                        </td>
+                        <td class="text-center">
+                            <p-inputNumber
+                                [(ngModel)]="item.cantidad"
+                                [min]="1"
+                                [max]="item.stockDisponible"
+                                (ngModelChange)="actualizarSubtotal(item)"
+                                [showButtons]="true"
+                                buttonLayout="horizontal"
+                                decrementButtonClass="p-button-secondary p-button-outlined"
+                                incrementButtonClass="p-button-secondary p-button-outlined"
+                                [style]="{'width':'120px'}">
+                            </p-inputNumber>
+                        </td>
+                        <td class="text-right font-semibold text-indigo-700">
+                            Bs.{{ item.subtotal | number:'1.2-2' }}
+                        </td>
+                        <td class="text-center">
+                            <p-button
+                                icon="pi pi-trash"
+                                styleClass="p-button-text p-button-danger p-button-sm"
+                                pTooltip="Eliminar"
+                                tooltipPosition="left"
+                                (onClick)="eliminarItem(item)">
+                            </p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6" class="text-center py-6">
+                            <i class="pi pi-shopping-cart text-5xl text-300 block mb-3"></i>
+                            <span class="text-500 text-lg">Carrito vacío</span>
+                            <br>
+                            <small class="text-400">Busque un producto arriba para agregarlo</small>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- Resumen -->
+    <div class="col-12 lg:col-4">
+        <div class="surface-card shadow-2 border-round p-4">
+            <h3 class="text-900 font-semibold mt-0 mb-4">
+                <i class="pi pi-calculator mr-2 text-indigo-400"></i>Resumen
+            </h3>
+
+            <div class="flex flex-column gap-3">
+                <div class="flex justify-content-between text-lg border-bottom-1 surface-border pb-3">
+                    <span class="text-600">Subtotal:</span>
+                    <span class="font-medium">Bs.{{ subtotal | number:'1.2-2' }}</span>
+                </div>
+
+                <div class="flex justify-content-between align-items-center">
+                    <span class="text-600">Descuento (%):</span>
+                    <p-inputNumber
+                        [(ngModel)]="descuentoPorcentaje"
+                        [min]="0" [max]="100"
+                        mode="decimal"
+                        suffix="%"
+                        [maxFractionDigits]="1"
+                        styleClass="font-medium">
+                    </p-inputNumber>
+                </div>
+
+                <div class="flex justify-content-between text-red-500" *ngIf="descuentoMonto > 0">
+                    <span>Descuento:</span>
+                    <span class="font-medium">− Bs.{{ descuentoMonto | number:'1.2-2' }}</span>
+                </div>
+
+                <div class="flex justify-content-between text-500">
+                    <span>IVA ({{ igvPorcentaje }}%):</span>
+                    <span>Bs.{{ igvMonto | number:'1.2-2' }}</span>
+                </div>
+
+                <p-divider></p-divider>
+
+                <div class="flex justify-content-between py-1">
+                    <span class="font-bold text-xl text-900">TOTAL:</span>
+                    <span class="font-bold text-xl text-indigo-600">Bs.{{ total | number:'1.2-2' }}</span>
+                </div>
+
+                <p-button
+                    label="Confirmar Venta"
+                    icon="pi pi-check-circle"
+                    styleClass="w-full p-button-success p-button-lg"
+                    [loading]="cargando"
+                    [disabled]="carrito.length === 0 || !sucursalSeleccionada"
+                    (onClick)="confirmarVenta()">
+                </p-button>
+
+                <p-button
+                    label="Cancelar Venta"
+                    icon="pi pi-times"
+                    styleClass="w-full p-button-outlined p-button-danger"
+                    [disabled]="carrito.length === 0"
+                    (onClick)="cancelarVenta()">
+                </p-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast position="top-right"></p-toast>

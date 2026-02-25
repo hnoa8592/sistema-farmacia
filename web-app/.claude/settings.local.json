@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(head:*)",
+      "Bash(cd /d/WORKSPACE/sistema-farmacia/web-app && ng build --configuration=development 2>&1)",
+      "Bash(tail:*)",
+      "Bash(curl:*)",
+      "Bash(cd:*)",
+      "Bash(grep:*)",
+      "Bash(grep TOTAL:*)"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="surface-card shadow-2 border-round p-4">
+      <div class="flex align-items-center justify-content-between mb-4">
+        <h2 class="m-0 text-900 font-bold"><i class="pi pi-chart-bar mr-2 text-indigo-500"></i>Reporte de Ventas</h2>
+        <p-button label="Exportar CSV" icon="pi pi-download" styleClass="p-button-outlined"
+          (onClick)="exportarCSV()" [disabled]="!ventasPorDia.length">
+        </p-button>
+      </div>
+
+      <!-- Filtros -->
+      <div class="flex flex-wrap gap-3 mb-4 align-items-end">
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Desde</label>
+          <p-calendar [(ngModel)]="desde" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Hasta</label>
+          <p-calendar [(ngModel)]="hasta" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        </div>
+        <p-button label="Generar" icon="pi pi-refresh" [loading]="cargando" (onClick)="cargar()"></p-button>
+      </div>
+
+      <!-- Resumen KPIs -->
+      <div class="grid mb-4" *ngIf="datos">
+        <div class="col-6 md:col-3">
+          <div class="surface-100 border-round p-3 text-center">
+            <p class="text-500 text-sm m-0">Total Período</p>
+            <p class="font-bold text-2xl text-900 m-0">S/ {{ datos.totalVendido | number:'1.2-2' }}</p>
+          </div>
+        </div>
+        <div class="col-6 md:col-3">
+          <div class="surface-100 border-round p-3 text-center">
+            <p class="text-500 text-sm m-0">N° Ventas</p>
+            <p class="font-bold text-2xl text-900 m-0">{{ datos.cantidadVentas }}</p>
+          </div>
+        </div>
+        <div class="col-6 md:col-3">
+          <div class="surface-100 border-round p-3 text-center">
+            <p class="text-500 text-sm m-0">Promedio/Venta</p>
+            <p class="font-bold text-2xl text-900 m-0">S/ {{ datos.promedioPorVenta | number:'1.2-2' }}</p>
+          </div>
+        </div>
+        <div class="col-6 md:col-3">
+          <div class="surface-100 border-round p-3 text-center">
+            <p class="text-500 text-sm m-0">Más vendido</p>
+            <p class="font-bold text-sm text-900 m-0">{{ datos.productoMasVendido || '—' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfica -->
+      <div *ngIf="ventasPorDia.length" class="mb-4">
+        <p-chart type="bar" [data]="graficaData" [options]="graficaOpciones" height="250"></p-chart>
+      </div>
+
+      <!-- Tabla -->
+      <p-table [value]="ventasPorDia" [loading]="cargando" responsiveLayout="scroll" styleClass="p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Fecha</th>
+            <th class="text-right">N° Ventas</th>
+            <th class="text-right">Total Vendido</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-v>
+          <tr>
+            <td>{{ v.fecha | date:'dd/MM/yyyy' }}</td>
+            <td class="text-right">{{ v.cantidadVentas }}</td>
+            <td class="text-right font-medium">S/ {{ v.totalVendido | number:'1.2-2' }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr><td colspan="3" class="text-center text-500 py-4">Sin datos para el período seleccionado</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

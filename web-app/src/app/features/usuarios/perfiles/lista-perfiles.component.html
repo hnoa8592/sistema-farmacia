@@ -1,0 +1,48 @@
+<div class="surface-card shadow-2 border-round p-4">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h2 class="m-0 text-900 font-bold"><i class="pi pi-id-card mr-2 text-indigo-500"></i>Perfiles de Usuario</h2>
+    <p-button *appPermiso="'perfiles:crear'" label="Nuevo Perfil" icon="pi pi-plus" (onClick)="nuevo()"></p-button>
+  </div>
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-4" *ngFor="let p of perfiles">
+      <div class="surface-card border-1 surface-border border-round p-3 shadow-1">
+        <div class="flex justify-content-between align-items-start mb-2">
+          <span class="font-bold text-900 text-lg">{{ p.nombre }}</span>
+          <p-button *appPermiso="'perfiles:crear'" icon="pi pi-pencil" styleClass="p-button-text p-button-sm"
+            (onClick)="editar(p)">
+          </p-button>
+        </div>
+        <p class="text-500 text-sm m-0 mb-3">{{ p.descripcion }}</p>
+        <div class="flex flex-wrap gap-1">
+          <p-chip *ngFor="let r of p.recursos" [label]="r.nombre" styleClass="text-xs bg-indigo-50 text-indigo-700"></p-chip>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="!cargando && perfiles.length === 0" class="text-center text-500 py-4">Sin perfiles registrados</p>
+</div>
+
+<p-dialog [header]="perfilSeleccionado ? 'Editar Perfil' : 'Nuevo Perfil'" [(visible)]="mostrarFormulario"
+  [modal]="true" [style]="{width:'550px'}">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="field"><label class="font-medium">Nombre *</label><input type="text" pInputText formControlName="nombre" /></div>
+    <div class="field"><label class="font-medium">Descripción *</label><textarea pInputTextarea formControlName="descripcion" rows="2"></textarea></div>
+    <div class="field">
+      <label class="font-medium">Recursos / Permisos</label>
+      <div *ngFor="let modulo of modulosRecursos" class="mb-3">
+        <p class="font-semibold text-600 text-sm mb-2">{{ modulo }}</p>
+        <div class="flex flex-wrap gap-2">
+          <div *ngFor="let r of getRecursosPorModulo(modulo)" class="flex align-items-center gap-1">
+            <p-checkbox [value]="r.id" formControlName="recursosIds" [inputId]="r.id"></p-checkbox>
+            <label [for]="r.id" class="text-sm">{{ r.nombre }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" styleClass="p-button-outlined" (onClick)="mostrarFormulario = false"></p-button>
+    <p-button label="Guardar" [loading]="guardando" (onClick)="guardar()"></p-button>
+  </ng-template>
+</p-dialog>
+<p-toast></p-toast>

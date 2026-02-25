@@ -1,0 +1,42 @@
+<div class="surface-card shadow-2 border-round p-4">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h2 class="m-0 text-900 font-bold"><i class="pi pi-building mr-2 text-indigo-500"></i>Laboratorios</h2>
+    <p-button *appPermiso="'laboratorios:editar'" label="Nuevo" icon="pi pi-plus" (onClick)="nuevo()"></p-button>
+  </div>
+  <p-table [value]="laboratorios" [lazy]="true" [paginator]="true" [rows]="20"
+    [totalRecords]="totalRegistros" [loading]="cargando" (onLazyLoad)="onLazyLoad($event)" responsiveLayout="scroll" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr><th>Nombre</th><th>País</th><th>Teléfono</th><th>Email</th><th class="text-center">Activo</th><th class="text-center" *appPermiso="'laboratorios:editar'">Acciones</th></tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-lab>
+      <tr>
+        <td class="font-medium">{{ lab.nombre }}</td>
+        <td>{{ lab.pais || '—' }}</td>
+        <td>{{ lab.telefono || '—' }}</td>
+        <td>{{ lab.email || '—' }}</td>
+        <td class="text-center"><p-tag [value]="lab.activo ? 'Activo' : 'Inactivo'" [severity]="lab.activo ? 'success' : 'danger'"></p-tag></td>
+        <td class="text-center" *appPermiso="'laboratorios:editar'">
+          <p-button icon="pi pi-pencil" styleClass="p-button-text p-button-sm" (onClick)="editar(lab)"></p-button>
+          <p-button icon="pi pi-trash" styleClass="p-button-text p-button-sm p-button-danger" (onClick)="eliminar(lab)"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage"><tr><td colspan="6" class="text-center text-500 py-4">Sin laboratorios</td></tr></ng-template>
+  </p-table>
+</div>
+<p-dialog [header]="labSeleccionado ? 'Editar Laboratorio' : 'Nuevo Laboratorio'" [(visible)]="mostrarFormulario" [modal]="true" [style]="{width:'480px'}">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="field"><label class="font-medium">Nombre *</label><input type="text" pInputText formControlName="nombre" /></div>
+    <div class="grid">
+      <div class="col-6 field"><label class="font-medium">País</label><input type="text" pInputText formControlName="pais" /></div>
+      <div class="col-6 field"><label class="font-medium">Teléfono</label><input type="text" pInputText formControlName="telefono" /></div>
+    </div>
+    <div class="field"><label class="font-medium">Dirección</label><input type="text" pInputText formControlName="direccion" /></div>
+    <div class="field"><label class="font-medium">Email</label><input type="email" pInputText formControlName="email" /></div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" styleClass="p-button-outlined" (onClick)="mostrarFormulario = false"></p-button>
+    <p-button label="Guardar" [loading]="guardando" (onClick)="guardar()"></p-button>
+  </ng-template>
+</p-dialog>
+<p-confirmDialog></p-confirmDialog><p-toast></p-toast>

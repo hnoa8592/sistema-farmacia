@@ -1,0 +1,58 @@
+<div class="surface-card shadow-2 border-round p-4">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h2 class="m-0 text-900 font-bold"><i class="pi pi-users mr-2 text-indigo-500"></i>Gestión de Usuarios</h2>
+    <p-button *appPermiso="'usuarios:crear'" label="Nuevo Usuario" icon="pi pi-plus" (onClick)="nuevo()"></p-button>
+  </div>
+  <p-table [value]="usuarios" [lazy]="true" [paginator]="true" [rows]="10"
+    [totalRecords]="totalRegistros" [loading]="cargando" (onLazyLoad)="onLazyLoad($event)" responsiveLayout="scroll" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr><th>Nombre</th><th>Email</th><th>Perfiles</th><th class="text-center">Activo</th><th class="text-center" *appPermiso="'usuarios:ver'">Acciones</th></tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-u>
+      <tr>
+        <td class="font-medium">{{ u.nombre }}</td>
+        <td class="text-500">{{ u.email }}</td>
+        <td>
+          <p-chip *ngFor="let p of u.perfiles" [label]="p.nombre" styleClass="mr-1 bg-indigo-100 text-indigo-800"></p-chip>
+        </td>
+        <td class="text-center"><p-tag [value]="u.activo ? 'Activo' : 'Inactivo'" [severity]="u.activo ? 'success' : 'danger'"></p-tag></td>
+        <td class="text-center" *appPermiso="'usuarios:ver'">
+          <p-button icon="pi pi-pencil" styleClass="p-button-text p-button-sm" pTooltip="Editar" (onClick)="editar(u)"></p-button>
+          <p-button icon="pi pi-ban" styleClass="p-button-text p-button-sm p-button-danger" pTooltip="Desactivar"
+            [disabled]="!u.activo" (onClick)="desactivar(u)">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage"><tr><td colspan="5" class="text-center text-500 py-4">Sin usuarios registrados</td></tr></ng-template>
+  </p-table>
+</div>
+
+<p-dialog [header]="usuarioSeleccionado ? 'Editar Usuario' : 'Nuevo Usuario'" [(visible)]="mostrarFormulario"
+  [modal]="true" [style]="{width:'480px'}">
+  <form [formGroup]="form" class="p-fluid">
+    <div class="field"><label class="font-medium">Nombre *</label><input type="text" pInputText formControlName="nombre" /></div>
+    <div class="field"><label class="font-medium">Email *</label><input type="email" pInputText formControlName="email" /></div>
+    <div class="field">
+      <label class="font-medium">Contraseña {{ usuarioSeleccionado ? '(dejar vacío para no cambiar)' : '*' }}</label>
+      <p-password formControlName="password" [feedback]="true" [toggleMask]="true" styleClass="w-full" inputStyleClass="w-full"></p-password>
+    </div>
+    <div class="field">
+      <label class="font-medium">Perfiles</label>
+      <p-multiSelect [options]="perfiles" formControlName="perfilesIds" optionLabel="nombre" optionValue="id"
+        placeholder="Seleccione perfiles" display="chip" styleClass="w-full">
+      </p-multiSelect>
+    </div>
+    <div class="field">
+      <div class="flex align-items-center gap-2">
+        <p-inputSwitch formControlName="activo"></p-inputSwitch>
+        <label class="font-medium">Activo</label>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" styleClass="p-button-outlined" (onClick)="mostrarFormulario = false"></p-button>
+    <p-button label="Guardar" [loading]="guardando" (onClick)="guardar()"></p-button>
+  </ng-template>
+</p-dialog>
+<p-confirmDialog></p-confirmDialog><p-toast></p-toast>

@@ -1,2 +1,6 @@
+D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\InventarioIntegrationTest.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\config\TenantContextTest.java
+D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\service\InventarioServiceTest.java
+D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\ventas\VentaIntegrationTest.java
+D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\ventas\service\VentaServiceTest.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\auth\AuthLoginIntegrationTest.java

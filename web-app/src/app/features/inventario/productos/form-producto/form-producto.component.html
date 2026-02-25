@@ -1,0 +1,134 @@
+<p-dialog [header]="titulo" [(visible)]="visible" [modal]="true"
+  [style]="{width:'640px'}" [draggable]="false" [resizable]="false" (onHide)="cerrar()">
+
+  <form [formGroup]="form" class="p-fluid" *ngIf="form">
+    <div class="grid">
+
+      <!-- Nombre -->
+      <div class="col-12 md:col-8 field">
+        <label class="font-medium">Nombre <span class="text-red-500">*</span></label>
+        <input type="text" pInputText formControlName="nombre"
+          placeholder="Nombre genérico del medicamento"
+          [class.ng-invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched" />
+        <small class="p-error" *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">Requerido</small>
+      </div>
+
+      <!-- Código -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Código <span class="text-red-500">*</span></label>
+        <input type="text" pInputText formControlName="codigo"
+          placeholder="Ej: MED001"
+          [class.ng-invalid]="form.get('codigo')?.invalid && form.get('codigo')?.touched" />
+        <small class="p-error" *ngIf="form.get('codigo')?.invalid && form.get('codigo')?.touched">Requerido</small>
+      </div>
+
+      <!-- Nombre Comercial -->
+      <div class="col-12 md:col-6 field">
+        <label class="font-medium">Nombre Comercial</label>
+        <input type="text" pInputText formControlName="nombreComercial" placeholder="Nombre de marca o comercial" />
+      </div>
+
+      <!-- Código de Barras -->
+      <div class="col-12 md:col-6 field">
+        <label class="font-medium">Código de Barras</label>
+        <input type="text" pInputText formControlName="codigoBarra" placeholder="EAN-13 o similar" />
+      </div>
+
+      <!-- Concentración -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Concentración</label>
+        <input type="text" pInputText formControlName="concentracion" placeholder="Ej: 500mg, 250mg/5ml" />
+      </div>
+
+      <!-- Presentación -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Presentación</label>
+        <input type="text" pInputText formControlName="presentacion" placeholder="Ej: Caja x 30 tab." />
+      </div>
+
+      <!-- Descripción -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Descripción</label>
+        <input type="text" pInputText formControlName="descripcion" placeholder="Descripción breve" />
+      </div>
+
+      <!-- Categoría -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Categoría <span class="text-red-500">*</span></label>
+        <p-dropdown
+          [options]="categorias"
+          formControlName="categoriaId"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Seleccione categoría"
+          [filter]="true"
+          filterPlaceholder="Buscar..."
+          [showClear]="true"
+          [class.ng-invalid]="form.get('categoriaId')?.invalid && form.get('categoriaId')?.touched">
+        </p-dropdown>
+        <small class="p-error" *ngIf="form.get('categoriaId')?.invalid && form.get('categoriaId')?.touched">Requerido</small>
+      </div>
+
+      <!-- Forma Farmacéutica -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Forma Farmacéutica <span class="text-red-500">*</span></label>
+        <p-dropdown
+          [options]="formas"
+          formControlName="formaFarmaceuticaId"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Seleccione forma"
+          [filter]="true"
+          filterPlaceholder="Buscar..."
+          [showClear]="true"
+          [class.ng-invalid]="form.get('formaFarmaceuticaId')?.invalid && form.get('formaFarmaceuticaId')?.touched">
+        </p-dropdown>
+        <small class="p-error" *ngIf="form.get('formaFarmaceuticaId')?.invalid && form.get('formaFarmaceuticaId')?.touched">Requerido</small>
+      </div>
+
+      <!-- Vía de Administración -->
+      <div class="col-12 md:col-4 field">
+        <label class="font-medium">Vía de Administración <span class="text-red-500">*</span></label>
+        <p-dropdown
+          [options]="vias"
+          formControlName="viaAdministracionId"
+          optionLabel="nombre"
+          optionValue="id"
+          placeholder="Seleccione vía"
+          [filter]="true"
+          filterPlaceholder="Buscar..."
+          [showClear]="true"
+          [class.ng-invalid]="form.get('viaAdministracionId')?.invalid && form.get('viaAdministracionId')?.touched">
+        </p-dropdown>
+        <small class="p-error" *ngIf="form.get('viaAdministracionId')?.invalid && form.get('viaAdministracionId')?.touched">Requerido</small>
+      </div>
+
+      <!-- Checkboxes -->
+      <div class="col-12 md:col-6 field">
+        <div class="flex align-items-center gap-2 mt-1">
+          <p-checkbox formControlName="requiereReceta" [binary]="true" inputId="receta"></p-checkbox>
+          <label for="receta" class="font-medium cursor-pointer">Requiere Receta Médica</label>
+        </div>
+      </div>
+      <div class="col-12 md:col-6 field">
+        <div class="flex align-items-center gap-2 mt-1">
+          <p-checkbox formControlName="controlado" [binary]="true" inputId="controlado"></p-checkbox>
+          <label for="controlado" class="font-medium cursor-pointer">Medicamento Controlado</label>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" icon="pi pi-times" styleClass="p-button-outlined p-button-secondary"
+      (onClick)="cerrar()">
+    </p-button>
+    <p-button [label]="producto ? 'Actualizar' : 'Guardar'" icon="pi pi-check"
+      [loading]="guardando" (onClick)="guardar()">
+    </p-button>
+  </ng-template>
+
+</p-dialog>
+
+<p-toast></p-toast>

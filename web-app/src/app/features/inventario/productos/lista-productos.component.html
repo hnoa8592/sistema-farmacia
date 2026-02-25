@@ -1,0 +1,113 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="surface-card shadow-2 border-round p-4">
+      <div class="flex align-items-center justify-content-between mb-4">
+        <h2 class="text-900 font-bold m-0">
+          <i class="pi pi-box mr-2 text-indigo-500"></i>Productos
+        </h2>
+        <p-button *appPermiso="'inventario:crear'" label="Nuevo Producto" icon="pi pi-plus"
+          (onClick)="nuevoProducto()">
+        </p-button>
+      </div>
+
+      <!-- Filtros -->
+      <div class="flex flex-wrap gap-3 mb-4 align-items-end">
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Buscar</label>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" pInputText [(ngModel)]="filtros.nombre" placeholder="Nombre o código..."
+              style="width:220px" (keyup.enter)="aplicarFiltros()" />
+          </span>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Categoría</label>
+          <p-dropdown [options]="categorias" [(ngModel)]="filtros.categoriaId"
+            optionLabel="nombre" optionValue="id" placeholder="Todas"
+            [showClear]="true" styleClass="w-12rem">
+          </p-dropdown>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Forma Farmacéutica</label>
+          <p-dropdown [options]="formas" [(ngModel)]="filtros.formaId"
+            optionLabel="nombre" optionValue="id" placeholder="Todas"
+            [showClear]="true" styleClass="w-12rem">
+          </p-dropdown>
+        </div>
+        <div class="flex gap-2">
+          <p-button label="Buscar" icon="pi pi-search" (onClick)="aplicarFiltros()"></p-button>
+          <p-button label="Limpiar" icon="pi pi-refresh" styleClass="p-button-outlined" (onClick)="limpiarFiltros()"></p-button>
+        </div>
+      </div>
+
+      <p-table [value]="productos" [lazy]="true" [paginator]="true" [rows]="10"
+        [totalRecords]="totalRegistros" [loading]="cargando" (onLazyLoad)="onLazyLoad($event)"
+        responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-hoverable-rows"
+        (onRowSelect)="verDetalle($any($event.data))" selectionMode="single">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Forma</th>
+            <th class="text-center">Receta</th>
+            <th class="text-center">Controlado</th>
+            <th class="text-center">Activo</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producto>
+          <tr [pSelectableRow]="producto"
+            [class.bg-yellow-50]="false"
+            style="cursor:pointer">
+            <td><code class="text-sm">{{ producto.codigo }}</code></td>
+            <td>
+              <span class="font-medium">{{ producto.nombre }}</span>
+              <span *ngIf="producto.nombreComercial" class="text-500 text-sm ml-1">({{ producto.nombreComercial }})</span>
+            </td>
+            <td>{{ producto.categoria?.nombre }}</td>
+            <td>{{ producto.formaFarmaceutica?.nombre }}</td>
+            <td class="text-center">
+              <i [class]="producto.requiereReceta ? 'pi pi-check-circle text-green-500' : 'pi pi-times-circle text-300'"></i>
+            </td>
+            <td class="text-center">
+              <i [class]="producto.controlado ? 'pi pi-check-circle text-orange-500' : 'pi pi-times-circle text-300'"></i>
+            </td>
+            <td class="text-center">
+              <p-tag [value]="producto.activo ? 'Activo' : 'Inactivo'"
+                [severity]="producto.activo ? 'success' : 'danger'">
+              </p-tag>
+            </td>
+            <td class="text-center">
+              <p-button icon="pi pi-eye" styleClass="p-button-text p-button-sm" pTooltip="Ver detalle"
+                (onClick)="verDetalle(producto); $event.stopPropagation()">
+              </p-button>
+              <p-button *appPermiso="'inventario:editar'" icon="pi pi-pencil"
+                styleClass="p-button-text p-button-sm p-button-warning" pTooltip="Editar"
+                (onClick)="editarProducto(producto); $event.stopPropagation()">
+              </p-button>
+              <p-button *appPermiso="'inventario:eliminar'" icon="pi pi-trash"
+                styleClass="p-button-text p-button-sm p-button-danger" pTooltip="Desactivar"
+                [disabled]="!producto.activo"
+                (onClick)="desactivarProducto(producto); $event.stopPropagation()">
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr><td colspan="8" class="text-center text-500 py-5">No se encontraron productos</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<!-- Formulario producto -->
+<app-form-producto
+  [(visible)]="mostrarFormulario"
+  [producto]="productoSeleccionado"
+  (guardado)="onGuardado()">
+</app-form-producto>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

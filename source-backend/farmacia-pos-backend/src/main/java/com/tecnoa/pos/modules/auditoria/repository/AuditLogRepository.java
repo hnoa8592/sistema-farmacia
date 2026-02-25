@@ -20,8 +20,8 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, UUID> {
            "(:modulo IS NULL OR a.modulo = :modulo) AND " +
            "(:entidad IS NULL OR a.entidad = :entidad) AND " +
            "(:accion IS NULL OR a.accion = :accion) AND " +
-           "(:desde IS NULL OR a.fecha >= :desde) AND " +
-           "(:hasta IS NULL OR a.fecha <= :hasta)")
+           "(CAST(:desde AS timestamp) IS NULL OR a.fecha >= CAST(:desde AS timestamp)) AND " +
+           "(CAST(:hasta AS timestamp) IS NULL OR a.fecha <= CAST(:hasta AS timestamp))")
     Page<AuditLog> findByFiltros(
             @Param("usuarioId") UUID usuarioId,
             @Param("modulo") String modulo,
@@ -36,7 +36,8 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, UUID> {
     Page<AuditLog> findByUsuarioIdOrderByFechaDesc(UUID usuarioId, Pageable pageable);
 
     @Query("SELECT a.modulo, a.accion, COUNT(a) FROM AuditLog a " +
-           "WHERE (:desde IS NULL OR a.fecha >= :desde) AND (:hasta IS NULL OR a.fecha <= :hasta) " +
+           "WHERE (CAST(:desde AS timestamp) IS NULL OR a.fecha >= CAST(:desde AS timestamp)) AND " +
+           "(CAST(:hasta AS timestamp) IS NULL OR a.fecha <= CAST(:hasta AS timestamp)) " +
            "GROUP BY a.modulo, a.accion ORDER BY a.modulo, a.accion")
     List<Object[]> findResumenByFechas(
             @Param("desde") LocalDateTime desde,

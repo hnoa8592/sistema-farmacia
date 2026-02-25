@@ -1,0 +1,115 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="surface-card shadow-2 border-round p-4">
+      <h2 class="text-900 font-bold mt-0 mb-4">
+        <i class="pi pi-history mr-2 text-indigo-500"></i>Historial de Ventas
+      </h2>
+
+      <!-- Filtros -->
+      <div class="flex flex-wrap gap-3 mb-4 align-items-end">
+        <div class="flex flex-column gap-1">
+          <label class="font-medium text-sm text-600">Desde</label>
+          <p-calendar [(ngModel)]="filtros.desde" dateFormat="dd/mm/yy" placeholder="Fecha desde" [showIcon]="true" [showButtonBar]="true"></p-calendar>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="font-medium text-sm text-600">Hasta</label>
+          <p-calendar [(ngModel)]="filtros.hasta" dateFormat="dd/mm/yy" placeholder="Fecha hasta" [showIcon]="true" [showButtonBar]="true"></p-calendar>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="font-medium text-sm text-600">Estado</label>
+          <p-dropdown [options]="estadoOpciones" [(ngModel)]="filtros.estado" optionLabel="label" optionValue="value" styleClass="w-10rem"></p-dropdown>
+        </div>
+        <div class="flex gap-2">
+          <p-button label="Buscar" icon="pi pi-search" (onClick)="aplicarFiltros()"></p-button>
+          <p-button label="Limpiar" icon="pi pi-refresh" styleClass="p-button-outlined" (onClick)="limpiarFiltros()"></p-button>
+        </div>
+      </div>
+
+      <p-table [value]="ventas" [lazy]="true" [paginator]="true" [rows]="10"
+        [totalRecords]="totalRegistros" [loading]="cargando" (onLazyLoad)="onLazyLoad($event)"
+        responsiveLayout="scroll" styleClass="p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="fecha">Fecha <p-sortIcon field="fecha"></p-sortIcon></th>
+            <th>Usuario</th>
+            <th class="text-right">Total</th>
+            <th class="text-right">Descuento</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-venta>
+          <tr>
+            <td>{{ venta.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td><span class="text-600">{{ venta.usuarioId }}</span></td>
+            <td class="text-right font-medium">Bs.{{ venta.total | number:'1.2-2' }}</td>
+            <td class="text-right text-red-500">Bs.{{ venta.descuento | number:'1.2-2' }}</td>
+            <td>
+              <p-tag [value]="venta.estado | estadoVenta"
+                [severity]="venta.estado === 'COMPLETADA' ? 'success' : 'danger'">
+              </p-tag>
+            </td>
+            <td class="text-center">
+              <p-button icon="pi pi-eye" styleClass="p-button-text p-button-sm" pTooltip="Ver detalle" tooltipPosition="top"
+                (onClick)="verDetalle(venta)">
+              </p-button>
+              <p-button *appPermiso="'ventas:anular'" icon="pi pi-ban"
+                styleClass="p-button-text p-button-sm p-button-danger"
+                pTooltip="Anular venta" tooltipPosition="top"
+                [disabled]="venta.estado === 'ANULADA'"
+                (onClick)="anularVenta(venta)">
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr><td colspan="6" class="text-center text-500 py-5">No se encontraron ventas con los filtros aplicados</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<!-- Diálogo Detalle -->
+<p-dialog [(visible)]="mostrarDetalle" header="Detalle de Venta" [modal]="true"
+  [style]="{width:'700px'}" [draggable]="false">
+  <div *ngIf="ventaDetalle">
+    <div class="flex gap-4 mb-4 text-sm">
+      <span><strong>Fecha:</strong> {{ ventaDetalle.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+      <span><strong>Estado:</strong>
+        <p-tag [value]="ventaDetalle.estado | estadoVenta"
+          [severity]="ventaDetalle.estado === 'COMPLETADA' ? 'success' : 'danger'" styleClass="ml-1">
+        </p-tag>
+      </span>
+    </div>
+    <p-table [value]="ventaDetalle.detalles" responsiveLayout="scroll" styleClass="p-datatable-sm">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Producto</th>
+          <th>N° Lote</th>
+          <th>Tipo</th>
+          <th class="text-center">Cant.</th>
+          <th class="text-right">P. Unit.</th>
+          <th class="text-right">Subtotal</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-d>
+        <tr>
+          <td class="font-medium">{{ d.productoNombre }}</td>
+          <td><span class="text-500">{{ d.numeroLote }}</span></td>
+          <td><p-tag [value]="d.tipoPrecio" severity="info"></p-tag></td>
+          <td class="text-center">{{ d.cantidad }}</td>
+          <td class="text-right">Bs.{{ d.precioUnitario | number:'1.2-2' }}</td>
+          <td class="text-right font-medium">Bs.{{ d.subtotal | number:'1.2-2' }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="flex justify-content-end mt-3 gap-4 text-lg">
+      <span>Descuento: <strong class="text-red-500">- Bs.{{ ventaDetalle.descuento | number:'1.2-2' }}</strong></span>
+      <span>Total: <strong class="text-indigo-600">Bs.{{ ventaDetalle.total | number:'1.2-2' }}</strong></span>
+    </div>
+  </div>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

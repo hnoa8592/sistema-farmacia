@@ -1,0 +1,43 @@
+<div class="surface-card shadow-2 border-round p-4">
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h2 class="m-0 text-900 font-bold"><i class="pi pi-chart-line mr-2 text-indigo-500"></i>Reporte de Stock</h2>
+  </div>
+  <div class="flex flex-wrap gap-3 mb-4 align-items-end">
+    <div class="flex flex-column gap-1">
+      <label class="text-sm font-medium text-600">Sucursal</label>
+      <p-dropdown [options]="sucursales" [(ngModel)]="sucursalId" optionLabel="nombre" optionValue="id"
+        placeholder="Todas" [showClear]="true" styleClass="w-12rem" (ngModelChange)="cargar()">
+      </p-dropdown>
+    </div>
+  </div>
+  <p-table [value]="datos" [loading]="cargando" responsiveLayout="scroll" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Producto</th><th>Código</th><th>Lote</th><th>Sucursal</th>
+        <th class="text-right">Stock</th><th class="text-right">Mínimo</th>
+        <th class="text-right">P. Unidad</th><th class="text-right">Valor Total</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-d>
+      <tr [class.bg-red-50]="d.alertaBajoStock" [class.bg-yellow-50]="d.alertaVencimiento && !d.alertaBajoStock">
+        <td class="font-medium">{{ d.productoNombre }}</td>
+        <td><code class="text-sm">{{ d.codigo }}</code></td>
+        <td><code class="text-sm">{{ d.lote }}</code></td>
+        <td>{{ d.sucursalNombre }}</td>
+        <td class="text-right" [class.text-red-600]="d.alertaBajoStock">{{ d.stockActual }}</td>
+        <td class="text-right text-500">{{ d.stockMinimo }}</td>
+        <td class="text-right">S/ {{ d.precioUnidad | number:'1.2-2' }}</td>
+        <td class="text-right font-medium">S/ {{ d.valorTotal | number:'1.2-2' }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="7" class="text-right font-bold">Total Valorización:</td>
+        <td class="text-right font-bold text-indigo-600">S/ {{ totalValor | number:'1.2-2' }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr><td colspan="8" class="text-center text-500 py-4">Sin datos de stock</td></tr>
+    </ng-template>
+  </p-table>
+</div>

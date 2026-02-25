@@ -1,0 +1,76 @@
+<div class="h-screen flex flex-column" style="background: linear-gradient(135deg, #1e3a5f 0%, #0d7377 100%)">
+  <!-- Header -->
+  <div class="shadow-2 bg-indigo-800 z-5 p-3 flex justify-content-between flex-row align-items-center">
+    <div class="ml-3 flex align-items-center gap-2">
+      <i class="pi pi-heart text-cyan-300 text-2xl"></i>
+      <span class="text-white font-bold text-xl">Sistema de Farmacia</span>
+    </div>
+  </div>
+
+  <!-- Login Card -->
+  <div class="align-self-center mt-auto mb-auto w-full px-3" style="max-width: 420px">
+    <div class="surface-card border-round-xl shadow-8 p-5">
+      <!-- Logo / Title -->
+      <div class="text-center mb-5">
+        <div class="flex align-items-center justify-content-center bg-indigo-100 border-circle mx-auto mb-3"
+          style="width:64px;height:64px">
+          <i class="pi pi-heart text-indigo-600 text-3xl"></i>
+        </div>
+        <h2 class="text-900 font-bold text-2xl m-0">Bienvenido</h2>
+        <p class="text-600 mt-2 mb-0">Ingrese sus credenciales para continuar</p>
+      </div>
+
+      <!-- Error Message -->
+      <p-message *ngIf="error" severity="error" [text]="error" styleClass="w-full mb-3"></p-message>
+
+      <!-- Form -->
+      <form [formGroup]="form" (ngSubmit)="ingresar()">
+        <!-- Email -->
+        <div class="field mb-4">
+          <label for="email" class="block font-medium text-900 mb-2">
+            <i class="pi pi-envelope mr-2 text-indigo-500"></i>Correo Electrónico
+          </label>
+          <span class="p-input-icon-left w-full">
+            <i class="pi pi-envelope"></i>
+            <input id="email" type="email" pInputText formControlName="email"
+              placeholder="usuario@empresa.com" class="w-full"
+              [class.ng-invalid]="form.get('email')?.invalid && form.get('email')?.touched" />
+          </span>
+          <small class="p-error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+            Ingrese un correo válido
+          </small>
+        </div>
+
+        <!-- Password -->
+        <div class="field mb-5">
+          <label for="password" class="block font-medium text-900 mb-2">
+            <i class="pi pi-lock mr-2 text-indigo-500"></i>Contraseña
+          </label>
+          <p-password id="password" formControlName="password" [toggleMask]="true"
+            placeholder="••••••••" styleClass="w-full" inputStyleClass="w-full"
+            [feedback]="false"
+            [class.ng-invalid]="form.get('password')?.invalid && form.get('password')?.touched">
+          </p-password>
+          <small class="p-error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+            Ingrese su contraseña
+          </small>
+        </div>
+
+        <!-- Submit -->
+        <p-button type="submit" label="Ingresar" icon="pi pi-sign-in"
+          styleClass="w-full p-button-lg" [loading]="cargando">
+        </p-button>
+      </form>
+
+      <!-- Credenciales de prueba -->
+      <div class="mt-4 p-3 surface-100 border-round text-sm">
+        <p class="text-600 font-medium m-0 mb-2">Credenciales de prueba:</p>
+        <p class="text-500 m-0">admin@demo.com / Admin1234 (Admin)</p>
+        <p class="text-500 m-0">cajero@demo.com / Cajero1234 (Cajero)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<app-config [minimal]="true"></app-config>

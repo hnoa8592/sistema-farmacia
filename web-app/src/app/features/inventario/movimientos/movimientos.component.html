@@ -1,0 +1,116 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="surface-card shadow-2 border-round p-4">
+      <div class="flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
+        <h2 class="text-900 font-bold m-0">
+          <i class="pi pi-arrows-v mr-2 text-indigo-500"></i>Movimientos de Inventario
+        </h2>
+        <div class="flex gap-2" *appPermiso="'inventario:movimientos'">
+          <p-button label="Entrada" icon="pi pi-plus-circle" styleClass="p-button-success p-button-sm"
+            (onClick)="abrirDialogo('ENTRADA')">
+          </p-button>
+          <p-button label="Salida" icon="pi pi-minus-circle" styleClass="p-button-danger p-button-sm"
+            (onClick)="abrirDialogo('SALIDA')">
+          </p-button>
+          <p-button label="Ajuste" icon="pi pi-sliders-h" styleClass="p-button-warning p-button-sm"
+            (onClick)="abrirDialogo('AJUSTE')">
+          </p-button>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="flex flex-wrap gap-3 mb-4 align-items-end">
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Desde</label>
+          <p-calendar [(ngModel)]="filtros.desde" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Hasta</label>
+          <p-calendar [(ngModel)]="filtros.hasta" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Tipo</label>
+          <p-dropdown [options]="tiposMovimiento" [(ngModel)]="filtros.tipo" optionLabel="label" optionValue="value" styleClass="w-10rem"></p-dropdown>
+        </div>
+        <div class="flex flex-column gap-1">
+          <label class="text-sm font-medium text-600">Sucursal</label>
+          <p-dropdown [options]="sucursales" [(ngModel)]="filtros.sucursalId" optionLabel="nombre" optionValue="id"
+            placeholder="Todas" [showClear]="true" styleClass="w-10rem">
+          </p-dropdown>
+        </div>
+        <div class="flex gap-2">
+          <p-button label="Buscar" icon="pi pi-search" (onClick)="aplicarFiltros()"></p-button>
+          <p-button label="Limpiar" icon="pi pi-refresh" styleClass="p-button-outlined" (onClick)="limpiarFiltros()"></p-button>
+        </div>
+      </div>
+
+      <p-table [value]="movimientos" [lazy]="true" [paginator]="true" [rows]="10"
+        [totalRecords]="totalRegistros" [loading]="cargando" (onLazyLoad)="onLazyLoad($event)"
+        responsiveLayout="scroll" styleClass="p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Fecha</th>
+            <th>Producto</th>
+            <th>Sucursal</th>
+            <th>Tipo</th>
+            <th class="text-right">Cantidad</th>
+            <th class="text-right">Stock Ant.</th>
+            <th class="text-right">Stock Result.</th>
+            <th>Observación</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-mov>
+          <tr>
+            <td>{{ mov.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="font-medium">{{ mov.productoNombre }}</td>
+            <td>{{ mov.sucursalNombre }}</td>
+            <td>
+              <p-tag [value]="mov.tipo" [severity]="getSeveridad(mov.tipo)"></p-tag>
+            </td>
+            <td class="text-right font-bold">{{ mov.cantidad }}</td>
+            <td class="text-right text-500">{{ mov.stockAnterior }}</td>
+            <td class="text-right font-medium">{{ mov.stockResultante }}</td>
+            <td class="text-500 text-sm">{{ mov.observacion || '—' }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr><td colspan="8" class="text-center text-500 py-5">No hay movimientos registrados</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<!-- Diálogo Registrar Movimiento -->
+<p-dialog [header]="tipoDialogo === 'ENTRADA' ? 'Registrar Entrada' : tipoDialogo === 'SALIDA' ? 'Registrar Salida' : 'Ajustar Stock'"
+  [(visible)]="mostrarDialogo" [modal]="true" [style]="{width:'450px'}" [draggable]="false">
+  <form [formGroup]="formMovimiento" class="p-fluid">
+    <div class="field">
+      <label class="font-medium">Inventario (Producto + Sucursal + Lote) <span class="text-red-500">*</span></label>
+      <p-dropdown [options]="inventarios" formControlName="inventarioId"
+        optionLabel="productoNombre" optionValue="id" placeholder="Seleccione"
+        [filter]="true" filterBy="productoNombre,numeroLote"
+        [class.ng-invalid]="formMovimiento.get('inventarioId')?.invalid && formMovimiento.get('inventarioId')?.touched">
+        <ng-template let-inv pTemplate="item">
+          <div>{{ inv.productoNombre }} — {{ inv.sucursalNombre }} — Lote: {{ inv.numeroLote }} (Stock: {{ inv.stockActual }})</div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+    <div class="field">
+      <label class="font-medium">{{ tipoDialogo === 'AJUSTE' ? 'Stock Nuevo' : 'Cantidad' }} <span class="text-red-500">*</span></label>
+      <p-inputNumber formControlName="cantidad" [min]="tipoDialogo === 'AJUSTE' ? 0 : 1"
+        [class.ng-invalid]="formMovimiento.get('cantidad')?.invalid && formMovimiento.get('cantidad')?.touched">
+      </p-inputNumber>
+    </div>
+    <div class="field">
+      <label class="font-medium">Observación</label>
+      <textarea pInputTextarea formControlName="observacion" rows="2" placeholder="Opcional..."></textarea>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" icon="pi pi-times" styleClass="p-button-outlined" (onClick)="mostrarDialogo = false"></p-button>
+    <p-button label="Registrar" icon="pi pi-check" [loading]="guardando" (onClick)="registrar()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

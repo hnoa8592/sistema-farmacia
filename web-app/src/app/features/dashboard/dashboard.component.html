@@ -1,0 +1,96 @@
+<div class="grid">
+  <!-- Title -->
+  <div class="col-12 mb-2">
+    <div class="flex align-items-center justify-content-between">
+      <h2 class="m-0 text-900 font-bold">
+        <i class="pi pi-home mr-2 text-indigo-500"></i>Dashboard
+      </h2>
+      <span class="text-500 text-sm">{{ today | date:'EEEE, d MMMM yyyy' }}</span>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="col-12 sm:col-6 xl:col-3">
+    <div class="surface-card shadow-2 border-round p-4 flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center bg-green-100 border-round-xl" style="width:56px;height:56px">
+        <i class="pi pi-dollar text-green-600 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Ventas del Día</span>
+        <span class="text-900 font-bold text-2xl">Bs.{{ totalVentasHoy | number:'1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 sm:col-6 xl:col-3">
+    <div class="surface-card shadow-2 border-round p-4 flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center bg-red-100 border-round-xl" style="width:56px;height:56px">
+        <i class="pi pi-exclamation-triangle text-red-600 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Bajo Stock</span>
+        <span class="text-900 font-bold text-2xl">{{ productosBajoStock }}</span>
+        <p-badge *ngIf="productosBajoStock > 0" value="!" severity="danger" class="ml-2"></p-badge>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 sm:col-6 xl:col-3">
+    <div class="surface-card shadow-2 border-round p-4 flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center bg-yellow-100 border-round-xl" style="width:56px;height:56px">
+        <i class="pi pi-calendar text-yellow-600 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Lotes por Vencer</span>
+        <span class="text-900 font-bold text-2xl">{{ lotesPorVencer }}</span>
+        <p-badge *ngIf="lotesPorVencer > 0" value="!" severity="warning" class="ml-2"></p-badge>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 sm:col-6 xl:col-3">
+    <div class="surface-card shadow-2 border-round p-4 flex align-items-center gap-3">
+      <div class="flex align-items-center justify-content-center bg-blue-100 border-round-xl" style="width:56px;height:56px">
+        <i class="pi pi-shopping-cart text-blue-600 text-2xl"></i>
+      </div>
+      <div>
+        <span class="block text-500 font-medium mb-1">Ventas Hoy</span>
+        <span class="text-900 font-bold text-2xl">{{ cantidadVentasHoy }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráfica -->
+  <div class="col-12 xl:col-8">
+    <div class="surface-card shadow-2 border-round p-4">
+      <h3 class="text-900 font-semibold mt-0 mb-4">Ventas últimos 7 días</h3>
+      <div style="position:relative;height:280px">
+        <p-chart type="line" [data]="graficaVentas" [options]="graficaOpciones"></p-chart>
+      </div>
+    </div>
+  </div>
+
+  <!-- Últimas ventas -->
+  <div class="col-12 xl:col-4">
+    <div class="surface-card shadow-2 border-round p-4">
+      <h3 class="text-900 font-semibold mt-0 mb-3">Últimas Ventas</h3>
+      <div *ngIf="cargando" class="text-center py-4">
+        <p-progressSpinner [style]="{'width':'40px','height':'40px'}"></p-progressSpinner>
+      </div>
+      <div *ngIf="!cargando && ultimasVentas.length === 0" class="text-center text-500 py-4">
+        <i class="pi pi-info-circle text-2xl mb-2 block"></i>
+        Sin ventas registradas en los últimos 7 días
+      </div>
+      <div *ngFor="let v of ultimasVentas"
+           class="flex align-items-center justify-content-between py-2 border-bottom-1 surface-border">
+        <div>
+          <span class="text-900 font-medium">Bs.{{ v.total | number:'1.2-2' }}</span>
+          <br><small class="text-500">{{ v.fecha | date:'dd/MM HH:mm' }}</small>
+        </div>
+        <p-tag [value]="v.estado === 'COMPLETADA' ? 'Completada' : 'Anulada'"
+               [severity]="v.estado === 'COMPLETADA' ? 'success' : 'danger'">
+        </p-tag>
+      </div>
+    </div>
+  </div>
+</div>

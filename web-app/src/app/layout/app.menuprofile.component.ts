@@ -1,6 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { LayoutService } from './service/app.layout.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
     selector: 'app-menu-profile',
@@ -26,10 +27,26 @@ import { LayoutService } from './service/app.layout.service';
 })
 export class AppMenuProfileComponent {
 
-    constructor(public layoutService: LayoutService, public el: ElementRef) { }
+    constructor(
+        public layoutService: LayoutService,
+        public el: ElementRef,
+        private authService: AuthService
+    ) { }
+
+    get nombre(): string {
+        return this.authService.getNombre() || this.authService.getEmail() || 'Usuario';
+    }
+
+    get email(): string {
+        return this.authService.getEmail();
+    }
 
     toggleMenu() {
         this.layoutService.onMenuProfileToggle();
+    }
+
+    logout(): void {
+        this.authService.logout();
     }
 
     get isHorizontal() {

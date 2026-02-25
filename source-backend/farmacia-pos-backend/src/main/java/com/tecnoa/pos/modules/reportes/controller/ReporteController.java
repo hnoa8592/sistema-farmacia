@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -25,16 +27,22 @@ public class ReporteController {
     @GetMapping("/ventas")
     @PreAuthorize("hasAuthority('reportes:ventas')")
     public ResponseEntity<ApiResponse<ReporteVentasDTO>> ventas(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime desde,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime hasta) {
-        LocalDateTime d = desde != null ? desde : LocalDateTime.now().minusMonths(1);
-        LocalDateTime h = hasta != null ? hasta : LocalDateTime.now();
-        return ResponseEntity.ok(ApiResponse.success(reporteService.reporteVentas(d, h), "Reporte generado"));
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
+        LocalDateTime desdeTs = desde != null
+                ? LocalDateTime.of(desde, LocalTime.MIN)
+                : LocalDateTime.now().minusDays(6).with(LocalTime.MIN);
+        LocalDateTime hastaTs = hasta != null
+                ? LocalDateTime.of(hasta, LocalTime.MAX)
+                : LocalDateTime.now().with(LocalTime.MAX);
+        return ResponseEntity.ok(ApiResponse.success(
+                reporteService.reporteVentas(desdeTs, hastaTs), "Reporte generado"));
     }
 
     @GetMapping("/stock")
     @PreAuthorize("hasAuthority('reportes:stock')")
     public ResponseEntity<ApiResponse<List<ReporteStockDTO>>> stock() {
-        return ResponseEntity.ok(ApiResponse.success(reporteService.reporteStock(), "Reporte de stock generado"));
+        return ResponseEntity.ok(ApiResponse.success(
+                reporteService.reporteStock(), "Reporte de stock generado"));
     }
 }

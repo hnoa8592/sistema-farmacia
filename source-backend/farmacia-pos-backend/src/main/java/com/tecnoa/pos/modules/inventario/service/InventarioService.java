@@ -4,6 +4,7 @@ import com.tecnoa.pos.modules.auditoria.annotation.Auditable;
 import com.tecnoa.pos.modules.inventario.dto.InventarioResponseDTO;
 import com.tecnoa.pos.modules.inventario.dto.MovimientoRequestDTO;
 import com.tecnoa.pos.modules.inventario.dto.MovimientoResponseDTO;
+import com.tecnoa.pos.modules.inventario.dto.ProductoPrecioDTO;
 import com.tecnoa.pos.modules.inventario.model.*;
 import com.tecnoa.pos.modules.inventario.repository.*;
 import com.tecnoa.pos.modules.parametros.service.ParametroService;
@@ -16,7 +17,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,12 +33,16 @@ public class InventarioService {
     private final ParametroService parametroService;
     private final SucursalRepository sucursalRepository;
 
-    public List<InventarioResponseDTO> getStock(UUID productoId, UUID sucursalId, UUID loteId) {
+    @Transactional(readOnly = true)
+    public List<InventarioResponseDTO> getStock(UUID productoId, UUID sucursalId, UUID loteId, Boolean soloConStock) {
         List<Inventario> list;
         if (productoId != null) list = inventarioRepository.findByProductoId(productoId);
         else if (sucursalId != null) list = inventarioRepository.findBySucursalId(sucursalId);
         else if (loteId != null) list = inventarioRepository.findByLoteId(loteId);
         else list = inventarioRepository.findAll();
+        if (Boolean.TRUE.equals(soloConStock)) {
+            list = list.stream().filter(i -> i.getStockActual() > 0).collect(Collectors.toList());
+        }
         return list.stream().map(this::toResponse).collect(Collectors.toList());
     }
 
@@ -84,9 +91,11 @@ public class InventarioService {
     }
 
     public Page<MovimientoResponseDTO> listarMovimientos(UUID productoId, UUID sucursalId,
-            UUID loteId, TipoMovimiento tipo, UUID usuarioId,
-            LocalDateTime desde, LocalDateTime hasta, Pageable pageable) {
-        return movimientoRepository.buscar(productoId, sucursalId, loteId, tipo, usuarioId, desde, hasta, pageable)
+                                                         UUID loteId, TipoMovimiento tipo, UUID usuarioId,
+                                                         LocalDate desde, LocalDate hasta, Pageable pageable) {
+        var desdeX =LocalDateTime.of(desde, LocalTime.MIN);
+        var hastaX =LocalDateTime.of(hasta, LocalTime.MIN);
+        return movimientoRepository.buscar(productoId, sucursalId, loteId, tipo, usuarioId, desdeX, hastaX, pageable)
                 .map(this::toMovimientoResponse);
     }
 
@@ -110,13 +119,37 @@ public class InventarioService {
     }
 
     private InventarioResponseDTO toResponse(Inventario i) {
+        LocalDateTime ahora = LocalDateTime.now();
+        List<ProductoPrecioDTO> preciosVigentes = i.getLote().getProducto().getPrecios().stream()
+                .filter(p -> Boolean.TRUE.equals(p.getActivo())
+                        && !p.getVigenciaDesde().isAfter(ahora)
+                        && (p.getVigenciaHasta() == null || !p.getVigenciaHasta().isBefore(ahora)))
+                .map(p -> ProductoPrecioDTO.builder()
+                        .id(p.getId())
+                        .tipoPrecio(p.getTipoPrecio())
+                        .precio(p.getPrecio())
+                        .precioCompra(p.getPrecioCompra())
+                        .vigenciaDesde(p.getVigenciaDesde())
+                        .vigenciaHasta(p.getVigenciaHasta())
+                        .activo(p.getActivo())
+                        .build())
+                .collect(Collectors.toList());
+
         return InventarioResponseDTO.builder()
-                .id(i.getId()).loteId(i.getLote().getId())
+                .id(i.getId())
+                .loteId(i.getLote().getId())
                 .numeroLote(i.getLote().getNumeroLote())
-                .sucursalId(i.getSucursal().getId()).sucursalNombre(i.getSucursal().getNombre())
-                .stockActual(i.getStockActual()).stockMinimo(i.getStockMinimo())
+                .fechaVencimiento(i.getLote().getFechaVencimiento())
+                .sucursalId(i.getSucursal().getId())
+                .sucursalNombre(i.getSucursal().getNombre())
+                .productoId(i.getLote().getProducto().getId())
+                .productoNombre(i.getLote().getProducto().getNombre())
+                .stockActual(i.getStockActual())
+                .stockMinimo(i.getStockMinimo())
                 .ubicacion(i.getUbicacion())
-                .bajoPStock(i.getStockActual() <= i.getStockMinimo()).build();
+                .bajoStock(i.getStockActual() <= i.getStockMinimo())
+                .precios(preciosVigentes)
+                .build();
     }
 
     private MovimientoResponseDTO toMovimientoResponse(MovimientoInventario m) {

@@ -1,0 +1,212 @@
+<div class="grid" *ngIf="!cargando && producto">
+  <div class="col-12">
+    <div class="flex align-items-center gap-3 mb-4">
+      <p-button icon="pi pi-arrow-left" styleClass="p-button-text" (onClick)="volver()"></p-button>
+      <h2 class="m-0 text-900 font-bold">{{ producto.nombre }}</h2>
+      <p-tag [value]="producto.activo ? 'Activo' : 'Inactivo'"
+        [severity]="producto.activo ? 'success' : 'danger'">
+      </p-tag>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <p-tabView [(activeIndex)]="activeTabIndex">
+      <!-- Tab 1: Datos Generales -->
+      <p-tabPanel header="Datos Generales" leftIcon="pi pi-info-circle">
+        <div class="grid mt-2">
+          <div class="col-12 md:col-6 lg:col-3">
+            <p class="text-500 text-sm m-0">Código</p>
+            <p class="font-medium text-900 mt-1"><code>{{ producto.codigo }}</code></p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3" *ngIf="producto.codigoBarra">
+            <p class="text-500 text-sm m-0">Código de Barras</p>
+            <p class="font-medium text-900 mt-1">{{ producto.codigoBarra }}</p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3">
+            <p class="text-500 text-sm m-0">Categoría</p>
+            <p class="font-medium text-900 mt-1">{{ producto.categoria?.nombre }}</p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3">
+            <p class="text-500 text-sm m-0">Forma Farmacéutica</p>
+            <p class="font-medium text-900 mt-1">{{ producto.formaFarmaceutica?.nombre }}</p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3">
+            <p class="text-500 text-sm m-0">Vía de Administración</p>
+            <p class="font-medium text-900 mt-1">{{ producto.viaAdministracion?.nombre }}</p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3" *ngIf="producto.concentracion">
+            <p class="text-500 text-sm m-0">Concentración</p>
+            <p class="font-medium text-900 mt-1">{{ producto.concentracion }}</p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3" *ngIf="producto.presentacion">
+            <p class="text-500 text-sm m-0">Presentación</p>
+            <p class="font-medium text-900 mt-1">{{ producto.presentacion }}</p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3">
+            <p class="text-500 text-sm m-0">Requiere Receta</p>
+            <p class="mt-1">
+              <p-tag [value]="producto.requiereReceta ? 'Sí' : 'No'"
+                [severity]="producto.requiereReceta ? 'warning' : 'info'">
+              </p-tag>
+            </p>
+          </div>
+          <div class="col-12 md:col-6 lg:col-3">
+            <p class="text-500 text-sm m-0">Controlado</p>
+            <p class="mt-1">
+              <p-tag [value]="producto.controlado ? 'Sí' : 'No'"
+                [severity]="producto.controlado ? 'danger' : 'info'">
+              </p-tag>
+            </p>
+          </div>
+          <div class="col-12" *ngIf="producto.principiosActivos?.length">
+            <p class="text-500 text-sm m-0 mb-2">Principios Activos</p>
+            <div class="flex flex-wrap gap-2">
+              <p-chip *ngFor="let pa of producto.principiosActivos"
+                [label]="pa.principioActivoNombre + (pa.concentracion ? ' ' + pa.concentracion : '')"
+                styleClass="bg-indigo-100 text-indigo-800">
+              </p-chip>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+
+      <!-- Tab 2: Lotes -->
+      <p-tabPanel header="Lotes" leftIcon="pi pi-tags">
+        <div class="flex justify-content-end mb-3">
+          <p-button *appPermiso="'inventario:crear'" label="Nuevo Lote" icon="pi pi-plus"
+            (onClick)="mostrarFormLote = true">
+          </p-button>
+        </div>
+        <p-table [value]="lotes" responsiveLayout="scroll" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Laboratorio</th>
+              <th>N° Lote</th>
+              <th>Fabricación</th>
+              <th>Vencimiento</th>
+              <th class="text-right">Cantidad Inicial</th>
+              <th class="text-center">Estado</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-lote>
+            <tr [class.bg-red-50]="isVencido(lote.fechaVencimiento)"
+              [class.bg-yellow-50]="isProximoVencer(lote.fechaVencimiento)">
+              <td>{{ lote.laboratorioNombre }}</td>
+              <td><code>{{ lote.numeroLote }}</code></td>
+              <td>{{ lote.fechaFabricacion | date:'dd/MM/yyyy' }}</td>
+              <td>
+                {{ lote.fechaVencimiento | date:'dd/MM/yyyy' }}
+                <p-badge *ngIf="isVencido(lote.fechaVencimiento)" value="Vencido" severity="danger" class="ml-1"></p-badge>
+                <p-badge *ngIf="isProximoVencer(lote.fechaVencimiento)" value="Por vencer" severity="warning" class="ml-1"></p-badge>
+              </td>
+              <td class="text-right">{{ lote.cantidadInicial }}</td>
+              <td class="text-center">
+                <p-tag [value]="lote.activo ? 'Activo' : 'Inactivo'" [severity]="lote.activo ? 'success' : 'danger'"></p-tag>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr><td colspan="6" class="text-center text-500 py-4">Sin lotes registrados</td></tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+
+      <!-- Tab 3: Precios -->
+      <p-tabPanel header="Precios" leftIcon="pi pi-dollar">
+        <div class="flex justify-content-end mb-3">
+          <p-button *appPermiso="'inventario:editar'" label="Nuevo Precio" icon="pi pi-plus"
+            (onClick)="precioSeleccionado = null; mostrarFormPrecio = true">
+          </p-button>
+        </div>
+        <p-table [value]="precios" responsiveLayout="scroll" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Tipo</th>
+              <th class="text-right">Precio Venta</th>
+              <th class="text-right">Precio Compra</th>
+              <th>Vigencia Desde</th>
+              <th>Vigencia Hasta</th>
+              <th class="text-center">Activo</th>
+              <th class="text-center">Acción</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-precio>
+            <tr>
+              <td><p-tag [value]="precio.tipoPrecio" severity="info"></p-tag></td>
+              <td class="text-right font-medium">S/ {{ precio.precio | number:'1.2-2' }}</td>
+              <td class="text-right">S/ {{ precio.precioCompra | number:'1.2-2' }}</td>
+              <td>{{ precio.vigenciaDesde | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ precio.vigenciaHasta ? (precio.vigenciaHasta | date:'dd/MM/yyyy HH:mm') : '—' }}</td>
+              <td class="text-center">
+                <p-tag [value]="precio.activo ? 'Activo' : 'Inactivo'" [severity]="precio.activo ? 'success' : 'danger'"></p-tag>
+              </td>
+              <td class="text-center">
+                <p-button *appPermiso="'inventario:editar'" icon="pi pi-pencil"
+                  styleClass="p-button-text p-button-sm" pTooltip="Editar" [disabled]="!precio.activo"
+                  (onClick)="editarPrecio(precio)">
+                </p-button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr><td colspan="7" class="text-center text-500 py-4">Sin precios registrados</td></tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+
+      <!-- Tab 4: Stock por Sucursal -->
+      <p-tabPanel header="Stock por Sucursal" leftIcon="pi pi-building">
+        <p-table [value]="stock" responsiveLayout="scroll" styleClass="p-datatable-sm">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Sucursal</th>
+              <th>N° Lote</th>
+              <th>Vencimiento</th>
+              <th class="text-right">Stock Actual</th>
+              <th class="text-right">Stock Mínimo</th>
+              <th>Ubicación</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-inv>
+            <tr [class.bg-red-50]="inv.stockActual <= inv.stockMinimo">
+              <td>{{ inv.sucursalNombre }}</td>
+              <td><code>{{ inv.numeroLote }}</code></td>
+              <td>{{ inv.fechaVencimiento | date:'dd/MM/yyyy' }}</td>
+              <td class="text-right">
+                <span [class.text-red-600]="inv.stockActual <= inv.stockMinimo" class="font-bold">
+                  {{ inv.stockActual }}
+                </span>
+              </td>
+              <td class="text-right text-500">{{ inv.stockMinimo }}</td>
+              <td>{{ inv.ubicacion || '—' }}</td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr><td colspan="6" class="text-center text-500 py-4">Sin registros de inventario</td></tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
+
+<div *ngIf="cargando" class="text-center py-8">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<!-- Form Lote -->
+<app-form-lote
+  [(visible)]="mostrarFormLote"
+  [productoId]="productoId"
+  (guardado)="onLoteGuardado()">
+</app-form-lote>
+
+<!-- Form Precio -->
+<app-form-precio
+  [(visible)]="mostrarFormPrecio"
+  [productoId]="productoId"
+  [precio]="precioSeleccionado"
+  (guardado)="onPrecioGuardado()">
+</app-form-precio>
+
+<p-toast></p-toast>

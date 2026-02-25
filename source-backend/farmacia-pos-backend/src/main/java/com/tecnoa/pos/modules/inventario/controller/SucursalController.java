@@ -54,8 +54,12 @@ public class SucursalController {
 
     @GetMapping("/{id}/inventario")
     @PreAuthorize("hasAuthority('inventario:ver')")
-    public ResponseEntity<ApiResponse<List<InventarioResponseDTO>>> inventario(@PathVariable UUID id) {
+    public ResponseEntity<ApiResponse<List<InventarioResponseDTO>>> inventario(
+            @RequestParam(required = false) UUID productoId,
+            @RequestParam(required = false) UUID sucursalId,
+            @RequestParam(required = false) UUID loteId,
+            @RequestParam(required = false) Boolean soloConStock) {
         return ResponseEntity.ok(ApiResponse.success(
-                inventarioService.getStock(null, id, null), "Inventario obtenido"));
+                inventarioService.getStock(productoId, sucursalId, loteId, soloConStock), "Inventario obtenido"));
     }
 }

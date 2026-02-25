@@ -12,6 +12,6 @@ public class ReporteStockDTO {
     private String codigo;
     private Integer stockTotal;
     private Integer stockMinimo;
-    private Boolean bajoPStock;
+    private Boolean bajoStock;
     private Long lotesProximosVencer;
 }

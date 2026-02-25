@@ -18,7 +18,7 @@ public interface ProductoRepository extends JpaRepository<Producto, UUID> {
     boolean existsByCodigoAndIdNot(String codigo, UUID id);
 
     @Query("SELECT p FROM Producto p WHERE p.activo = true AND " +
-           "(:nombre IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%',:nombre,'%'))) AND " +
+           "(:nombre IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%', CAST(:nombre AS string), '%'))) AND " +
            "(:categoriaId IS NULL OR p.categoria.id = :categoriaId) AND " +
            "(:requiereReceta IS NULL OR p.requiereReceta = :requiereReceta)")
     Page<Producto> buscar(
