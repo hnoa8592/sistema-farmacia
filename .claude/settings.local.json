@@ -8,7 +8,13 @@
       "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn test -Dtest=\"TenantContextTest\" -pl . 2>&1)",
       "Bash(cd /d/WORKSPACE/sistema-farmacia/source-backend/farmacia-pos-backend && mvn test -Dtest=\"AuthLoginIntegrationTest\" -Dspring.profiles.active=test 2>&1)",
       "Bash(python3:*)",
-      "Bash(PGPASSWORD=postgres psql:*)"
+      "Bash(PGPASSWORD=postgres psql:*)",
+      "Bash(echo checking packages:*)",
+      "Bash(where python:*)",
+      "Bash(dir D:\\\\WORKSPACE\\\\sistema-farmacia\\\\documentation:*)",
+      "Bash(cd /d/WORKSPACE/sistema-farmacia && node --version 2>&1)",
+      "Bash(node:*)",
+      "Bash(python --version 2>&1 && python -c \"import pdfplumber; print\\('pdfplumber ok'\\)\" 2>&1 || python -c \"import PyPDF2; print\\('PyPDF2 ok'\\)\" 2>&1)"
     ]
   }
 }

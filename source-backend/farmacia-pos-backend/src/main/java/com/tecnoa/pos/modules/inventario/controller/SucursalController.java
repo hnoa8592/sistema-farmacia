@@ -60,6 +60,6 @@ public class SucursalController {
             @RequestParam(required = false) UUID loteId,
             @RequestParam(required = false) Boolean soloConStock) {
         return ResponseEntity.ok(ApiResponse.success(
-                inventarioService.getStock(productoId, sucursalId, loteId, soloConStock), "Inventario obtenido"));
+                inventarioService.getStock(productoId, sucursalId, loteId, null, soloConStock), "Inventario obtenido"));
     }
 }

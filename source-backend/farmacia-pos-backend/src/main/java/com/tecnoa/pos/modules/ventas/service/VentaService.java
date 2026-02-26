@@ -4,6 +4,7 @@ import com.tecnoa.pos.modules.auditoria.annotation.Auditable;
 import com.tecnoa.pos.modules.inventario.model.*;
 import com.tecnoa.pos.modules.inventario.repository.*;
 import com.tecnoa.pos.modules.parametros.service.ParametroService;
+import com.tecnoa.pos.shared.security.SecurityUtils;
 import com.tecnoa.pos.modules.ventas.dto.DetalleVentaDTO;
 import com.tecnoa.pos.modules.ventas.dto.VentaRequestDTO;
 import com.tecnoa.pos.modules.ventas.dto.VentaResponseDTO;
@@ -16,12 +17,12 @@ import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,16 @@ public class VentaService {
     private final MovimientoRepository movimientoRepository;
     private final ProductoPrecioRepository precioRepository;
     private final ParametroService parametroService;
+    private final SecurityUtils securityUtils;
 
-    public Page<VentaResponseDTO> listar(Pageable pageable) {
-        return ventaRepository.findAll(pageable).map(this::toResponse);
+    @Transactional(readOnly = true)
+    public Page<VentaResponseDTO> listar(UUID usuarioId, EstadoVenta estado,
+                                         LocalDate desde, LocalDate hasta,
+                                         Pageable pageable) {
+        LocalDateTime desdeDateTime = (desde != null) ? desde.atStartOfDay()          : null;
+        LocalDateTime hastaDateTime = (hasta != null) ? hasta.atTime(23, 59, 59) : null;
+        return ventaRepository.buscarConFiltros(usuarioId, estado, desdeDateTime, hastaDateTime, pageable)
+                .map(this::toResponse);
     }
 
     public VentaResponseDTO obtener(UUID id) {
@@ -61,11 +69,7 @@ public class VentaService {
             }
         }
 
-        UUID usuarioId = null;
-        try {
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            // usuarioId se obtendría desde el contexto; se deja null si no se puede resolver
-        } catch (Exception ignored) {}
+        UUID usuarioId = securityUtils.getCurrentUserId();
 
         List<DetalleVenta> detalles = new ArrayList<>();
         BigDecimal subtotalTotal = BigDecimal.ZERO;
@@ -101,6 +105,7 @@ public class VentaService {
                     .cantidad(dto.getCantidad())
                     .stockAnterior(stockAnterior)
                     .stockResultante(inventario.getStockActual())
+                    .usuarioId(usuarioId)
                     .observacion("Venta")
                     .build());
 
@@ -166,6 +171,7 @@ public class VentaService {
                     .cantidad(detalle.getCantidad())
                     .stockAnterior(stockAnterior)
                     .stockResultante(inventario.getStockActual())
+                    .usuarioId(securityUtils.getCurrentUserId())
                     .observacion("Anulación venta #" + venta.getId())
                     .build());
         }

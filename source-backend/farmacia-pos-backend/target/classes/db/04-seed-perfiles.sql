@@ -1,3 +1,4 @@
+SET search_path TO {SCHEMA}, public;
 -- 04-seed-perfiles.sql — Perfiles del sistema
 DO $$
 DECLARE

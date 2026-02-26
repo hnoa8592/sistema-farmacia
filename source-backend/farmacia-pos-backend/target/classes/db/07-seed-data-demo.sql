@@ -25,11 +25,11 @@ ON CONFLICT DO NOTHING;
 -- ============================================================
 INSERT INTO usuarios (nombre, email, password) VALUES
 ('Administrador Demo', 'admin@demo.com',
- '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh'),
+ '$2a$10$g42ZeZ7XP2z7IaGY6qUdYO81xPkOCqle8l1EqYL.4RlVKkqcfJhuu'),
 ('Supervisor Demo', 'supervisor@demo.com',
- '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh'),
+ '$2a$10$g42ZeZ7XP2z7IaGY6qUdYO81xPkOCqle8l1EqYL.4RlVKkqcfJhuu'),
 ('Cajero Demo', 'cajero@demo.com',
- '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh')
+ '$2a$10$g42ZeZ7XP2z7IaGY6qUdYO81xPkOCqle8l1EqYL.4RlVKkqcfJhuu')
 ON CONFLICT (email) DO NOTHING;
 
 -- Asignar perfiles

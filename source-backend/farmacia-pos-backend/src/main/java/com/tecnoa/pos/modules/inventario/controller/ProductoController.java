@@ -23,7 +23,6 @@ import java.util.UUID;
 public class ProductoController {
 
     private final ProductoService productoService;
-    private final ProductoLoteService loteService;
     private final ProductoPrecioService precioService;
 
     @GetMapping
@@ -116,27 +115,4 @@ public class ProductoController {
         return ResponseEntity.ok(ApiResponse.success("Precio desactivado"));
     }
 
-    // Lotes
-    @GetMapping("/{id}/lotes")
-    public ResponseEntity<ApiResponse<List<ProductoLoteResponseDTO>>> listarLotes(@PathVariable UUID id) {
-        return ResponseEntity.ok(ApiResponse.success(loteService.listarPorProducto(id), "Lotes obtenidos"));
-    }
-
-    @PostMapping("/{id}/lotes")
-    @PreAuthorize("hasAuthority('inventario:lotes')")
-    public ResponseEntity<ApiResponse<ProductoLoteResponseDTO>> crearLote(
-            @PathVariable UUID id, @Valid @RequestBody ProductoLoteRequestDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResponse.success(loteService.crear(id, dto), "Lote registrado"));
-    }
-
-    @GetMapping("/{id}/lotes/proximos-vencer")
-    public ResponseEntity<ApiResponse<List<ProductoLoteResponseDTO>>> lotesProximosVencer(@PathVariable UUID id) {
-        return ResponseEntity.ok(ApiResponse.success(loteService.listarProximosVencer(id), "Lotes próximos a vencer"));
-    }
-
-    @GetMapping("/{id}/lotes/vencidos")
-    public ResponseEntity<ApiResponse<List<ProductoLoteResponseDTO>>> lotesVencidos(@PathVariable UUID id) {
-        return ResponseEntity.ok(ApiResponse.success(loteService.listarVencidos(id), "Lotes vencidos obtenidos"));
-    }
 }

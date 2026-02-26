@@ -17,7 +17,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -56,9 +55,11 @@ public class InventarioController {
             @RequestParam(required = false) UUID productoId,
             @RequestParam(required = false) UUID sucursalId,
             @RequestParam(required = false) UUID loteId,
+            @RequestParam(required = false) String productoNombre,
             @RequestParam(required = false) Boolean soloConStock) {
         return ResponseEntity.ok(ApiResponse.success(
-                inventarioService.getStock(productoId, sucursalId, loteId, soloConStock), "Stock obtenido"));
+                inventarioService.getStock(productoId, sucursalId, loteId, productoNombre, soloConStock),
+                "Stock obtenido"));
     }
 
     @GetMapping("/movimientos")

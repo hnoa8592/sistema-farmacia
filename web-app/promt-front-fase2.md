@@ -415,6 +415,7 @@ interface MovimientoResponse {
 interface VentaRequest {
   detalles: DetalleVentaRequest[];
   descuento: number;
+  // usuarioId NO se incluye: el backend lo extrae automáticamente del JWT Bearer token
 }
 
 interface DetalleVentaRequest {
@@ -730,7 +731,7 @@ desactivarPrecio(productoId, precioId): Observable<void>
 ### inventario.service.ts
 ```
 getStock(filtros): Observable<InventarioResponse[]>
-  GET /api/inventario/stock (params: productoId, sucursalId, loteId, soloConStock)
+  GET /api/inventario/stock (params: productoId, sucursalId, loteId, productoNombre, soloConStock)
 getMovimientos(page, size, filtros): Observable<PageResponse<MovimientoResponse>>
   GET /api/inventario/movimientos (params: productoId, sucursalId, loteId,
                                    tipo, usuarioId, desde, hasta)

@@ -1,3 +1,4 @@
+SET search_path TO {SCHEMA}, public;
 -- 05-seed-parametros.sql — Parámetros iniciales del sistema
 INSERT INTO parametros (clave, valor, descripcion, tipo, modulo, editable) VALUES
 -- GENERAL

@@ -22,7 +22,8 @@ public interface MovimientoRepository extends JpaRepository<MovimientoInventario
            "(:tipo IS NULL OR m.tipo = :tipo) AND " +
            "(:usuarioId IS NULL OR m.usuarioId = :usuarioId) AND " +
            "(CAST(:desde AS timestamp) IS NULL OR m.fecha >= CAST(:desde AS timestamp)) AND " +
-           "(CAST(:hasta AS timestamp) IS NULL OR m.fecha <= CAST(:hasta AS timestamp))")
+           "(CAST(:hasta AS timestamp) IS NULL OR m.fecha <= CAST(:hasta AS timestamp)) " +
+           "ORDER BY m.fecha DESC")
     Page<MovimientoInventario> buscar(
             @Param("productoId") UUID productoId,
             @Param("sucursalId") UUID sucursalId,

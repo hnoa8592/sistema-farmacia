@@ -62,4 +62,9 @@ public class SucursalService {
                 .id(s.getId()).nombre(s.getNombre()).direccion(s.getDireccion())
                 .telefono(s.getTelefono()).esMatriz(s.getEsMatriz()).activo(s.getActivo()).build();
     }
+
+    public SucursalDTO obtener(UUID sucursalId) {
+        return toDTO(sucursalRepository.findById(sucursalId)
+                .orElseThrow(() -> new ResourceNotFoundException("Sucursal", sucursalId)));
+    }
 }

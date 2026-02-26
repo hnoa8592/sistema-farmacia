@@ -111,12 +111,17 @@ public class TenantInitializer {
                 "db/03-seed-recursos.sql",
                 "db/04-seed-perfiles.sql",
                 "db/05-seed-parametros.sql",
-                "db/06-seed-catalogos.sql"
+                "db/06-seed-catalogos.sql",
+                "db/08-seed-productos-liname.sql",
+                "db/09-seed-productos-liname-part2.sql",
+                "db/09-seed-productos-liname-part2b.sql",
+                "db/09-seed-productos-liname-part2c.sql"
             };
             for (String seedFile : seedFiles) {
                 try {
                     ClassPathResource res = new ClassPathResource(seedFile);
                     String sql = res.getContentAsString(StandardCharsets.UTF_8);
+                    sql = sql.replace("{SCHEMA}", schemaName);
                     executeSqlScript(sql, schemaName);
                 } catch (IOException e) {
                     log.warn("Seed file not found: {}", seedFile);

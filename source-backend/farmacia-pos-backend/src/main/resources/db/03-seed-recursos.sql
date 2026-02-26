@@ -1,3 +1,4 @@
+SET search_path TO {SCHEMA}, public;
 -- 03-seed-recursos.sql — Recursos del sistema
 INSERT INTO recursos (nombre, modulo) VALUES
 -- Ventas

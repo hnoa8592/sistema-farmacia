@@ -10,10 +10,10 @@ import com.tecnoa.pos.modules.inventario.repository.*;
 import com.tecnoa.pos.modules.parametros.service.ParametroService;
 import com.tecnoa.pos.shared.exception.BusinessException;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
+import com.tecnoa.pos.shared.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +31,19 @@ public class InventarioService {
     private final InventarioRepository inventarioRepository;
     private final MovimientoRepository movimientoRepository;
     private final ParametroService parametroService;
-    private final SucursalRepository sucursalRepository;
+    private final SucursalService sucursalService;
+    private final ProductoService productoService;
+    private final SecurityUtils securityUtils;
 
     @Transactional(readOnly = true)
-    public List<InventarioResponseDTO> getStock(UUID productoId, UUID sucursalId, UUID loteId, Boolean soloConStock) {
-        List<Inventario> list;
-        if (productoId != null) list = inventarioRepository.findByProductoId(productoId);
-        else if (sucursalId != null) list = inventarioRepository.findBySucursalId(sucursalId);
-        else if (loteId != null) list = inventarioRepository.findByLoteId(loteId);
-        else list = inventarioRepository.findAll();
+    public List<InventarioResponseDTO> getStock(UUID productoId, UUID sucursalId, UUID loteId,
+                                                String productoNombre, Boolean soloConStock) {
+        String nombreFiltro = (productoNombre != null && !productoNombre.isBlank())
+                ? productoNombre.trim() : null;
+
+        List<Inventario> list = inventarioRepository.buscarStock(
+                productoId, sucursalId, loteId, nombreFiltro);
+
         if (Boolean.TRUE.equals(soloConStock)) {
             list = list.stream().filter(i -> i.getStockActual() > 0).collect(Collectors.toList());
         }
@@ -47,7 +51,7 @@ public class InventarioService {
     }
 
     @Auditable(accion = "CREAR", modulo = "INVENTARIO", entidad = "MovimientoInventario",
-               descripcion = "Entrada de stock")
+            descripcion = "Entrada de stock")
     @Transactional
     public MovimientoResponseDTO registrarEntrada(MovimientoRequestDTO dto) {
         Inventario inventario = inventarioRepository.findById(dto.getInventarioId())
@@ -60,7 +64,7 @@ public class InventarioService {
     }
 
     @Auditable(accion = "CREAR", modulo = "INVENTARIO", entidad = "MovimientoInventario",
-               descripcion = "Salida manual de stock")
+            descripcion = "Salida manual de stock")
     @Transactional
     public MovimientoResponseDTO registrarSalida(MovimientoRequestDTO dto) {
         Inventario inventario = inventarioRepository.findById(dto.getInventarioId())
@@ -77,7 +81,7 @@ public class InventarioService {
     }
 
     @Auditable(accion = "EDITAR", modulo = "INVENTARIO", entidad = "Inventario",
-               descripcion = "Ajuste de stock")
+            descripcion = "Ajuste de stock")
     @Transactional
     public MovimientoResponseDTO registrarAjuste(MovimientoRequestDTO dto) {
         Inventario inventario = inventarioRepository.findById(dto.getInventarioId())
@@ -93,19 +97,14 @@ public class InventarioService {
     public Page<MovimientoResponseDTO> listarMovimientos(UUID productoId, UUID sucursalId,
                                                          UUID loteId, TipoMovimiento tipo, UUID usuarioId,
                                                          LocalDate desde, LocalDate hasta, Pageable pageable) {
-        var desdeX =LocalDateTime.of(desde, LocalTime.MIN);
-        var hastaX =LocalDateTime.of(hasta, LocalTime.MIN);
+        LocalDateTime desdeX = (desde != null) ? LocalDateTime.of(desde, LocalTime.MIN) : null;
+        LocalDateTime hastaX = (hasta != null) ? hasta.atTime(23, 59, 59) : null;
         return movimientoRepository.buscar(productoId, sucursalId, loteId, tipo, usuarioId, desdeX, hastaX, pageable)
                 .map(this::toMovimientoResponse);
     }
 
     private MovimientoResponseDTO registrarMovimiento(Inventario inventario, TipoMovimiento tipo,
-            int cantidad, int stockAnterior, int stockResultante, String observacion) {
-        String email = null;
-        try {
-            email = SecurityContextHolder.getContext().getAuthentication().getName();
-        } catch (Exception ignored) {}
-
+                                                      int cantidad, int stockAnterior, int stockResultante, String observacion) {
         MovimientoInventario mov = MovimientoInventario.builder()
                 .inventario(inventario)
                 .loteId(inventario.getLote().getId())
@@ -113,6 +112,7 @@ public class InventarioService {
                 .sucursalId(inventario.getSucursal().getId())
                 .tipo(tipo).cantidad(cantidad)
                 .stockAnterior(stockAnterior).stockResultante(stockResultante)
+                .usuarioId(securityUtils.getCurrentUserId())
                 .observacion(observacion).build();
 
         return toMovimientoResponse(movimientoRepository.save(mov));
@@ -157,6 +157,8 @@ public class InventarioService {
                 .id(m.getId()).inventarioId(m.getInventario().getId())
                 .loteId(m.getLoteId()).productoId(m.getProductoId())
                 .sucursalId(m.getSucursalId()).tipo(m.getTipo())
+                .sucursalNombre(sucursalService.obtener(m.getSucursalId()).getNombre())
+                .productoNombre(productoService.obtener(m.getProductoId()).getNombre())
                 .cantidad(m.getCantidad()).stockAnterior(m.getStockAnterior())
                 .stockResultante(m.getStockResultante()).fecha(m.getFecha())
                 .usuarioId(m.getUsuarioId()).observacion(m.getObservacion()).build();

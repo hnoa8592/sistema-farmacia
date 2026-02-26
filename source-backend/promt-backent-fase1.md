@@ -467,8 +467,16 @@ incluyendo audit_logs y parametros.
 Extiende OncePerRequestFilter.
 Extrae Bearer token del header Authorization.
 Valida y setea SecurityContextHolder con los recursos como GrantedAuthority.
+Almacena el token crudo como atributo de request: `request.setAttribute("jwtToken", token)`.
 Extrae el IP de la request (X-Forwarded-For o remoteAddr) y lo expone
 como atributo de request para que AuditAspect lo consuma.
+
+### SecurityUtils.java
+Componente Spring en `com.tecnoa.pos.shared.security`.
+- `getCurrentUserId(): UUID` — extrae el UUID del usuario autenticado leyendo el atributo
+  `"jwtToken"` de la request actual vía `RequestContextHolder`, luego llama a
+  `JwtService.extractUserId(token)`. Retorna `null` si no hay sesión o el token no está disponible.
+- Se inyecta en VentaService e InventarioService para poblar `usuarioId` en los movimientos.
 
 ### SecurityConfig.java
 - Rutas públicas: POST /api/auth/login, GET /swagger-ui/**
@@ -730,7 +738,13 @@ GET    /movimientos          # Lista de movimientos paginada; filtros:
 GET    /movimientos/{id}     # Detalle de un movimiento
 
 ### VentaController — /api/ventas
-GET    /                    # Lista paginada de ventas
+GET    /                    # Lista paginada con filtros opcionales:
+                            #   usuarioId (UUID), estado (COMPLETADA|ANULADA),
+                            #   desde (ISO date: yyyy-MM-dd), hasta (ISO date: yyyy-MM-dd)
+                            # La fecha se convierte a LocalDateTime:
+                            #   desde → inicio del día (atStartOfDay)
+                            #   hasta → fin del día (atTime 23:59:59)
+                            # Ordenado por fecha DESC
 POST   /                    # Registra venta completa con detalles
 GET    /{id}                # Detalle de una venta
 PUT    /{id}/anular         # Anula venta y revierte stock
@@ -771,6 +785,8 @@ VentaService:
 - Calcular IGV usando IVA_PORCENTAJE (leer de ParametroService).
 - Al anular: revertir Inventario.stockActual para cada detalle y crear
   MovimientoInventario tipo ENTRADA con observacion "Anulación venta #{id}".
+- usuarioId se obtiene automáticamente desde el JWT via SecurityUtils.getCurrentUserId();
+  NO viene en el body del request. Se asigna tanto en la Venta como en cada MovimientoInventario.
 
 ProductoService:
 - Al guardar: validar que codigo sea único en el tenant.
@@ -801,6 +817,8 @@ InventarioService:
   stockAnterior y stockResultante correspondientes.
 - Siempre guardar stockAnterior y stockResultante en el movimiento.
 - Al hacer TRANSFERENCIA: crear SALIDA en sucursal origen y ENTRADA en destino.
+- usuarioId se obtiene desde SecurityUtils.getCurrentUserId() y se asigna
+  en cada MovimientoInventario; NO viene en el body del request.
 
 CatalogoService:
 - CRUD básico para CategoriaTerapeutica, FormaFarmaceutica, ViaAdministracion.
