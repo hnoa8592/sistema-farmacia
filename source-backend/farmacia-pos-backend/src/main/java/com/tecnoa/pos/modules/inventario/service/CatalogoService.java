@@ -8,6 +8,8 @@ import com.tecnoa.pos.modules.inventario.repository.*;
 import com.tecnoa.pos.shared.exception.BusinessException;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,7 @@ public class CatalogoService {
     private final ProductoRepository productoRepo;
 
     // -------- Categorías --------
+    @Cacheable("categorias")
     public List<CatalogoDTO> listarCategorias() {
         return categoriaRepo.findAll().stream().map(c ->
                 CatalogoDTO.builder().id(c.getId()).nombre(c.getNombre())
@@ -32,6 +35,7 @@ public class CatalogoService {
         ).collect(Collectors.toList());
     }
 
+    @CacheEvict(value = "categorias", allEntries = true)
     @Transactional
     public CatalogoDTO crearCategoria(CatalogoDTO dto) {
         if (categoriaRepo.existsByNombre(dto.getNombre()))
@@ -43,6 +47,7 @@ public class CatalogoService {
                 .descripcion(c.getDescripcion()).activo(c.getActivo()).build();
     }
 
+    @CacheEvict(value = "categorias", allEntries = true)
     @Transactional
     public CatalogoDTO actualizarCategoria(UUID id, CatalogoDTO dto) {
         CategoriaTerapeutica c = categoriaRepo.findById(id)
@@ -54,6 +59,7 @@ public class CatalogoService {
                 .descripcion(c.getDescripcion()).activo(c.getActivo()).build();
     }
 
+    @CacheEvict(value = "categorias", allEntries = true)
     @Transactional
     public void eliminarCategoria(UUID id) {
         CategoriaTerapeutica c = categoriaRepo.findById(id)
@@ -63,6 +69,7 @@ public class CatalogoService {
     }
 
     // -------- Formas Farmacéuticas --------
+    @Cacheable("formas-farmaceuticas")
     public List<CatalogoDTO> listarFormas() {
         return formaRepo.findAll().stream().map(f ->
                 CatalogoDTO.builder().id(f.getId()).nombre(f.getNombre())
@@ -70,6 +77,7 @@ public class CatalogoService {
         ).collect(Collectors.toList());
     }
 
+    @CacheEvict(value = "formas-farmaceuticas", allEntries = true)
     @Transactional
     public CatalogoDTO crearForma(CatalogoDTO dto) {
         if (formaRepo.existsByNombre(dto.getNombre()))
@@ -81,6 +89,7 @@ public class CatalogoService {
                 .descripcion(f.getDescripcion()).activo(f.getActivo()).build();
     }
 
+    @CacheEvict(value = "formas-farmaceuticas", allEntries = true)
     @Transactional
     public CatalogoDTO actualizarForma(UUID id, CatalogoDTO dto) {
         FormaFarmaceutica f = formaRepo.findById(id)
@@ -92,6 +101,7 @@ public class CatalogoService {
                 .descripcion(f.getDescripcion()).activo(f.getActivo()).build();
     }
 
+    @CacheEvict(value = "formas-farmaceuticas", allEntries = true)
     @Transactional
     public void eliminarForma(UUID id) {
         FormaFarmaceutica f = formaRepo.findById(id)
@@ -101,6 +111,7 @@ public class CatalogoService {
     }
 
     // -------- Vías de Administración --------
+    @Cacheable("vias-administracion")
     public List<CatalogoDTO> listarVias() {
         return viaRepo.findAll().stream().map(v ->
                 CatalogoDTO.builder().id(v.getId()).nombre(v.getNombre())
@@ -108,6 +119,7 @@ public class CatalogoService {
         ).collect(Collectors.toList());
     }
 
+    @CacheEvict(value = "vias-administracion", allEntries = true)
     @Transactional
     public CatalogoDTO crearVia(CatalogoDTO dto) {
         if (viaRepo.existsByNombre(dto.getNombre()))
@@ -119,6 +131,7 @@ public class CatalogoService {
                 .descripcion(v.getDescripcion()).activo(v.getActivo()).build();
     }
 
+    @CacheEvict(value = "vias-administracion", allEntries = true)
     @Transactional
     public CatalogoDTO actualizarVia(UUID id, CatalogoDTO dto) {
         ViaAdministracion v = viaRepo.findById(id)
@@ -130,6 +143,7 @@ public class CatalogoService {
                 .descripcion(v.getDescripcion()).activo(v.getActivo()).build();
     }
 
+    @CacheEvict(value = "vias-administracion", allEntries = true)
     @Transactional
     public void eliminarVia(UUID id) {
         ViaAdministracion v = viaRepo.findById(id)

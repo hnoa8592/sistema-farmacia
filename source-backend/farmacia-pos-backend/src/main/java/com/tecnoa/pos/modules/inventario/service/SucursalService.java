@@ -7,6 +7,9 @@ import com.tecnoa.pos.modules.inventario.repository.SucursalRepository;
 import com.tecnoa.pos.shared.exception.BusinessException;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +24,12 @@ public class SucursalService {
     private final SucursalRepository sucursalRepository;
     private final InventarioRepository inventarioRepository;
 
+    @Cacheable("sucursales")
     public List<SucursalDTO> listar() {
         return sucursalRepository.findByActivoTrue().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    @CacheEvict(value = "sucursales", allEntries = true)
     @Transactional
     public SucursalDTO crear(SucursalDTO dto) {
         return toDTO(sucursalRepository.save(Sucursal.builder()
@@ -34,6 +39,7 @@ public class SucursalService {
                 .activo(true).build()));
     }
 
+    @CacheEvict(value = "sucursales", allEntries = true)
     @Transactional
     public SucursalDTO actualizar(UUID id, SucursalDTO dto) {
         Sucursal s = sucursalRepository.findById(id)
@@ -44,6 +50,7 @@ public class SucursalService {
         return toDTO(sucursalRepository.save(s));
     }
 
+    @CacheEvict(value = "sucursales", allEntries = true)
     @Transactional
     public void eliminar(UUID id) {
         Sucursal s = sucursalRepository.findById(id)

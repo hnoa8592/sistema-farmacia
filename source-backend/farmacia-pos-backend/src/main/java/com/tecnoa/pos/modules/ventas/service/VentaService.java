@@ -3,6 +3,7 @@ package com.tecnoa.pos.modules.ventas.service;
 import com.tecnoa.pos.modules.auditoria.annotation.Auditable;
 import com.tecnoa.pos.modules.inventario.model.*;
 import com.tecnoa.pos.modules.inventario.repository.*;
+import com.tecnoa.pos.modules.inventario.service.ProductoPrecioService;
 import com.tecnoa.pos.modules.parametros.service.ParametroService;
 import com.tecnoa.pos.shared.security.SecurityUtils;
 import com.tecnoa.pos.modules.ventas.dto.DetalleVentaDTO;
@@ -36,7 +37,7 @@ public class VentaService {
     private final VentaRepository ventaRepository;
     private final InventarioRepository inventarioRepository;
     private final MovimientoRepository movimientoRepository;
-    private final ProductoPrecioRepository precioRepository;
+    private final ProductoPrecioService productoPrecioService;
     private final ParametroService parametroService;
     private final SecurityUtils securityUtils;
 
@@ -83,8 +84,8 @@ public class VentaService {
                         inventario.getLote().getNumeroLote() + ". Stock: " + inventario.getStockActual());
             }
 
-            ProductoPrecio precio = precioRepository.findPrecioVigente(
-                    inventario.getLote().getProducto().getId(), dto.getTipoPrecio(), LocalDateTime.now())
+            ProductoPrecio precio = productoPrecioService.getPrecioVigente(
+                    inventario.getLote().getProducto().getId(), dto.getTipoPrecio())
                     .orElseThrow(() -> new BusinessException("No hay precio vigente para tipo: " + dto.getTipoPrecio()));
 
             BigDecimal precioUnitario = precio.getPrecio();

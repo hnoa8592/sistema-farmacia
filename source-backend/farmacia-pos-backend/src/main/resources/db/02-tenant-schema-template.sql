@@ -84,6 +84,10 @@ CREATE INDEX IF NOT EXISTS idx_productos_codigo_barra ON productos(codigo_barra)
 CREATE INDEX IF NOT EXISTS idx_productos_nombre ON productos(nombre);
 CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria_id);
 CREATE INDEX IF NOT EXISTS idx_productos_forma ON productos(forma_farmaceutica_id);
+-- Búsqueda case-insensitive (LIKE lower(nombre)) usada en POS y consultas de stock
+CREATE INDEX IF NOT EXISTS idx_productos_nombre_lower ON productos (lower(nombre));
+-- Filtro estándar por productos activos con nombre: evita full scan
+CREATE INDEX IF NOT EXISTS idx_productos_activo_nombre ON productos (activo, lower(nombre)) WHERE activo = true;
 
 -- 8. Producto principios activos
 CREATE TABLE IF NOT EXISTS producto_principios_activos (
@@ -123,6 +127,8 @@ CREATE TABLE IF NOT EXISTS producto_precios (
     activo          BOOLEAN NOT NULL DEFAULT true
 );
 CREATE INDEX IF NOT EXISTS idx_precios_producto_tipo ON producto_precios(producto_id, tipo_precio) WHERE activo = true;
+-- Rango de vigencia usado en findPrecioVigente (vigencia_desde <= now <= vigencia_hasta)
+CREATE INDEX IF NOT EXISTS idx_precios_vigencia ON producto_precios (producto_id, tipo_precio, vigencia_desde, vigencia_hasta) WHERE activo = true;
 
 -- 11. Inventario
 CREATE TABLE IF NOT EXISTS inventario (
@@ -136,6 +142,8 @@ CREATE TABLE IF NOT EXISTS inventario (
 );
 CREATE INDEX IF NOT EXISTS idx_inventario_lote ON inventario(lote_id);
 CREATE INDEX IF NOT EXISTS idx_inventario_sucursal ON inventario(sucursal_id);
+-- Filtro de stock disponible (soloConStock=true) en búsqueda de productos del POS
+CREATE INDEX IF NOT EXISTS idx_inventario_stock_positivo ON inventario (sucursal_id, lote_id) WHERE stock_actual > 0;
 
 -- 12. Movimientos inventario
 CREATE TABLE IF NOT EXISTS movimientos_inventario (

@@ -10,6 +10,7 @@ sistema POS de farmacia multi-tenant.
 - spring-boot-starter-validation
 - spring-boot-starter-cache
 - spring-boot-starter-aop
+- caffeine (com.github.ben-manes.caffeine) — caché en memoria con TTL y tamaño máximo por caché
 - postgresql (runtime)
 - jjwt-api, jjwt-impl, jjwt-jackson (0.12.x)
 - lombok
@@ -188,6 +189,8 @@ com.tecnoa.pos/
 │           ├── ParametroRequestDTO.java
 │           └── ParametroResponseDTO.java
 └── shared/
+    ├── config/
+    │   └── CacheConfig.java            # CaffeineCacheManager con specs por caché
     ├── dto/
     │   └── ApiResponse.java            # { success, message, data, errors }
     ├── exception/
@@ -197,6 +200,7 @@ com.tecnoa.pos/
     └── security/
         ├── JwtService.java
         ├── JwtAuthFilter.java
+        ├── SecurityUtils.java          # getCurrentUserId(): UUID desde JWT de la request
         └── UserDetailsServiceImpl.java
 
 ---
@@ -484,6 +488,118 @@ Componente Spring en `com.tecnoa.pos.shared.security`.
 - Todo lo demás: autenticado
 - Configura JwtAuthFilter antes de UsernamePasswordAuthFilter
 - CORS abierto para localhost:4200 en dev
+
+---
+
+## CACHÉ — Implementación completa
+
+La aplicación usa Spring Cache con Caffeine (caché en memoria, por proceso).
+`@EnableCaching` ya está en `FarmaciaPosApplication`.
+
+### CacheConfig.java — `com.tecnoa.pos.shared.config`
+Crea un `@Bean CacheManager` usando `SimpleCacheManager` con una lista de
+`CaffeineCache` individuales. Cada caché tiene su propio TTL y tamaño máximo.
+NO usar `spring.cache.caffeine.spec` en YAML (no soporta specs por nombre).
+
+```java
+private CaffeineCache buildCache(String name, int maxSize, Duration ttl) {
+    return new CaffeineCache(name,
+        Caffeine.newBuilder().maximumSize(maxSize).expireAfterWrite(ttl)
+            .recordStats().build());
+}
+```
+
+Cachés declarados:
+
+| Nombre caché           | TTL  | Max  | Qué guarda                              |
+|------------------------|------|------|-----------------------------------------|
+| `parametros`           | 24h  | 200  | Parámetros del sistema por clave        |
+| `sucursales`           | 24h  | 50   | Lista completa de sucursales activas    |
+| `categorias`           | 24h  | 150  | Lista de categorías terapéuticas        |
+| `formas-farmaceuticas` | 24h  | 150  | Lista de formas farmacéuticas           |
+| `vias-administracion`  | 24h  | 150  | Lista de vías de administración         |
+| `perfiles`             | 24h  | 50   | Lista completa de perfiles              |
+| `recursos`             | 24h  | 300  | Lista completa de recursos/permisos     |
+| `precios-producto`     | 30min| 1000 | Precios activos por productoId          |
+| `precios-vigentes`     | 30min| 2000 | Precio vigente por productoId+tipoPrecio|
+
+### Reglas de anotación
+
+**Datos estáticos — TTL 24h:**
+Usar `@Cacheable` en los métodos `listar()` / `listarRecursos()` sin parámetros.
+Usar `@CacheEvict(allEntries = true)` en todos los métodos de escritura (crear/actualizar/eliminar).
+
+```java
+// CatalogoService
+@Cacheable("categorias")
+public List<CatalogoDTO> listarCategorias() { ... }
+
+@CacheEvict(value = "categorias", allEntries = true)
+public CatalogoDTO crearCategoria(CatalogoDTO dto) { ... }
+// ídem para actualizarCategoria, eliminarCategoria
+// ídem para formas-farmaceuticas y vias-administracion
+```
+
+```java
+// SucursalService
+@Cacheable("sucursales")
+public List<SucursalDTO> listar() { ... }
+
+@CacheEvict(value = "sucursales", allEntries = true)
+public SucursalDTO crear/actualizar/eliminar(...) { ... }
+```
+
+```java
+// PerfilService
+@Cacheable("perfiles")
+public List<PerfilResponseDTO> listar() { ... }
+
+@Cacheable("recursos")
+public List<RecursoDTO> listarRecursos() { ... }
+
+@Caching(evict = {
+    @CacheEvict(value = "perfiles", allEntries = true),
+    @CacheEvict(value = "recursos", allEntries = true)
+})
+public PerfilResponseDTO crear/actualizar(...) { ... }
+```
+
+**Datos semi-dinámicos — TTL 30min:**
+
+```java
+// ProductoPrecioService
+@Cacheable(value = "precios-producto", key = "#productoId")
+public List<ProductoPrecioDTO> listarPorProducto(UUID productoId) { ... }
+
+// Nuevo método cacheado — VentaService lo usa para obtener el precio en cada línea
+@Cacheable(value = "precios-vigentes", key = "#productoId + '_' + #tipoPrecio")
+public Optional<ProductoPrecio> getPrecioVigente(UUID productoId, TipoPrecio tipoPrecio) {
+    return precioRepository.findPrecioVigente(productoId, tipoPrecio, LocalDateTime.now());
+}
+
+@Caching(evict = {
+    @CacheEvict(value = "precios-vigentes", allEntries = true),
+    @CacheEvict(value = "precios-producto", key = "#productoId")   // solo en crear()
+})
+public ProductoPrecioDTO crear(UUID productoId, ProductoPrecioDTO dto) { ... }
+
+// actualizar() y desactivar() usan allEntries=true en ambas cachés
+// porque no tienen acceso directo a productoId desde solo el id de precio
+```
+
+### Qué NO cachear
+- `VentaService.listar()` — filtros temporales variables, resultado único por query
+- `InventarioService.getStock()` — stock cambia en cada venta/entrada/ajuste
+- `MovimientoRepository.buscar()` — 8 parámetros opcionales, alta cardinalidad
+- `ReporteService.*` — rangos de fecha libres, cálculos bajo demanda
+- `AuditLog.*` — dato inmutable pero de alta velocidad de inserción, no consultado en loop
+
+### application.yml
+```yaml
+spring:
+  cache:
+    type: caffeine   # activa Caffeine como provider; specs definidas en CacheConfig.java
+```
 
 ---
 
@@ -778,8 +894,10 @@ VentaService:
 - Si insuficiente y PERMITIR_VENTA_SIN_STOCK=false: lanzar BusinessException.
 - Descontar stock: Inventario.stockActual -= cantidad para cada detalle.
 - Crear un MovimientoInventario tipo SALIDA por cada detalle de la venta.
-- El precioUnitario del detalle se captura desde ProductoPrecio activo
-  del tipo correspondiente en el momento de la venta (no se modifica después).
+- El precioUnitario se obtiene llamando a `productoPrecioService.getPrecioVigente(productoId, tipoPrecio)`,
+  NO directamente al repositorio. Este método está cacheado (TTL 30min) → reduce queries en ventas
+  con múltiples líneas del mismo producto. El precio capturado no se modifica después.
+- Inyectar `ProductoPrecioService` (no `ProductoPrecioRepository`) para consulta de precios.
 - Descuento solo si el usuario tiene recurso "ventas:descuento".
 - Descuento no puede superar MAX_DESCUENTO_PORCENTAJE (leer de ParametroService).
 - Calcular IGV usando IVA_PORCENTAJE (leer de ParametroService).
@@ -806,8 +924,12 @@ ProductoPrecioService:
 - Solo puede existir un precio activo por (productoId, tipoPrecio).
 - Al crear un nuevo precio para un tipo existente: cerrar el precio anterior
   seteando vigenciaHasta = vigenciaDesde del nuevo.
-- Al consultar precios para una venta: retornar el precio con
-  vigenciaDesde <= now() y (vigenciaHasta IS NULL o vigenciaHasta >= now()).
+- Al consultar precios para una venta: usar `getPrecioVigente(productoId, tipoPrecio)` —
+  retorna el precio con vigenciaDesde <= now() y (vigenciaHasta IS NULL o vigenciaHasta >= now()).
+  Resultado cacheado en `precios-vigentes` (TTL 30min, clave: productoId + '_' + tipoPrecio).
+- `listarPorProducto(productoId)` está cacheado en `precios-producto` (TTL 30min, clave: productoId).
+- Cualquier escritura (crear, actualizar, desactivar) invalida `precios-vigentes` (allEntries=true)
+  y `precios-producto` (por productoId o allEntries si no se dispone del productoId).
 
 InventarioService:
 - Entrada: aumentar Inventario.stockActual + registrar MovimientoInventario ENTRADA.
@@ -823,6 +945,9 @@ InventarioService:
 CatalogoService:
 - CRUD básico para CategoriaTerapeutica, FormaFarmaceutica, ViaAdministracion.
 - Soft delete: no permitir si hay Productos referenciando el catálogo.
+- `listarCategorias()`, `listarFormas()`, `listarVias()` están cacheados con @Cacheable
+  (cachés: "categorias", "formas-farmaceuticas", "vias-administracion" — TTL 24h).
+- Todos los métodos de escritura invalidan su caché correspondiente con @CacheEvict(allEntries=true).
 
 LaboratorioService:
 - CRUD completo con paginación.
@@ -831,6 +956,8 @@ LaboratorioService:
 SucursalService:
 - CRUD completo.
 - Soft delete: no permitir si tiene Inventario con stockActual > 0.
+- `listar()` está cacheado con @Cacheable("sucursales") (TTL 24h).
+- crear/actualizar/eliminar invalidan con @CacheEvict(value="sucursales", allEntries=true).
 
 AuditService:
 - Nunca lanzar excepción al exterior; si falla el registro de auditoría,
@@ -877,12 +1004,17 @@ en el siguiente orden de dependencias:
 
 Índices a crear:
 - productos: (codigo), (codigo_barra), (nombre), (categoria_id), (forma_farmaceutica_id)
+- productos: lower(nombre)                           ← búsqueda case-insensitive LIKE en POS
+- productos: (activo, lower(nombre)) WHERE activo=true ← filtro activo + nombre sin full scan
 - principios_activos: (nombre)
 - laboratorios: (nombre)
 - sucursales: (nombre)
 - producto_lotes: (producto_id), (laboratorio_id), (fecha_vencimiento), (numero_lote)
 - producto_precios: (producto_id, tipo_precio) WHERE activo = true
+- producto_precios: (producto_id, tipo_precio, vigencia_desde, vigencia_hasta) WHERE activo=true
+  ← optimiza findPrecioVigente con rango de fechas
 - inventario: (lote_id), (sucursal_id), (lote_id, sucursal_id) UNIQUE
+- inventario: (sucursal_id, lote_id) WHERE stock_actual > 0  ← filtro soloConStock en POS
 - movimientos_inventario: (inventario_id), (producto_id), (sucursal_id), (fecha), (tipo)
 - detalle_ventas: (venta_id), (producto_id), (lote_id)
 - audit_logs: (usuario_id), (modulo), (entidad), (fecha), (entidad, entidad_id)

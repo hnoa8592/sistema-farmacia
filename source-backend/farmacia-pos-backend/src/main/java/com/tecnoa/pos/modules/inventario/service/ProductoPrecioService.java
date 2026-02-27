@@ -4,15 +4,20 @@ import com.tecnoa.pos.modules.auditoria.annotation.Auditable;
 import com.tecnoa.pos.modules.inventario.dto.ProductoPrecioDTO;
 import com.tecnoa.pos.modules.inventario.model.Producto;
 import com.tecnoa.pos.modules.inventario.model.ProductoPrecio;
+import com.tecnoa.pos.modules.inventario.model.TipoPrecio;
 import com.tecnoa.pos.modules.inventario.repository.ProductoPrecioRepository;
 import com.tecnoa.pos.modules.inventario.repository.ProductoRepository;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,11 +28,25 @@ public class ProductoPrecioService {
     private final ProductoPrecioRepository precioRepository;
     private final ProductoRepository productoRepository;
 
+    @Cacheable(value = "precios-producto", key = "#productoId")
     public List<ProductoPrecioDTO> listarPorProducto(UUID productoId) {
         return precioRepository.findByProductoIdAndActivoTrue(productoId)
                 .stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Retorna el precio vigente cacheado por (productoId, tipoPrecio).
+     * TTL: 30 min. Se invalida al crear, actualizar o desactivar cualquier precio.
+     */
+    @Cacheable(value = "precios-vigentes", key = "#productoId + '_' + #tipoPrecio")
+    public Optional<ProductoPrecio> getPrecioVigente(UUID productoId, TipoPrecio tipoPrecio) {
+        return precioRepository.findPrecioVigente(productoId, tipoPrecio, LocalDateTime.now());
+    }
+
+    @Caching(evict = {
+        @CacheEvict(value = "precios-vigentes",  allEntries = true),
+        @CacheEvict(value = "precios-producto",  key = "#productoId")
+    })
     @Auditable(accion = "CREAR", modulo = "INVENTARIO", entidad = "ProductoPrecio",
                descripcion = "Creación/actualización de precio de producto")
     @Transactional
@@ -50,6 +69,10 @@ public class ProductoPrecioService {
         return toDTO(precioRepository.save(precio));
     }
 
+    @Caching(evict = {
+        @CacheEvict(value = "precios-vigentes", allEntries = true),
+        @CacheEvict(value = "precios-producto", allEntries = true)
+    })
     @Auditable(accion = "EDITAR", modulo = "INVENTARIO", entidad = "ProductoPrecio",
                descripcion = "Actualización de precio de producto")
     @Transactional
@@ -62,6 +85,10 @@ public class ProductoPrecioService {
         return toDTO(precioRepository.save(precio));
     }
 
+    @Caching(evict = {
+        @CacheEvict(value = "precios-vigentes", allEntries = true),
+        @CacheEvict(value = "precios-producto", allEntries = true)
+    })
     @Transactional
     public void desactivar(UUID id) {
         ProductoPrecio precio = precioRepository.findById(id)

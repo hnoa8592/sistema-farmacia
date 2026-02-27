@@ -10,6 +10,9 @@ import com.tecnoa.pos.modules.usuarios.repository.RecursoRepository;
 import com.tecnoa.pos.shared.exception.BusinessException;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +29,12 @@ public class PerfilService {
     private final PerfilRepository perfilRepository;
     private final RecursoRepository recursoRepository;
 
+    @Cacheable("perfiles")
     public List<PerfilResponseDTO> listar() {
         return perfilRepository.findAll().stream().map(this::toResponse).collect(Collectors.toList());
     }
 
+    @Cacheable("recursos")
     public List<PerfilResponseDTO.RecursoDTO> listarRecursos() {
         return recursoRepository.findAll().stream()
                 .map(r -> PerfilResponseDTO.RecursoDTO.builder()
@@ -37,6 +42,10 @@ public class PerfilService {
                 .collect(Collectors.toList());
     }
 
+    @Caching(evict = {
+        @CacheEvict(value = "perfiles", allEntries = true),
+        @CacheEvict(value = "recursos", allEntries = true)
+    })
     @Auditable(accion = "CREAR", modulo = "PERFILES", entidad = "Perfil", descripcion = "Creación de perfil")
     @Transactional
     public PerfilResponseDTO crear(PerfilRequestDTO dto) {
@@ -61,6 +70,10 @@ public class PerfilService {
         return toResponse(perfilRepository.save(perfil));
     }
 
+    @Caching(evict = {
+        @CacheEvict(value = "perfiles", allEntries = true),
+        @CacheEvict(value = "recursos", allEntries = true)
+    })
     @Auditable(accion = "EDITAR", modulo = "PERFILES", entidad = "Perfil", descripcion = "Actualización de perfil")
     @Transactional
     public PerfilResponseDTO actualizar(UUID id, PerfilRequestDTO dto) {
@@ -82,6 +95,7 @@ public class PerfilService {
         return toResponse(perfilRepository.save(perfil));
     }
 
+    @CacheEvict(value = "perfiles", allEntries = true)
     @Auditable(accion = "EDITAR", modulo = "PERFILES", entidad = "Perfil", descripcion = "Asignación de recursos")
     @Transactional
     public PerfilResponseDTO asignarRecursos(UUID id, List<UUID> recursoIds) {
