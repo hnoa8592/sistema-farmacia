@@ -29,6 +29,7 @@ com\tecnoa\pos\modules\usuarios\service\PerfilService.class
 com\tecnoa\pos\modules\inventario\dto\ProductoRequestDTO.class
 com\tecnoa\pos\shared\dto\ApiResponse.class
 com\tecnoa\pos\config\WebMvcConfig.class
+com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO$VentaResumen.class
 com\tecnoa\pos\modules\inventario\model\Inventario.class
 com\tecnoa\pos\modules\inventario\model\PrincipioActivo$PrincipioActivoBuilder.class
 com\tecnoa\pos\modules\inventario\service\PrincipioActivoService.class
@@ -63,16 +64,19 @@ com\tecnoa\pos\modules\usuarios\repository\PerfilRepository.class
 com\tecnoa\pos\modules\ventas\dto\VentaResponseDTO$VentaResponseDTOBuilder.class
 com\tecnoa\pos\modules\usuarios\model\Usuario.class
 com\tecnoa\pos\config\TenantContext.class
+com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO$VentaPorDia$VentaPorDiaBuilder.class
 com\tecnoa\pos\modules\usuarios\dto\UsuarioResponseDTO$UsuarioResponseDTOBuilder.class
 com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO.class
 com\tecnoa\pos\modules\ventas\model\DetalleVenta$DetalleVentaBuilder.class
 com\tecnoa\pos\modules\inventario\service\ProductoService.class
+com\tecnoa\pos\shared\config\CacheConfig.class
 com\tecnoa\pos\modules\inventario\dto\MovimientoRequestDTO.class
 com\tecnoa\pos\modules\inventario\service\InventarioService.class
 com\tecnoa\pos\modules\auditoria\model\AuditLog.class
 com\tecnoa\pos\modules\inventario\controller\LaboratorioController.class
 com\tecnoa\pos\modules\ventas\service\VentaService.class
 com\tecnoa\pos\modules\auth\AuthController.class
+com\tecnoa\pos\shared\security\SecurityUtils.class
 com\tecnoa\pos\modules\inventario\repository\FormaFarmaceuticaRepository.class
 com\tecnoa\pos\modules\inventario\model\ViaAdministracion$ViaAdministracionBuilder.class
 com\tecnoa\pos\modules\usuarios\controller\UsuarioController.class
@@ -94,6 +98,7 @@ com\tecnoa\pos\modules\inventario\service\ProductoLoteService.class
 com\tecnoa\pos\modules\tenant\dto\TenantResponseDTO.class
 com\tecnoa\pos\modules\inventario\dto\InventarioResponseDTO$InventarioResponseDTOBuilder.class
 com\tecnoa\pos\modules\ventas\dto\VentaResponseDTO.class
+com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO$VentaResumen$VentaResumenBuilder.class
 com\tecnoa\pos\shared\dto\ApiResponse$ApiResponseBuilder.class
 com\tecnoa\pos\modules\ventas\repository\VentaRepository.class
 com\tecnoa\pos\modules\inventario\dto\InventarioResponseDTO.class
@@ -124,6 +129,7 @@ com\tecnoa\pos\modules\inventario\repository\SucursalRepository.class
 com\tecnoa\pos\modules\auditoria\annotation\Auditable.class
 com\tecnoa\pos\modules\auth\dto\LoginResponseDTO$LoginResponseDTOBuilder.class
 com\tecnoa\pos\modules\inventario\dto\PrincipioActivoDTO.class
+com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO$VentaPorDia.class
 com\tecnoa\pos\modules\tenant\Tenant$TenantBuilder.class
 com\tecnoa\pos\modules\inventario\service\ProductoPrecioService.class
 com\tecnoa\pos\modules\ventas\model\DetalleVenta.class

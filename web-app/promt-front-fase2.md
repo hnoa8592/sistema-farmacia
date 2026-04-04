@@ -631,21 +631,23 @@ Cada servicio debe:
 
 ### catalogo.service.ts
 ```
-GET    /api/catalogos/categorias
+GET    /api/catalogos/categorias         ← cacheado en backend (TTL 24h)
 POST   /api/catalogos/categorias
 PUT    /api/catalogos/categorias/{id}
 DELETE /api/catalogos/categorias/{id}
 
-GET    /api/catalogos/formas-farmaceuticas
+GET    /api/catalogos/formas-farmaceuticas  ← cacheado en backend (TTL 24h)
 POST   /api/catalogos/formas-farmaceuticas
 PUT    /api/catalogos/formas-farmaceuticas/{id}
 DELETE /api/catalogos/formas-farmaceuticas/{id}
 
-GET    /api/catalogos/vias-administracion
+GET    /api/catalogos/vias-administracion   ← cacheado en backend (TTL 24h)
 POST   /api/catalogos/vias-administracion
 PUT    /api/catalogos/vias-administracion/{id}
 DELETE /api/catalogos/vias-administracion/{id}
 ```
+// Nota: los GET de catálogos responden desde caché en memoria (Caffeine).
+// NO implementar caché adicional en el frontend para estos endpoints.
 
 ### principio-activo.service.ts
 ```
@@ -665,12 +667,14 @@ DELETE /api/laboratorios/{id}
 
 ### sucursal.service.ts
 ```
-GET    /api/sucursales
+GET    /api/sucursales               ← cacheado en backend (TTL 24h)
 POST   /api/sucursales
 PUT    /api/sucursales/{id}
 DELETE /api/sucursales/{id}
 GET    /api/sucursales/{id}/inventario
 ```
+// El listado de sucursales responde desde caché. La primera carga tras inicio del
+// servidor ejecuta la query; las siguientes son instantáneas hasta expirar el TTL.
 
 ### producto.service.ts
 ```
@@ -719,14 +723,16 @@ getLotesVencidos(productoId): Observable<ProductoLoteResponse[]>
 ### producto-precio.service.ts
 ```
 getPrecios(productoId): Observable<ProductoPrecioDTO[]>
-  GET /api/productos/{id}/precios
+  GET /api/productos/{id}/precios  ← cacheado en backend (TTL 30min, clave: productoId)
 crearPrecio(productoId, request): Observable<ProductoPrecioDTO>
-  POST /api/productos/{id}/precios
+  POST /api/productos/{id}/precios  ← invalida caché de precios en backend automáticamente
 editarPrecio(productoId, precioId, request): Observable<ProductoPrecioDTO>
-  PUT /api/productos/{id}/precios/{precioId}
+  PUT /api/productos/{id}/precios/{precioId}   ← ídem
 desactivarPrecio(productoId, precioId): Observable<void>
-  DELETE /api/productos/{id}/precios/{precioId}
+  DELETE /api/productos/{id}/precios/{precioId}   ← ídem
 ```
+// Tras crear/editar/desactivar un precio, llamar getPrecios() mostrará datos frescos
+// porque el backend ya invalidó la caché antes de retornar la respuesta.
 
 ### inventario.service.ts
 ```
@@ -874,8 +880,12 @@ Estado del componente:
 
 Funcionalidades:
 1. Selector de sucursal al inicio (p-dropdown con sucursales activas)
+   — La lista de sucursales viene del backend cacheado (TTL 24h), respuesta rápida.
 2. Input de búsqueda p-autoComplete con debounce 400ms →
    llama GET /api/inventario/stock?productoNombre={q}&sucursalId={id}&soloConStock=true
+   IMPORTANTE: el debounce de 400ms es OBLIGATORIO. Sin él cada keystroke dispara
+   una query sobre la tabla inventario (JOIN 4 tablas). Con el debounce se reduce
+   ~70% de las llamadas al servidor durante el tipeo.
 3. Al seleccionar ítem del autocomplete: agregar al carrito o incrementar cantidad
 4. En cada fila del carrito (p-table editable):
    - p-dropdown para tipoPrecio (UNIDAD/TIRA/CAJA)

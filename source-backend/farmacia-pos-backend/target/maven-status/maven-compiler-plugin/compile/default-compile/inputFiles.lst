@@ -25,6 +25,7 @@ D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoLoteController.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\controller\UsuarioController.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Sucursal.java
+D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\SecurityUtils.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\ResourceNotFoundException.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantRepository.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoPrecioController.java
@@ -59,6 +60,7 @@ D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\dto\TenantResponseDTO.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\PerfilRequestDTO.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\DetalleVentaDTO.java
+D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\config\CacheConfig.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\CatalogoController.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\service\PerfilService.java
 D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\CategoriaTerapeutica.java
