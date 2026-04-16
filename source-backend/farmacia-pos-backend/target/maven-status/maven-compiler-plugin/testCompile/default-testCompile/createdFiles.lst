@@ -1,9 +1,1 @@
-com\tecnoa\pos\modules\ventas\service\VentaServiceTest$AnularVenta.class
-com\tecnoa\pos\modules\inventario\controller\InventarioControllerTest.class
-com\tecnoa\pos\modules\ventas\service\VentaServiceTest.class
-com\tecnoa\pos\modules\inventario\controller\InventarioControllerTest$CamposDTO.class
-com\tecnoa\pos\modules\inventario\controller\InventarioControllerTest$BindingDeParams.class
-com\tecnoa\pos\modules\ventas\service\VentaServiceTest$RegistrarVentaEfectos.class
-com\tecnoa\pos\modules\ventas\service\VentaServiceTest$RegistrarVentaValidaciones.class
-com\tecnoa\pos\modules\inventario\controller\InventarioControllerTest$RespuestaHttp.class
-com\tecnoa\pos\modules\ventas\service\VentaServiceTest$RegistrarVentaTotales.class
+com\tecnoa\pos\config\TenantContextTest.class

@@ -1,7 +1,7 @@
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\InventarioIntegrationTest.java
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\config\TenantContextTest.java
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\controller\InventarioControllerTest.java
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\service\InventarioServiceTest.java
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\ventas\VentaIntegrationTest.java
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\ventas\service\VentaServiceTest.java
-D:\WORKSPACE\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\auth\AuthLoginIntegrationTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\ventas\service\VentaServiceTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\InventarioIntegrationTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\controller\InventarioControllerTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\config\TenantContextTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\auth\AuthLoginIntegrationTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\inventario\service\InventarioServiceTest.java
+C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\test\java\com\tecnoa\pos\modules\ventas\VentaIntegrationTest.java
