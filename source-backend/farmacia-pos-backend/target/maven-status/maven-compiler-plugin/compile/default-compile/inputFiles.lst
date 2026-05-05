@@ -1,124 +1,124 @@
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\SucursalController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\service\ParametroService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Producto.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\LaboratorioController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Sucursal.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ProductoLote.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\CategoriaTerapeutica.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\model\Parametro.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\MovimientoRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\model\Venta.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\TenantInterceptor.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\annotation\Auditable.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\repository\PerfilRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\model\DetalleVenta.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\CatalogoController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoPrecioDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\dto\ParametroResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\VentaRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\LaboratorioDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\service\UsuarioService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\PrincipioActivoDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\model\Usuario.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoLoteResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\service\PerfilService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\LaboratorioRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\repository\ParametroRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ProductoPrincipioActivo.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\AuthController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\repository\UsuarioRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\aspect\AuditAspect.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\FormaFarmaceutica.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\model\Perfil.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\UsuarioResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\MovimientoRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\DetalleVentaDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\PrincipioActivo.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\FormaFarmaceuticaRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\TenantDataSourceConfig.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\dto\TenantResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\controller\ReporteController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ProductoPrecio.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\JwtService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\AuthService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\ProductoLoteService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\TipoMovimiento.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\dto\AuditLogResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\controller\UsuarioController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\repository\DetalleVentaRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\dto\LoginRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ViaAdministracionRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\TipoPrecio.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\ProductoPrecioService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\controller\AuditController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\model\AuditLog.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Laboratorio.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\model\EstadoVenta.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\FarmaciaPosApplication.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\SucursalRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\CatalogoService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\dto\ParametroRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoPrincipioActivoRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\SucursalDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\SucursalService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoPrecioRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\InventarioService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\dto\ApiResponse.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\JwtAuthFilter.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\controller\PerfilController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\config\CacheConfig.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\ProductoService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\WebMvcConfig.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\BusinessException.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\VentaResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ViaAdministracion.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\InventarioResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\LaboratorioService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\dto\TenantRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\MovimientoResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\InventarioRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\PerfilRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\controller\ParametroController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\service\AuditService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\SecurityUtils.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoPrincipioActivoDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Inventario.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\model\Recurso.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\dto\LoginResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoPrecioController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\SecurityConfig.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\model\TipoParametro.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\dto\ReporteStockDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\Tenant.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantInitializer.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\service\ReporteService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\UsuarioRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\PrincipioActivoController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\repository\RecursoRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\CatalogoDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoLoteRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\controller\VentaController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\ResourceNotFoundException.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\dto\AuditFiltroDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\MovimientoInventario.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\repository\VentaRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\PrincipioActivoRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\PerfilResponseDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\repository\AuditLogRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\InventarioController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoLoteRequestDTO.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\UserDetailsServiceImpl.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\TenantContext.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\CategoriaTerapeuticaRepository.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\GlobalExceptionHandler.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\PrincipioActivoService.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoLoteController.java
-C:\FARMACIA_Hilcer\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\service\VentaService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\FormaFarmaceuticaRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Producto.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\repository\RecursoRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\DetalleVentaDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\GlobalExceptionHandler.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\repository\AuditLogRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\dto\LoginRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\SucursalRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\InventarioController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\dto\ReporteStockDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoLoteResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\ProductoPrecioService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\TenantInterceptor.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\WebMvcConfig.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\UserDetailsServiceImpl.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ViaAdministracionRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\ProductoLoteService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\SucursalDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\CatalogoDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\dto\AuditLogResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\MovimientoRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\service\AuditService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\SecurityConfig.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoPrecioRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\controller\ParametroController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\controller\UsuarioController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\dto\LoginResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\model\EstadoVenta.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Sucursal.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\TipoPrecio.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\BusinessException.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\model\AuditLog.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\MovimientoRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\service\ReporteService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\config\CacheConfig.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoLoteController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoPrincipioActivoDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\JwtService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\VentaRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\CatalogoController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\annotation\Auditable.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\repository\PerfilRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\exception\ResourceNotFoundException.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\CategoriaTerapeutica.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\controller\PerfilController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\repository\UsuarioRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\model\DetalleVenta.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\LaboratorioController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\repository\DetalleVentaRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\PrincipioActivoService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoPrecioDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\service\PerfilService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\dto\AuditFiltroDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoPrincipioActivoRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\SecurityUtils.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\MovimientoResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\model\Recurso.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\SucursalController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\dto\ParametroRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\dto\TenantResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\LaboratorioDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\PrincipioActivoController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\ProductoService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\model\TipoParametro.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\controller\ProductoPrecioController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\TenantContext.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\UsuarioRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\aspect\AuditAspect.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\service\UsuarioService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ViaAdministracion.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\PerfilResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\model\Parametro.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\model\Venta.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\ProductoLoteRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\MovimientoInventario.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\repository\ParametroRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ProductoPrincipioActivo.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\PrincipioActivo.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\LaboratorioRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\ProductoLoteRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\dto\TenantRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\repository\VentaRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\FarmaciaPosApplication.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Inventario.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\InventarioResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\Tenant.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auditoria\controller\AuditController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\dto\ApiResponse.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ProductoPrecio.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\ProductoLote.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\config\TenantDataSourceConfig.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\FormaFarmaceutica.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\PrincipioActivoRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\InventarioRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\model\Usuario.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\model\Perfil.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\dto\VentaResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\SucursalService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\InventarioService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\Laboratorio.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\shared\security\JwtAuthFilter.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\model\TipoMovimiento.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\controller\ReporteController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\service\ParametroService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\AuthService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\repository\CategoriaTerapeuticaRepository.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\dto\PrincipioActivoDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\auth\AuthController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\reportes\dto\ReporteVentasDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\PerfilRequestDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\controller\VentaController.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\CatalogoService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\ventas\service\VentaService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\inventario\service\LaboratorioService.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\usuarios\dto\UsuarioResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\parametros\dto\ParametroResponseDTO.java
+C:\Farmacia Pos\sistema-farmacia\source-backend\farmacia-pos-backend\src\main\java\com\tecnoa\pos\modules\tenant\TenantInitializer.java

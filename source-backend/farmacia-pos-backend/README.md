@@ -40,6 +40,12 @@ docker exec -i farmacia-postgres psql -U postgres -d farmacia_pos < src/main/res
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
+```bash 2.0
+mvn --% -Dmaven.test.skip=true -Dspring-boot.run.profiles=dev spring-boot:run
+```
+```bash 3.0 sin los test
+mvn clean install "-Dmaven.test.skip=true"
+```
 
 La API estará disponible en: `http://localhost:8080/api`
 
