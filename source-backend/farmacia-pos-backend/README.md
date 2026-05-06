@@ -39,6 +39,7 @@ docker exec -i farmacia-postgres psql -U postgres -d farmacia_pos < src/main/res
 
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev" "-Dmaven.test.skip=true"
 ```
 ```bash 2.0
 mvn --% -Dmaven.test.skip=true -Dspring-boot.run.profiles=dev spring-boot:run
