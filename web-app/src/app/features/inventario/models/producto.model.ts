@@ -35,9 +35,9 @@ export interface ProductoResponse {
   requiereReceta: boolean;
   controlado: boolean;
   activo: boolean;
-  categoria: CatalogoDTO | null;
-  formaFarmaceutica: CatalogoDTO | null;
-  viaAdministracion: CatalogoDTO | null;
+  categoria?: CatalogoDTO;
+  formaFarmaceutica?: CatalogoDTO;
+  viaAdministracion?: CatalogoDTO;
   principiosActivos: ProductoPrincipioActivoDTO[];
   precios: ProductoPrecioDTO[];
 }

@@ -28,4 +28,5 @@ replay_pid*
 
 # web angular
 web-app/node_modules
-source-backend/farmacia-pos-backend/target
+target/
+dist/
