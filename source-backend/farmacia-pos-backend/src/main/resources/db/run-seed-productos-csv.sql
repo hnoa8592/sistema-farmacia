@@ -842,7 +842,6 @@ INSERT INTO seed_productos_csv_staging (
 (801, NULL, 'J', '4', '27', 'Pirazinamida', 'Comprimido dispersable', '150 mg', 'J04AK01', 'R', 0.630000, NULL, false, 'codigo invalido o ausente'),
 (802, NULL, 'J', '4', '28', 'Rifampicina', 'Solución oral', '20 mg/ml', 'J04AB02', 'R', 48.300000, NULL, false, 'codigo invalido o ausente'),
 (803, NULL, 'J', '4', '29', 'Rifampicina + Isoniazida', 'Comprimido dispersable', '75 mg + 50 mg', 'J04AM02', 'R', 0.360000, NULL, false, 'codigo invalido o ausente'),
-(805, 'Ya se corrigio y debe tomarse en cuenta, agradecemos su comprension.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, false, 'codigo invalido o ausente; medicamento ausente; forma ausente; concentracion ausente; precio no numerico o ausente');
 
 CREATE INDEX IF NOT EXISTS idx_seed_productos_csv_codigo ON seed_productos_csv_staging(codigo);
 CREATE INDEX IF NOT EXISTS idx_seed_productos_csv_valido ON seed_productos_csv_staging(es_valido);

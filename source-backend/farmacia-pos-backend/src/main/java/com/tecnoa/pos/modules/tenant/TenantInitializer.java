@@ -112,10 +112,13 @@ public class TenantInitializer {
                 "db/04-seed-perfiles.sql",
                 "db/05-seed-parametros.sql",
                 "db/06-seed-catalogos.sql",
-                "db/08-seed-productos-liname.sql",
-                "db/09-seed-productos-liname-part2.sql",
-                "db/09-seed-productos-liname-part2b.sql",
-                "db/09-seed-productos-liname-part2c.sql"
+                "db/08-seed-productos-csv-staging.sql",
+                "db/09-seed-productos-csv-principios-activos.sql",
+                "db/10-seed-productos-csv-productos.sql",
+                "db/11-seed-productos-csv-producto-principios-activos.sql",
+                "db/12-seed-productos-csv-precios.sql",
+                "db/13-seed-productos-csv-lotes-inventario.sql",
+                "db/14-validacion-productos-csv.sql"
             };
             for (String seedFile : seedFiles) {
                 try {

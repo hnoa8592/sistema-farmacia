@@ -141,7 +141,7 @@ WITH source AS (
 )
 INSERT INTO productos (nombre, codigo, descripcion, concentracion, presentacion, requiere_receta, controlado, activo, categoria_id, forma_farmaceutica_id, via_administracion_id)
 SELECT LEFT(s.medicamento, 300), s.codigo,
-       LEFT(CONCAT('LINAME 2026-2027. ATQ: ', COALESCE(NULLIF(s.clasificacion_atq, ''), 'N/D'), '. Forma CSV: ', s.forma_farmaceutica), 1000),
+       '',
        LEFT(s.concentracion, 100), NULLIF(LEFT(s.aclaracion_particularidades, 200), ''),
        (upper(COALESCE(s.uso_restringido, '')) = 'R'), false, true,
        c.id, f.id, v.id
