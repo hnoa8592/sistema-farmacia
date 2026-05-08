@@ -112,6 +112,7 @@ public class TenantInitializer {
                 "db/04-seed-perfiles.sql",
                 "db/05-seed-parametros.sql",
                 "db/06-seed-catalogos.sql",
+                "db/07-seed-data-init.sql",
                 "db/08-seed-productos-csv-staging.sql",
                 "db/09-seed-productos-csv-principios-activos.sql",
                 "db/10-seed-productos-csv-productos.sql",

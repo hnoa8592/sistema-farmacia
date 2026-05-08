@@ -45,7 +45,7 @@ public class InventarioService {
                 productoId, sucursalId, loteId, nombreFiltro);
 
         if (Boolean.TRUE.equals(soloConStock)) {
-            list = list.stream().filter(i -> i.getStockActual() > 0).collect(Collectors.toList());
+            list = list.stream().filter(i -> i.getStockActual() > 0).toList();
         }
         return list.stream().map(this::toResponse).collect(Collectors.toList());
     }
@@ -144,6 +144,7 @@ public class InventarioService {
                 .sucursalNombre(i.getSucursal().getNombre())
                 .productoId(i.getLote().getProducto().getId())
                 .productoNombre(i.getLote().getProducto().getNombre())
+                .concentracion(i.getLote().getProducto().getConcentracion())
                 .stockActual(i.getStockActual())
                 .stockMinimo(i.getStockMinimo())
                 .ubicacion(i.getUbicacion())
