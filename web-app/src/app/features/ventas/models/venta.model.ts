@@ -20,8 +20,14 @@ export interface VentaResponse {
   total: number;
   descuento: number;
   usuarioId: string;
+  usuario?: VentaUsuario;
   estado: 'COMPLETADA' | 'ANULADA';
   detalles: DetalleVentaResponse[];
+}
+
+export interface VentaUsuario {
+  id: string;
+  nombre: string;
 }
 
 export interface DetalleVentaResponse {

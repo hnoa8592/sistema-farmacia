@@ -16,6 +16,13 @@ public class VentaResponseDTO {
     private BigDecimal total;
     private BigDecimal descuento;
     private UUID usuarioId;
+    private UsuarioDTO usuario;
     private EstadoVenta estado;
     private List<DetalleVentaDTO> detalles;
+
+    @Data @Builder
+    public static class UsuarioDTO {
+        private UUID id;
+        private String nombre;
+    }
 }

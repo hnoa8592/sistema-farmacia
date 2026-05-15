@@ -3,7 +3,10 @@
     "version": "16.0.0",
     "scripts": {
         "ng": "ng",
+        "themes": "sass --update src/assets/layout/styles/theme/theme-light:src/assets/layout/styles/theme/theme-light --no-source-map && sass --update src/assets/layout/styles/theme/theme-dark:src/assets/layout/styles/theme/theme-dark --no-source-map",
+        "prestart": "npm run themes",
         "start": "ng serve",
+        "prebuild": "npm run themes",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
