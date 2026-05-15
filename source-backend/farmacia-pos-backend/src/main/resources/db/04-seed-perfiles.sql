@@ -27,7 +27,7 @@ BEGIN
         'ventas:ver','ventas:crear','ventas:anular','ventas:descuento',
         'inventario:ver','inventario:crear','inventario:editar',
         'inventario:movimientos','inventario:lotes','inventario:precios',
-        'reportes:ventas','reportes:inventario','reportes:stock',
+        'reportes:ventas','reportes:inventario','reportes:stock','reportes:movimientos',
         'laboratorios:ver','sucursales:ver','catalogos:ver',
         'principios-activos:ver','usuarios:ver','auditoria:ver','parametros:ver'
     ) ON CONFLICT DO NOTHING;

@@ -27,9 +27,10 @@ INSERT INTO recursos (nombre, modulo) VALUES
 ('principios-activos:ver',    'PRINCIPIOS_ACTIVOS'),
 ('principios-activos:editar', 'PRINCIPIOS_ACTIVOS'),
 -- Reportes
-('reportes:ventas',     'REPORTES'),
-('reportes:inventario', 'REPORTES'),
-('reportes:stock',      'REPORTES'),
+('reportes:ventas',       'REPORTES'),
+('reportes:inventario',   'REPORTES'),
+('reportes:stock',        'REPORTES'),
+('reportes:movimientos',  'REPORTES'),
 -- Usuarios
 ('usuarios:ver',    'USUARIOS'),
 ('usuarios:crear',  'USUARIOS'),
