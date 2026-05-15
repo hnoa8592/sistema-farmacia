@@ -43,5 +43,11 @@ INSERT INTO recursos (nombre, modulo) VALUES
 ('auditoria:ver', 'AUDITORIA'),
 -- Parámetros
 ('parametros:ver',    'PARAMETROS'),
-('parametros:editar', 'PARAMETROS')
+('parametros:editar', 'PARAMETROS'),
+-- Caja
+('caja:abrir',        'CAJA'),
+('caja:cerrar',       'CAJA'),
+('caja:ver',          'CAJA'),
+('caja:movimientos',  'CAJA'),
+('reportes:cierre-caja', 'REPORTES')
 ON CONFLICT (nombre) DO NOTHING;
