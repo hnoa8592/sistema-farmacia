@@ -42,6 +42,9 @@ public class UsuarioService {
         if (usuarioRepository.existsByEmail(dto.getEmail())) {
             throw new BusinessException("Ya existe un usuario con email: " + dto.getEmail());
         }
+        if (dto.getPassword() == null || dto.getPassword().isBlank()) {
+            throw new BusinessException("La contrasena es requerida");
+        }
 
         Set<Perfil> perfiles = new HashSet<>();
         if (dto.getPerfilIds() != null) {

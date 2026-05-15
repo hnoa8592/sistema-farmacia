@@ -14,11 +14,10 @@ public class UsuarioRequestDTO {
     private String nombre;
 
     @NotBlank(message = "El email es requerido")
-    @Email(message = "El email no es válido")
+    @Email(message = "El email no es valido")
     private String email;
 
-    @NotBlank(message = "La contraseña es requerida")
-    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+    @Size(min = 8, message = "La contrasena debe tener al menos 8 caracteres")
     private String password;
 
     private List<UUID> perfilIds;

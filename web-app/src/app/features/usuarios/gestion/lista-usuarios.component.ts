@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { finalize } from 'rxjs';
 import { UsuarioService } from '../services/usuario.service';
 import { PerfilService } from '../services/perfil.service';
 import { UsuarioResponse } from '../models/usuario.model';
@@ -37,7 +38,7 @@ export class ListaUsuariosComponent implements OnInit {
       activo: [true],
       perfilesIds: [[]]
     });
-    this.perfilService.getPerfiles().subscribe(p => this.perfiles = p);
+    this.perfilService.getPerfiles().subscribe(p => this.perfiles = this.perfilesUnicos(p));
     this.cargar(0, 10);
   }
 
@@ -54,7 +55,7 @@ export class ListaUsuariosComponent implements OnInit {
   nuevo(): void {
     this.usuarioSeleccionado = null;
     this.form.reset({ activo: true, perfilesIds: [] });
-    this.form.get('password')!.setValidators([Validators.required, Validators.minLength(6)]);
+    this.form.get('password')!.setValidators([Validators.required, Validators.minLength(8)]);
     this.form.get('password')!.updateValueAndValidity();
     this.mostrarFormulario = true;
   }
@@ -74,24 +75,30 @@ export class ListaUsuariosComponent implements OnInit {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this.guardando = true;
     const v = this.form.value;
-    const req: any = { nombre: v.nombre, email: v.email, activo: v.activo };
+    const req: any = { nombre: v.nombre, email: v.email, activo: v.activo, perfilIds: v.perfilesIds ?? [] };
     if (v.password) req.password = v.password;
 
     const op = this.usuarioSeleccionado
       ? this.usuarioService.editarUsuario(this.usuarioSeleccionado.id, req)
       : this.usuarioService.crearUsuario(req);
 
-    op.subscribe({
-      next: (u) => {
-        if (v.perfilesIds?.length) {
-          this.usuarioService.asignarPerfiles(u.id, v.perfilesIds).subscribe();
-        }
-        this.guardando = false;
+    op.pipe(finalize(() => this.guardando = false)).subscribe({
+      next: () => {
         this.mostrarFormulario = false;
         this.cargar(0, 10);
       },
-      error: (e) => { this.guardando = false; this.messageService.add({ severity: 'error', summary: 'Error', detail: e?.error?.message || 'Error al guardar' }); }
+      error: (e) => { this.messageService.add({ severity: 'error', summary: 'Error', detail: e?.error?.message || 'Error al guardar' }); }
     });
+  }
+
+  private perfilesUnicos(perfiles: PerfilResponse[]): PerfilResponse[] {
+    const porNombre = new Map<string, PerfilResponse>();
+    perfiles.forEach(p => {
+      if (!porNombre.has(p.nombre)) {
+        porNombre.set(p.nombre, p);
+      }
+    });
+    return Array.from(porNombre.values()).sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
   desactivar(u: UsuarioResponse): void {

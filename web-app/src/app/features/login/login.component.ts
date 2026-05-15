@@ -22,7 +22,7 @@ export class LoginComponent {
     private layoutService: LayoutService
   ) {
     this.form = this.fb.group({
-      tenantId: ['farmacia_demo', Validators.required],
+      tenantId: ['farmacia_bri', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });

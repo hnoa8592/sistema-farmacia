@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -31,7 +33,11 @@ public class PerfilService {
 
     @Cacheable("perfiles")
     public List<PerfilResponseDTO> listar() {
-        return perfilRepository.findAll().stream().map(this::toResponse).collect(Collectors.toList());
+        Map<String, Perfil> perfilesUnicos = new LinkedHashMap<>();
+        perfilRepository.findAll().stream()
+                .sorted((a, b) -> a.getNombre().compareToIgnoreCase(b.getNombre()))
+                .forEach(p -> perfilesUnicos.putIfAbsent(p.getNombre(), p));
+        return perfilesUnicos.values().stream().map(this::toResponse).collect(Collectors.toList());
     }
 
     @Cacheable("recursos")
