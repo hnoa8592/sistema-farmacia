@@ -155,6 +155,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Movimientos',
                         icon: 'pi pi-fw pi-list',
                         routerLink: ['/reportes/movimientos']
+                    },
+                    {
+                        label: 'Cierre de Caja',
+                        icon: 'pi pi-fw pi-wallet',
+                        routerLink: ['/reportes/cierre-caja']
                     }
                 ]
             });

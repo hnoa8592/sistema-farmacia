@@ -27,9 +27,11 @@ BEGIN
         'ventas:ver','ventas:crear','ventas:anular','ventas:descuento',
         'inventario:ver','inventario:crear','inventario:editar',
         'inventario:movimientos','inventario:lotes','inventario:precios',
-        'reportes:ventas','reportes:inventario','reportes:stock',
+        'reportes:ventas','reportes:inventario','reportes:stock','reportes:movimientos',
+        'reportes:cierre-caja',
         'laboratorios:ver','sucursales:ver','catalogos:ver',
-        'principios-activos:ver','usuarios:ver','auditoria:ver','parametros:ver'
+        'principios-activos:ver','usuarios:ver','auditoria:ver','parametros:ver',
+        'caja:abrir','caja:cerrar','caja:ver','caja:movimientos'
     ) ON CONFLICT DO NOTHING;
 
     -- CAJERO
@@ -41,6 +43,7 @@ BEGIN
     INSERT INTO perfil_recursos (perfil_id, recurso_id)
     SELECT v_cajero_id, id FROM recursos WHERE nombre IN (
         'ventas:ver','ventas:crear',
-        'inventario:ver','catalogos:ver','sucursales:ver'
+        'inventario:ver','catalogos:ver','sucursales:ver',
+        'caja:abrir','caja:cerrar','caja:ver','caja:movimientos'
     ) ON CONFLICT DO NOTHING;
 END $$;
