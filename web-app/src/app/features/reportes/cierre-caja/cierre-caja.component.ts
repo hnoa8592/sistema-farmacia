@@ -62,7 +62,6 @@ export class CierreCajaComponent implements OnInit {
             ];
         });
         this.cargarHistorial();
-        this.cargarCajaAbierta();
     }
 
     abrirDialogoApertura(): void {
@@ -145,8 +144,7 @@ export class CierreCajaComponent implements OnInit {
     }
 
     cargarCajaAbierta(): void {
-
-        this.cajaService.getActiva('c4f51dca-67f0-49af-94a5-95cb824b368c').subscribe({
+        this.cajaService.getActiva(this.sucursalIdInput).subscribe({
             next: caja => {
                 this.cajaActiva = caja;
                 this.mostrarApertura = false;

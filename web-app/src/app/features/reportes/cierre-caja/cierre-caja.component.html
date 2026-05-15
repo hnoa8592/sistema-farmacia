@@ -9,6 +9,20 @@
                 <h2 class="m-0 text-900 font-bold">
                     <i class="pi pi-wallet mr-2 text-green-500"></i>Caja Activa
                 </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <div class="flex flex-column gap-1">
+                    <p-dropdown [(ngModel)]="sucursalIdInput" [options]="sucursales"
+                                optionLabel="nombre" optionValue="id" placeholder="Selecciona una sucursal"
+                                class="w-full" (onChange)="cargarCajaAbierta()">
+                    </p-dropdown>
+                </div>
                 <p-button *ngIf="!cajaActiva" label="Abrir Caja" icon="pi pi-plus"
                           styleClass="p-button-success" (onClick)="abrirDialogoApertura()">
                 </p-button>
