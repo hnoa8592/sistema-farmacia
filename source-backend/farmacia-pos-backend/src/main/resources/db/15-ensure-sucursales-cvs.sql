@@ -1,5 +1,5 @@
 -- ============================================================
--- 15-ensure-sucursales-farmacia-bri.sql
+-- 15-ensure-sucursales-cvs.sql
 -- Asegura las sucursales requeridas por los seeds existentes.
 -- Tenant: farmacia_bri
 --
@@ -9,7 +9,7 @@
 -- ============================================================
 
 SET client_encoding TO 'UTF8';
-SET search_path TO farmacia_bri, public;
+SET search_path TO {SCHEMA}, public;
 
 BEGIN;
 
