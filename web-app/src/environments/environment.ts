@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/api',
-  tenantId: 'farmacia_bri'
+  tenantId: 'farmacia_dev'
 };

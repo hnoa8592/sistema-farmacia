@@ -40,7 +40,7 @@ public class Usuario {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "usuario_perfil",
+        name = "usuario_perfiles",
         joinColumns = @JoinColumn(name = "usuario_id"),
         inverseJoinColumns = @JoinColumn(name = "perfil_id")
     )

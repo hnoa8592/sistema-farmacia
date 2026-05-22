@@ -273,7 +273,7 @@ class VentaIntegrationTest {
     }
 
     private int getStockActual(UUID productoId) {
-        List<InventarioResponseDTO> stocks = inventarioService.getStock(productoId, null, null);
+        List<InventarioResponseDTO> stocks = inventarioService.getStock(productoId, null, null, "", true);
         assertThat(stocks).as("Debe existir inventario para productoId=" + productoId).isNotEmpty();
         return stocks.get(0).getStockActual();
     }
