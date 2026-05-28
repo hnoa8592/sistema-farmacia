@@ -32,10 +32,26 @@ export class ReporteService {
     );
   }
 
-  getReporteMovimientos(desde: string, hasta: string): Observable<any[]> {
-    let params = new HttpParams().set('desde', desde).set('hasta', hasta);
-    return this.http.get<ApiResponse<any[]>>(`${this.url}/movimientos`, { params }).pipe(
+  getReporteMovimientos(
+    desde: string, hasta: string,
+    tipo?: string, sucursalId?: string,
+    page = 0, size = 10
+  ): Observable<any> {
+    let params = new HttpParams().set('desde', desde).set('hasta', hasta)
+      .set('page', page).set('size', size);
+    if (tipo) params = params.set('tipo', tipo);
+    if (sucursalId) params = params.set('sucursalId', sucursalId);
+    return this.http.get<ApiResponse<any>>(`${this.url}/movimientos`, { params }).pipe(
       map(r => r.data), catchError(e => throwError(() => e))
+    );
+  }
+
+  exportarMovimientosCSV(desde: string, hasta: string, tipo?: string, sucursalId?: string): Observable<Blob> {
+    let params = new HttpParams().set('desde', desde).set('hasta', hasta);
+    if (tipo) params = params.set('tipo', tipo);
+    if (sucursalId) params = params.set('sucursalId', sucursalId);
+    return this.http.get(`${this.url}/movimientos/exportar`, { params, responseType: 'blob' }).pipe(
+      catchError(e => throwError(() => e))
     );
   }
 }

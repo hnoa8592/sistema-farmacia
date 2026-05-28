@@ -24,7 +24,7 @@
             <ng-template let-item pTemplate="item">
                 <div class="flex justify-content-between align-items-center py-1 px-1">
                     <div>
-                        <span class="font-medium">{{ item.productoNombre }}</span>
+                        <span class="font-medium">{{ item.productoNombre }} - {{ item.concentracion}}</span>
                         <br>
                         <small class="text-500">
                             Lote: {{ item.numeroLote }} &nbsp;|&nbsp;
@@ -109,6 +109,7 @@
                                 optionValue="value"
                                 styleClass="w-full"
                                 [style]="{'min-width':'120px'}"
+                                appendTo="body"
                                 (onChange)="cambiarTipoPrecio(item)">
                             </p-dropdown>
                         </td>

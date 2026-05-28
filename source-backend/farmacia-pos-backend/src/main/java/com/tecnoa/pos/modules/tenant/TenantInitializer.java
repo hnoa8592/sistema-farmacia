@@ -12,20 +12,24 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Inicializa el schema de un nuevo tenant.
+ * Las migraciones estructurales (V1-V6) las gestiona Flyway a través de {@link TenantFlywayMigrator}.
+ * Los scripts de carga de productos (08-14) se ejecutan manualmente al crear el tenant.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class TenantInitializer {
 
+    private final TenantFlywayMigrator tenantFlywayMigrator;
     private final JdbcTemplate jdbcTemplate;
 
     public void initializeTenantSchema(String schemaName) {
         log.info("Initializing schema for tenant: {}", schemaName);
         try {
-            String template = loadTemplate();
-            String script = template.replace("{SCHEMA}", schemaName);
-            executeSqlScript(script, schemaName);
-            initializeDefaultData(schemaName);
+            tenantFlywayMigrator.migrate(schemaName);
+            loadProductScripts(schemaName);
             log.info("Schema initialized successfully for tenant: {}", schemaName);
         } catch (Exception e) {
             log.error("Failed to initialize schema for tenant: {}", schemaName, e);
@@ -33,14 +37,35 @@ public class TenantInitializer {
         }
     }
 
-    private String loadTemplate() throws IOException {
-        ClassPathResource resource = new ClassPathResource("db/02-tenant-schema-template.sql");
-        return resource.getContentAsString(StandardCharsets.UTF_8);
+    private void loadProductScripts(String schemaName) {
+        String[] productScripts = {
+            "db/08-seed-productos-csv-staging.sql",
+            "db/09-seed-productos-csv-principios-activos.sql",
+            "db/10-seed-productos-csv-productos.sql",
+            "db/11-seed-productos-csv-producto-principios-activos.sql",
+            "db/12-seed-productos-csv-precios.sql",
+            "db/13-seed-productos-csv-lotes-inventario.sql",
+            "db/14-validacion-productos-csv.sql"
+        };
+        TenantContext.setTenant(schemaName);
+        try {
+            for (String scriptFile : productScripts) {
+                try {
+                    ClassPathResource res = new ClassPathResource(scriptFile);
+                    String sql = res.getContentAsString(StandardCharsets.UTF_8);
+                    sql = sql.replace("{SCHEMA}", schemaName);
+                    executeSqlScript(sql, schemaName);
+                } catch (IOException e) {
+                    log.warn("Product script not found, skipping: {}", scriptFile);
+                }
+            }
+        } finally {
+            TenantContext.clear();
+        }
     }
 
     private void executeSqlScript(String script, String schemaName) {
-        List<String> statements = parseSqlStatements(script);
-        for (String stmt : statements) {
+        for (String stmt : parseSqlStatements(script)) {
             String trimmed = stmt.trim();
             if (!trimmed.isEmpty()) {
                 try {
@@ -52,11 +77,6 @@ public class TenantInitializer {
         }
     }
 
-    /**
-     * Parsea un script SQL en statements individuales, manejando:
-     * - Líneas de comentario (--) que se omiten antes de acumular
-     * - Bloques DO $$ ... $$; de PL/pgSQL que contienen ; internos
-     */
     private List<String> parseSqlStatements(String script) {
         List<String> result = new ArrayList<>();
         StringBuilder current = new StringBuilder();
@@ -64,71 +84,23 @@ public class TenantInitializer {
 
         for (String line : script.split("\n")) {
             String trimmedLine = line.trim();
+            if (trimmedLine.startsWith("--")) continue;
 
-            // Omitir líneas que son solo comentarios
-            if (trimmedLine.startsWith("--")) {
-                continue;
-            }
-
-            // Rastrear apertura/cierre de bloques $$ (dollar-quoting de PostgreSQL)
             int count = 0;
             int pos = 0;
-            while ((pos = line.indexOf("$$", pos)) >= 0) {
-                count++;
-                pos += 2;
-            }
-            if (count % 2 != 0) {
-                inDollarBlock = !inDollarBlock;
-            }
+            while ((pos = line.indexOf("$$", pos)) >= 0) { count++; pos += 2; }
+            if (count % 2 != 0) inDollarBlock = !inDollarBlock;
 
             current.append(line).append("\n");
 
-            // Fin de statement: ; al final de la línea y fuera de un bloque $$
             if (!inDollarBlock && trimmedLine.endsWith(";")) {
                 String stmt = current.toString().trim();
-                if (!stmt.isEmpty()) {
-                    result.add(stmt);
-                }
+                if (!stmt.isEmpty()) result.add(stmt);
                 current = new StringBuilder();
             }
         }
-
-        // Capturar cualquier statement sin ; final
         String remaining = current.toString().trim();
-        if (!remaining.isEmpty()) {
-            result.add(remaining);
-        }
-
+        if (!remaining.isEmpty()) result.add(remaining);
         return result;
-    }
-
-    private void initializeDefaultData(String schemaName) {
-        // El DataSource wrapper lee TenantContext en cada getConnection()
-        // para aplicar SET search_path al schema correcto
-        TenantContext.setTenant(schemaName);
-        try {
-            String[] seedFiles = {
-                "db/03-seed-recursos.sql",
-                "db/04-seed-perfiles.sql",
-                "db/05-seed-parametros.sql",
-                "db/06-seed-catalogos.sql",
-                "db/08-seed-productos-liname.sql",
-                "db/09-seed-productos-liname-part2.sql",
-                "db/09-seed-productos-liname-part2b.sql",
-                "db/09-seed-productos-liname-part2c.sql"
-            };
-            for (String seedFile : seedFiles) {
-                try {
-                    ClassPathResource res = new ClassPathResource(seedFile);
-                    String sql = res.getContentAsString(StandardCharsets.UTF_8);
-                    sql = sql.replace("{SCHEMA}", schemaName);
-                    executeSqlScript(sql, schemaName);
-                } catch (IOException e) {
-                    log.warn("Seed file not found: {}", seedFile);
-                }
-            }
-        } finally {
-            TenantContext.clear();
-        }
     }
 }

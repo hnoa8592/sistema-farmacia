@@ -31,7 +31,7 @@ export class UsuarioService {
   }
 
   asignarPerfiles(usuarioId: string, perfilesIds: string[]): Observable<void> {
-    return this.http.post<ApiResponse<void>>(`${this.url}/${usuarioId}/perfiles`, { perfilesIds }).pipe(
+    return this.http.post<ApiResponse<void>>(`${this.url}/${usuarioId}/perfiles`, perfilesIds).pipe(
       map(() => undefined), catchError(e => throwError(() => e))
     );
   }

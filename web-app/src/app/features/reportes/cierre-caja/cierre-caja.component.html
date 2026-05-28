@@ -1,0 +1,416 @@
+<p-toast></p-toast>
+
+<div class="grid">
+
+    <!-- ── Caja Activa ─────────────────────────────────────────────────── -->
+    <div class="col-12">
+        <div class="surface-card shadow-2 border-round p-4 mb-3">
+            <div class="flex align-items-center justify-content-between mb-3">
+                <h2 class="m-0 text-900 font-bold">
+                    <i class="pi pi-wallet mr-2 text-green-500"></i>Caja Activa
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <h2 class="m-0 text-900 font-bold">
+                </h2>
+                <div class="flex flex-column gap-1">
+                    <p-dropdown [(ngModel)]="sucursalIdInput" [options]="sucursales"
+                                optionLabel="nombre" optionValue="id" placeholder="Selecciona una sucursal"
+                                class="w-full" (onChange)="cargarCajaAbierta()">
+                    </p-dropdown>
+                </div>
+                <p-button *ngIf="!cajaActiva" label="Abrir Caja" icon="pi pi-plus"
+                          styleClass="p-button-success" (onClick)="abrirDialogoApertura()">
+                </p-button>
+            </div>
+
+            <!-- Sin caja activa -->
+            <div *ngIf="!cajaActiva" class="text-center py-4 text-500">
+                <i class="pi pi-inbox text-4xl mb-2 block"></i>
+                No hay ninguna caja abierta
+            </div>
+
+            <!-- Con caja activa -->
+            <ng-container *ngIf="cajaActiva">
+                <!-- Encabezado info -->
+                <div class="grid mb-3">
+                    <div class="col-6 md:col-3">
+                        <div class="surface-100 border-round p-3 text-center">
+                            <p class="text-500 text-sm m-0">Cajero</p>
+                            <p class="font-bold text-900 m-0">{{ cajaActiva.nombreUsuario }}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 md:col-3">
+                        <div class="surface-100 border-round p-3 text-center">
+                            <p class="text-500 text-sm m-0">Apertura</p>
+                            <p class="font-bold text-900 m-0">{{ cajaActiva.fechaApertura | date:'dd/MM/yyyy HH:mm' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 md:col-3">
+                        <div class="surface-100 border-round p-3 text-center">
+                            <p class="text-500 text-sm m-0">Monto Apertura</p>
+                            <p class="font-bold text-2xl text-900 m-0">
+                                S/ {{ cajaActiva.montoApertura | number:'1.2-2' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-6 md:col-3">
+                        <div class="surface-100 border-round p-3 text-center">
+                            <p class="text-500 text-sm m-0">Retiros / Ingresos</p>
+                            <p class="font-bold text-900 m-0">
+                                -S/ {{ totalRetiros() | number:'1.2-2' }} / +S/ {{ totalIngresos() | number:'1.2-2' }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acciones -->
+                <div class="flex gap-2 flex-wrap mb-4">
+                    <p-button label="Registrar Retiro" icon="pi pi-arrow-up-right"
+                              styleClass="p-button-warning p-button-outlined" (onClick)="abrirDialogoRetiro()">
+                    </p-button>
+                    <p-button label="Registrar Ingreso" icon="pi pi-arrow-down-left"
+                              styleClass="p-button-info p-button-outlined" (onClick)="abrirDialogoIngreso()">
+                    </p-button>
+                    <p-button label="Cerrar Caja" icon="pi pi-times-circle"
+                              styleClass="p-button-danger" (onClick)="abrirDialogoCierre()">
+                    </p-button>
+                </div>
+
+                <!-- Movimientos de la caja activa -->
+                <p-table [value]="cajaActiva.movimientos" responsiveLayout="scroll"
+                         styleClass="p-datatable-sm" [rows]="5" [paginator]="cajaActiva.movimientos.length > 5">
+                    <ng-template pTemplate="caption">Movimientos del turno</ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th class="text-right">Monto</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-m>
+                        <tr>
+                            <td>{{ m.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td>
+                                <p-tag [value]="m.tipo === 'RETIRO' ? 'Retiro' : 'Ingreso'"
+                                       [severity]="m.tipo === 'RETIRO' ? 'warning' : 'info'">
+                                </p-tag>
+                            </td>
+                            <td>{{ m.descripcion }}</td>
+                            <td class="text-right font-medium">S/ {{ m.monto | number:'1.2-2' }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="4" class="text-center text-500 py-3">Sin movimientos registrados</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- ── Historial ───────────────────────────────────────────────────── -->
+    <div class="col-12">
+        <div class="surface-card shadow-2 border-round p-4">
+            <div class="flex align-items-center justify-content-between mb-3">
+                <h2 class="m-0 text-900 font-bold">
+                    <i class="pi pi-history mr-2 text-indigo-500"></i>Historial de Cierres
+                </h2>
+            </div>
+
+            <div class="flex flex-wrap gap-3 mb-4 align-items-end">
+                <div class="flex flex-column gap-1">
+                    <label class="text-sm font-medium text-600">Desde</label>
+                    <p-calendar [(ngModel)]="desdeHistorial" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label class="text-sm font-medium text-600">Hasta</label>
+                    <p-calendar [(ngModel)]="hastaHistorial" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+                </div>
+                <div class="flex flex-column gap-1">
+                    <label class="text-sm font-medium text-600">Sucursal</label>
+                    <p-dropdown [(ngModel)]="sucursalIdHistorial" [options]="sucursalesOpciones"
+                                optionLabel="label" optionValue="value" placeholder="Todas las sucursales"
+                                [style]="{minWidth:'200px'}">
+                    </p-dropdown>
+                </div>
+                <p-button label="Buscar" icon="pi pi-search" (onClick)="cargarHistorial()"></p-button>
+            </div>
+
+            <p-table [value]="historial" [loading]="cargando" responsiveLayout="scroll"
+                     styleClass="p-datatable-sm" [rows]="pageSize" [totalRecords]="totalHistorial">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Apertura</th>
+                        <th>Cierre</th>
+                        <th>Cajero</th>
+                        <th class="text-right">Apertura</th>
+                        <th class="text-right">Contado</th>
+                        <th class="text-right">Diferencia</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-c>
+                    <tr>
+                        <td>{{ c.fechaApertura | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>{{ c.fechaCierre | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>{{ c.nombreUsuario }}</td>
+                        <td class="text-right">S/ {{ c.montoApertura | number:'1.2-2' }}</td>
+                        <td class="text-right">S/ {{ c.montoContado | number:'1.2-2' }}</td>
+                        <td class="text-right">
+              <span
+                  [class]="c.diferencia < 0 ? 'text-red-500 font-bold' : c.diferencia > 0 ? 'text-blue-500 font-bold' : 'text-green-500 font-bold'">
+                S/ {{ c.diferencia | number:'1.2-2' }}
+              </span>
+                        </td>
+                        <td>
+                            <p-button icon="pi pi-eye" styleClass="p-button-text p-button-sm"
+                                      pTooltip="Ver reporte" (onClick)="verReporteCierre(c)">
+                            </p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="7" class="text-center text-500 py-4">Sin cierres en el período</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<!-- ── Diálogo: Apertura ──────────────────────────────────────────────── -->
+<p-dialog header="Abrir Caja" [(visible)]="mostrarApertura" [modal]="true" [style]="{width:'420px'}">
+    <div class="flex flex-column gap-3 pt-2">
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Sucursal</label>
+            <p-dropdown [(ngModel)]="sucursalIdInput" [options]="sucursales"
+                        optionLabel="nombre" optionValue="id" placeholder="Selecciona una sucursal"
+                        class="w-full">
+            </p-dropdown>
+        </div>
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Monto de Apertura (S/)</label>
+            <p-inputNumber [(ngModel)]="montoApertura" mode="decimal" [minFractionDigits]="2" [min]="0"
+                           class="w-full"></p-inputNumber>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" styleClass="p-button-text" (onClick)="mostrarApertura = false"></p-button>
+        <p-button label="Abrir Caja" icon="pi pi-check" [loading]="cargando"
+                  [disabled]="!sucursalIdInput || montoApertura === null"
+                  (onClick)="confirmarApertura()">
+        </p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- ── Diálogo: Cierre ────────────────────────────────────────────────── -->
+<p-dialog header="Cerrar Caja" [(visible)]="mostrarCierre" [modal]="true" [style]="{width:'420px'}">
+    <div class="flex flex-column gap-3 pt-2">
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Efectivo Contado (S/)</label>
+            <p-inputNumber [(ngModel)]="montoContado" mode="decimal" [minFractionDigits]="2" [min]="0"
+                           class="w-full"></p-inputNumber>
+        </div>
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Observación (opcional)</label>
+            <textarea pInputTextarea [(ngModel)]="observacionCierre" rows="3" class="w-full"></textarea>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" styleClass="p-button-text" (onClick)="mostrarCierre = false"></p-button>
+        <p-button label="Confirmar Cierre" icon="pi pi-lock" styleClass="p-button-danger"
+                  [loading]="cargando" [disabled]="montoContado === null"
+                  (onClick)="confirmarCierre()">
+        </p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- ── Diálogo: Retiro ────────────────────────────────────────────────── -->
+<p-dialog header="Registrar Retiro" [(visible)]="mostrarRetiro" [modal]="true" [style]="{width:'380px'}">
+    <div class="flex flex-column gap-3 pt-2">
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Monto (S/)</label>
+            <p-inputNumber [(ngModel)]="montoMovimiento" mode="decimal" [minFractionDigits]="2" [min]="0.01"
+                           class="w-full"></p-inputNumber>
+        </div>
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Motivo</label>
+            <input pInputText [(ngModel)]="descripcionMovimiento" placeholder="Describe el motivo del retiro"
+                   class="w-full"/>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" styleClass="p-button-text" (onClick)="mostrarRetiro = false"></p-button>
+        <p-button label="Registrar" icon="pi pi-check" styleClass="p-button-warning"
+                  [loading]="cargando" [disabled]="!montoMovimiento || !descripcionMovimiento"
+                  (onClick)="confirmarRetiro()">
+        </p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- ── Diálogo: Ingreso Manual ───────────────────────────────────────── -->
+<p-dialog header="Registrar Ingreso Manual" [(visible)]="mostrarIngreso" [modal]="true" [style]="{width:'380px'}">
+    <div class="flex flex-column gap-3 pt-2">
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Monto (S/)</label>
+            <p-inputNumber [(ngModel)]="montoMovimiento" mode="decimal" [minFractionDigits]="2" [min]="0.01"
+                           class="w-full"></p-inputNumber>
+        </div>
+        <div class="flex flex-column gap-1">
+            <label class="font-medium">Concepto</label>
+            <input pInputText [(ngModel)]="descripcionMovimiento" placeholder="Describe el concepto del ingreso"
+                   class="w-full"/>
+        </div>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" styleClass="p-button-text" (onClick)="mostrarIngreso = false"></p-button>
+        <p-button label="Registrar" icon="pi pi-check" styleClass="p-button-info"
+                  [loading]="cargando" [disabled]="!montoMovimiento || !descripcionMovimiento"
+                  (onClick)="confirmarIngreso()">
+        </p-button>
+    </ng-template>
+</p-dialog>
+
+<!-- ── Diálogo: Reporte de Cierre ────────────────────────────────────── -->
+<p-dialog header="Reporte de Cierre de Caja" [(visible)]="mostrarReporte" [modal]="true"
+          [style]="{width:'700px'}" [maximizable]="true">
+    <ng-container *ngIf="reporte">
+
+        <!-- Encabezado -->
+        <div class="grid mb-3">
+            <div class="col-6">
+                <p class="text-500 text-sm m-0">Cajero responsable</p>
+                <p class="font-bold text-900 m-0">{{ reporte.nombreCajero }}</p>
+            </div>
+            <div class="col-6 text-right">
+                <p-tag [value]="reporte.estadoCaja"
+                       [severity]="reporte.estadoCaja === 'CERRADA' ? 'danger' : 'success'"></p-tag>
+            </div>
+            <div class="col-6">
+                <p class="text-500 text-sm m-0">Apertura</p>
+                <p class="font-medium text-900 m-0">{{ reporte.fechaApertura | date:'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+            <div class="col-6">
+                <p class="text-500 text-sm m-0">Cierre</p>
+                <p class="font-medium text-900 m-0">{{ reporte.fechaCierre ? (reporte.fechaCierre | date:'dd/MM/yyyy HH:mm') : '—' }}</p>
+            </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Apertura -->
+        <div class="flex justify-content-between mb-2">
+            <span class="font-medium">Apertura</span>
+            <span class="font-bold">S/ {{ reporte.montoApertura | number:'1.2-2' }}</span>
+        </div>
+
+        <!-- Ventas por cajero -->
+        <div class="mb-2">
+            <p class="font-medium mb-2">Ventas ({{ reporte.cantidadVentas }})</p>
+            <p-table [value]="reporte.ventasPorCajero" styleClass="p-datatable-sm p-datatable-striped">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Cajero</th>
+                        <th class="text-right">N° Ventas</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-v>
+                    <tr>
+                        <td>{{ v.nombreUsuario }}</td>
+                        <td class="text-right">{{ v.cantidadVentas }}</td>
+                        <td class="text-right">S/ {{ v.totalVentas | number:'1.2-2' }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="3" class="text-center text-500">Sin ventas en el turno</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="flex justify-content-end mt-1">
+                <span class="font-bold">Total ventas: S/ {{ reporte.totalVentas | number:'1.2-2' }}</span>
+            </div>
+        </div>
+
+        <!-- Retiros -->
+        <div class="mb-2" *ngIf="reporte.retiros.length">
+            <p class="font-medium mb-1">Retiros</p>
+            <p-table [value]="reporte.retiros" styleClass="p-datatable-sm">
+                <ng-template pTemplate="body" let-r>
+                    <tr>
+                        <td>{{ r.fecha | date:'HH:mm' }}</td>
+                        <td>{{ r.descripcion }}</td>
+                        <td class="text-right text-orange-600 font-medium">-S/ {{ r.monto | number:'1.2-2' }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="flex justify-content-end mt-1">
+                <span
+                    class="text-orange-600 font-bold">Total retiros: -S/ {{ reporte.totalRetiros | number:'1.2-2' }}</span>
+            </div>
+        </div>
+
+        <!-- Ingresos Manuales -->
+        <div class="mb-2" *ngIf="reporte.ingresosManuales.length">
+            <p class="font-medium mb-1">Ingresos Manuales</p>
+            <p-table [value]="reporte.ingresosManuales" styleClass="p-datatable-sm">
+                <ng-template pTemplate="body" let-i>
+                    <tr>
+                        <td>{{ i.fecha | date:'HH:mm' }}</td>
+                        <td>{{ i.descripcion }}</td>
+                        <td class="text-right text-blue-600 font-medium">+S/ {{ i.monto | number:'1.2-2' }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="flex justify-content-end mt-1">
+                <span
+                    class="text-blue-600 font-bold">Total ingresos: +S/ {{ reporte.totalIngresosManuales | number:'1.2-2' }}</span>
+            </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <!-- Efectivo Esperado y Diferencia -->
+        <div class="surface-100 border-round p-3">
+            <div class="flex justify-content-between mb-2">
+                <span class="font-medium">Efectivo Esperado</span>
+                <span class="font-bold text-xl">S/ {{ reporte.efectivoEsperado | number:'1.2-2' }}</span>
+            </div>
+            <div class="flex justify-content-between mb-2">
+                <span class="font-medium">Efectivo Contado</span>
+                <span class="font-bold text-xl">S/ {{ (reporte.montoContado ?? 0) | number:'1.2-2' }}</span>
+            </div>
+            <p-divider styleClass="my-2"></p-divider>
+            <div class="flex justify-content-between align-items-center">
+                <span class="font-bold text-lg">Diferencia</span>
+                <div class="flex align-items-center gap-2">
+          <span
+              [class]="reporte.diferencia! < 0 ? 'text-red-600 font-bold text-xl' : reporte.diferencia! > 0 ? 'text-blue-600 font-bold text-xl' : 'text-green-600 font-bold text-xl'">
+            S/ {{ (reporte.diferencia ?? 0) | number:'1.2-2' }}
+          </span>
+                    <p-tag *ngIf="reporte.estadoDiferencia"
+                           [value]="reporte.estadoDiferencia"
+                           [severity]="getSeveridadDiferencia(reporte.estadoDiferencia)">
+                    </p-tag>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="reporte.observacion" class="mt-3">
+            <p class="text-500 text-sm m-0">Observación</p>
+            <p class="text-900 m-0">{{ reporte.observacion }}</p>
+        </div>
+    </ng-container>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cerrar" styleClass="p-button-text" (onClick)="mostrarReporte = false"></p-button>
+    </ng-template>
+</p-dialog>

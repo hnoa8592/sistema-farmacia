@@ -61,7 +61,8 @@ export class ReporteVentasComponent implements OnInit {
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'reporte-ventas.csv'; a.click();
+    a.href = url; a.download = 'reporte-venta'+ new Date().toISOString() +'s.csv';
+    a.click();
     URL.revokeObjectURL(url);
   }
 }

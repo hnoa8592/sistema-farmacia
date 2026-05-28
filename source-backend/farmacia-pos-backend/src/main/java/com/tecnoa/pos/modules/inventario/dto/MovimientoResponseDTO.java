@@ -22,5 +22,6 @@ public class MovimientoResponseDTO {
     private Integer stockResultante;
     private LocalDateTime fecha;
     private UUID usuarioId;
+    private String usuarioNombre;
     private String observacion;
 }

@@ -7,6 +7,7 @@ export interface InventarioResponse {
   sucursalNombre: string;
   productoId: string;
   productoNombre: string;
+  concentracion: string;
   numeroLote: string;
   fechaVencimiento: string;
   stockActual: number;

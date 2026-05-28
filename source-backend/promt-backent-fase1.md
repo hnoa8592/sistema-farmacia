@@ -1101,7 +1101,7 @@ Diclofenaco, Loratadina, Enalapril, Metformina,
 Omeprazol, Ranitidina, Vitamina C, Calcio + Vitamina D,
 Albendazol, Clotrimazol, Dexametasona
 
-### 07-seed-data-demo.sql
+### 07-seed-data-init.sql
 INSERT de datos de prueba para el tenant farmacia_demo:
 
 Infraestructura:

@@ -3,8 +3,9 @@ import { PerfilResponse } from './perfil.model';
 export interface UsuarioRequest {
   nombre: string;
   email: string;
-  password: string;
+  password?: string;
   activo: boolean;
+  perfilIds?: string[];
 }
 
 export interface UsuarioResponse {

@@ -27,9 +27,10 @@ INSERT INTO recursos (nombre, modulo) VALUES
 ('principios-activos:ver',    'PRINCIPIOS_ACTIVOS'),
 ('principios-activos:editar', 'PRINCIPIOS_ACTIVOS'),
 -- Reportes
-('reportes:ventas',     'REPORTES'),
-('reportes:inventario', 'REPORTES'),
-('reportes:stock',      'REPORTES'),
+('reportes:ventas',       'REPORTES'),
+('reportes:inventario',   'REPORTES'),
+('reportes:stock',        'REPORTES'),
+('reportes:movimientos',  'REPORTES'),
 -- Usuarios
 ('usuarios:ver',    'USUARIOS'),
 ('usuarios:crear',  'USUARIOS'),
@@ -42,5 +43,11 @@ INSERT INTO recursos (nombre, modulo) VALUES
 ('auditoria:ver', 'AUDITORIA'),
 -- Parámetros
 ('parametros:ver',    'PARAMETROS'),
-('parametros:editar', 'PARAMETROS')
+('parametros:editar', 'PARAMETROS'),
+-- Caja
+('caja:abrir',        'CAJA'),
+('caja:cerrar',       'CAJA'),
+('caja:ver',          'CAJA'),
+('caja:movimientos',  'CAJA'),
+('reportes:cierre-caja', 'REPORTES')
 ON CONFLICT (nombre) DO NOTHING;

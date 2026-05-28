@@ -5,6 +5,8 @@ import com.tecnoa.pos.modules.inventario.model.*;
 import com.tecnoa.pos.modules.inventario.repository.*;
 import com.tecnoa.pos.modules.inventario.service.ProductoPrecioService;
 import com.tecnoa.pos.modules.parametros.service.ParametroService;
+import com.tecnoa.pos.modules.usuarios.model.Usuario;
+import com.tecnoa.pos.modules.usuarios.repository.UsuarioRepository;
 import com.tecnoa.pos.shared.security.SecurityUtils;
 import com.tecnoa.pos.modules.ventas.dto.DetalleVentaDTO;
 import com.tecnoa.pos.modules.ventas.dto.VentaRequestDTO;
@@ -16,8 +18,12 @@ import com.tecnoa.pos.modules.ventas.repository.VentaRepository;
 import com.tecnoa.pos.shared.exception.BusinessException;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +46,7 @@ public class VentaService {
     private final ProductoPrecioService productoPrecioService;
     private final ParametroService parametroService;
     private final SecurityUtils securityUtils;
+    private final UsuarioRepository usuarioRepository;
 
     @Transactional(readOnly = true)
     public Page<VentaResponseDTO> listar(UUID usuarioId, EstadoVenta estado,
@@ -47,13 +54,38 @@ public class VentaService {
                                          Pageable pageable) {
         LocalDateTime desdeDateTime = (desde != null) ? desde.atStartOfDay()          : null;
         LocalDateTime hastaDateTime = (hasta != null) ? hasta.atTime(23, 59, 59) : null;
-        return ventaRepository.buscarConFiltros(usuarioId, estado, desdeDateTime, hastaDateTime, pageable)
+        Usuario usuarioActual = getUsuarioActual();
+        UUID usuarioFiltro = esAdmin(usuarioActual) ? usuarioId : usuarioActual.getId();
+        Pageable pageableOrdenado = pageable.getSort().isSorted()
+                ? pageable
+                : PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "fecha"));
+
+        Specification<Venta> filtros = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (usuarioFiltro != null) {
+                predicates.add(cb.equal(root.get("usuarioId"), usuarioFiltro));
+            }
+            if (estado != null) {
+                predicates.add(cb.equal(root.get("estado"), estado));
+            }
+            if (desdeDateTime != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("fecha"), desdeDateTime));
+            }
+            if (hastaDateTime != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("fecha"), hastaDateTime));
+            }
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        return ventaRepository.findAll(filtros, pageableOrdenado)
                 .map(this::toResponse);
     }
 
     public VentaResponseDTO obtener(UUID id) {
-        return toResponse(ventaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Venta", id)));
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Venta", id));
+        validarAccesoVenta(venta);
+        return toResponse(venta);
     }
 
     @Auditable(accion = "CREAR", modulo = "VENTAS", entidad = "Venta",
@@ -181,6 +213,27 @@ public class VentaService {
         return toResponse(ventaRepository.save(venta));
     }
 
+    private void validarAccesoVenta(Venta venta) {
+        Usuario usuarioActual = getUsuarioActual();
+        if (!esAdmin(usuarioActual) && !venta.getUsuarioId().equals(usuarioActual.getId())) {
+            throw new BusinessException("No tiene permiso para ver ventas de otros usuarios");
+        }
+    }
+
+    private Usuario getUsuarioActual() {
+        UUID usuarioId = securityUtils.getCurrentUserId();
+        if (usuarioId == null) {
+            throw new BusinessException("Usuario autenticado no encontrado");
+        }
+        return usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario", usuarioId));
+    }
+
+    private boolean esAdmin(Usuario usuario) {
+        return usuario.getPerfiles().stream()
+                .anyMatch(p -> "ADMIN".equalsIgnoreCase(p.getNombre()));
+    }
+
     private VentaResponseDTO toResponse(Venta v) {
         List<DetalleVentaDTO> detalles = v.getDetalles().stream()
                 .map(d -> DetalleVentaDTO.builder()
@@ -190,10 +243,17 @@ public class VentaService {
                         .precioUnitario(d.getPrecioUnitario()).subtotal(d.getSubtotal())
                         .build())
                 .collect(Collectors.toList());
+        VentaResponseDTO.UsuarioDTO usuario = usuarioRepository.findById(v.getUsuarioId())
+                .map(u -> VentaResponseDTO.UsuarioDTO.builder()
+                        .id(u.getId())
+                        .nombre(u.getNombre())
+                        .build())
+                .orElse(null);
 
         return VentaResponseDTO.builder()
                 .id(v.getId()).fecha(v.getFecha()).total(v.getTotal())
                 .descuento(v.getDescuento()).usuarioId(v.getUsuarioId())
+                .usuario(usuario)
                 .estado(v.getEstado()).detalles(detalles).build();
     }
 }

@@ -41,7 +41,7 @@
         <ng-template pTemplate="body" let-venta>
           <tr>
             <td>{{ venta.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
-            <td><span class="text-600">{{ venta.usuarioId }}</span></td>
+            <td><span class="text-600">{{ venta.usuario?.nombre || venta.usuarioId }}</span></td>
             <td class="text-right font-medium">Bs.{{ venta.total | number:'1.2-2' }}</td>
             <td class="text-right text-red-500">Bs.{{ venta.descuento | number:'1.2-2' }}</td>
             <td>

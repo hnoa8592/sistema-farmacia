@@ -1,0 +1,647 @@
+Paracetamol; Analgésico y antipirético que inhibe la síntesis de prostaglandinas en el SNC
+Ácido Acetilsalicílico; Analgésico, antipirético y antiinflamatorio inhibidor de COX-1 y COX-2, antiplaquetario
+Metamizol; Analgésico y antipirético potente con efecto espasmolítico
+Naproxeno; AINE inhibidor de COX-1 y COX-2, antiinflamatorio, analgésico y antipirético
+Diclofenaco; AINE antiinflamatorio, analgésico y antipirético inhibidor de COX
+Celecoxib; AINE inhibidor selectivo de COX-2 con menor riesgo gastrointestinal
+Fentanilo; Opiáceo sintético potente de acción corta para analgesia severa
+Bencilpenicilina; Antibiótico betalactámico de primera generación activo frente a gram positivos
+Bencilpenicilina Benzatínica; Penicilina de depósito de acción prolongada usada en sífilis y profilaxis reumática
+Cefalexina; Cefalosporina de 1ª generación oral para infecciones de piel y vías urinarias
+Cefuroxima; Cefalosporina de 2ª generación activa frente a gram positivos y algunos gram negativos
+Ciprofloxacino; Fluoroquinolona de 2ª generación de amplio espectro antibacteriano
+Imipenem + Cilastatina; Antibiótico carbapenémico de amplio espectro combinado con inhibidor de dehidropeptidasa renal
+Levofloxacino; Fluoroquinolona de 3ª generación activa frente a gram positivos y negativos
+Norfloxacino; Fluoroquinolona de uso principalmente urinario
+Penicilina V Potásica; Penicilina oral activa frente a gram positivos sensibles
+Trimetoprim + Sulfametoxazol; Antibiótico combinado con acción sinérgica contra bacterias gram negativas y positivas
+Amoxicilina + Ácido Clavulánico; Aminopenicilina con inhibidor de betalactamasas de amplio espectro
+Anfotericina B; Antifúngico poliénico de amplio espectro para infecciones fúngicas graves sistémicas
+Itraconazol; Antifúngico triazólico oral de amplio espectro
+Ketoconazol; Antifúngico imidazólico de uso sistémico y tópico
+Miconazol; Antifúngico imidazólico de uso principalmente tópico
+Lamivudina + Zidovudina; Combinación antirretroviral de inhibidores nucleosídicos de la transcriptasa inversa (INTI)
+Tenofovir + Emtricitabina; Combinación antirretroviral INTI de primera línea para VIH
+Valaciclovir; Profármaco del aciclovir con mejor biodisponibilidad oral, antiviral contra herpes
+Cloroquina; Antipalúdico y antiinflamatorio que inhibe la digestión del grupo hemo en el parásito
+Praziquantel; Antihelmintico activo frente a trematodos y cestodos
+Primaquina; Antipalúdico activo frente a formas hepáticas de Plasmodium vivax
+Tinidazol; Antiprotozoario y antibacteriano anaerobio derivado del nitroimidazol
+Estreptomicina; Aminoglucósido antibacteriano usado en tuberculosis y brucelosis
+Isoniazida + Rifampicina + Pirazinamida; Combinación de fármacos de primera línea para tuberculosis en fase intensiva
+Rifampicina + Isoniazida; Combinación antibacteriana de primera línea para tuberculosis
+Amlodipino; Bloqueador de canales de calcio dihidropiridínico, antihipertensivo y antianginoso
+Captopril; Inhibidor de la ECA de acción corta, antihipertensivo y cardioprotector
+Diltiazem; Bloqueador de canales de calcio benzotiazepínico, antihipertensivo y antiarrítmico
+Enalapril; Inhibidor de la ECA, antihipertensivo y cardioprotector
+Hidralazina; Vasodilatador arterial directo, antihipertensivo especialmente en embarazo
+Irbesartan; ARA II antihipertensivo bloqueador del receptor de angiotensina II
+Losartan; ARA II antihipertensivo y nefroprotector bloqueador del receptor de angiotensina II
+Metoprolol; Betabloqueador cardioselectivo antihipertensivo y antiarrítmico
+Nitroglicerina; Nitrato orgánico vasodilatador coronario para angina de pecho
+Ramipril; Inhibidor de la ECA antihipertensivo y cardioprotector con efecto nefroprotector
+Enoxaparina; Heparina de bajo peso molecular anticoagulante subcutánea
+Heparina; Anticoagulante parenteral que inhibe trombina y factor Xa
+Simvastatina; Inhibidor de HMG-CoA reductasa hipolipemiante reductor de colesterol LDL
+Beclometasona; Corticosteroide inhalado antiinflamatorio bronquial para asma
+Ipratropio; Broncodilatador anticolinérgico inhalado para EPOC y asma
+Bromuro de Hioscina; Antiespasmódico anticolinérgico para cólico abdominal y biliar
+Esomeprazol; Inhibidor de la bomba de protones reductor de acidez gástrica
+Pantoprazol; Inhibidor de la bomba de protones antiulceroso
+Ranitidina; Antagonista H2 reductor de acidez gástrica (retirado en muchos países por contaminación con NDMA)
+Hidróxido de Aluminio + Hidróxido de Magnesio; Antiácido de acción local combinado para síntomas de acidez y dispepsia
+Sales de Rehidratación Oral; Solución electrolítica oral para rehidratación en diarrea y vómitos
+Glimepirida; Sulfonilurea de 3ª generación hipoglucemiante oral para diabetes tipo 2
+Insulina NPH; Insulina de acción intermedia para control glucémico en diabetes mellitus
+Insulina Regular; Insulina de acción corta para control glucémico rápido preprandial
+Sitagliptina; Inhibidor de DPP-4 antidiabético oral que potencia la secreción de insulina
+Hidrocortisona; Corticosteroide de referencia con propiedades antiinflamatorias e inmunosupresoras
+Levotiroxina; Hormona tiroidea sintética T4 para tratamiento del hipotiroidismo
+Metilprednisolona; Corticosteroide de acción intermedia con potente efecto antiinflamatorio
+Prednisolona; Corticosteroide oral antiinflamatorio e inmunosupresor forma activa de prednisona
+Calcio + Vitamina D3; Suplemento combinado para prevención y tratamiento de osteoporosis y déficit de calcio
+Cianocobalamina; Vitamina B12 esencial para eritropoyesis y función neurológica
+Hierro Polimaltosado; Suplemento de hierro de alta biodisponibilidad y tolerabilidad para anemia ferropénica
+Retinol; Vitamina A esencial para visión, inmunidad y crecimiento celular
+Zinc Sulfato; Suplemento de zinc cofactor enzimático con propiedades inmunomoduladoras
+Complejo B; Combinación de vitaminas del grupo B para soporte metabólico y función nerviosa
+Sulfato Ferroso; Suplemento de hierro oral de primera línea para anemia ferropénica
+Betametasona; Corticosteroide fluorado de alta potencia para uso antiinflamatorio tópico y sistémico
+Tretinoína; Retinoide tópico para acné, hiperpigmentación y trastornos de queratinización
+Óxido de Zinc; Protector dérmico, cicatrizante y astringente de uso tópico
+Atropina; Anticolinérgico muscarínico para bradicardia, midriasis e intoxicación por organofosforados
+Timolol; Betabloqueador no selectivo tópico oftálmico para reducción de presión intraocular
+Medroxiprogesterona; Progestágeno sintético anticonceptivo y regulador menstrual
+Clorfenamina; Antihistamínico de 1ª generación sedante para alergias y rinitis
+Difenhidramina; Antihistamínico de 1ª generación con marcado efecto sedante y antiemético
+Fexofenadina; Antihistamínico de 2ª generación no sedante para alergias estacionales
+Loratadina; Antihistamínico de 2ª generación no sedante para alergias e urticaria
+Escitalopram; Inhibidor selectivo de recaptación de serotonina (ISRS) antidepresivo de alta selectividad
+Litio; Estabilizador del ánimo de primera línea para trastorno bipolar
+Olanzapina; Antipsicótico atípico para esquizofrenia y episodios maníacos del trastorno bipolar
+Sertralina; ISRS antidepresivo y ansiolítico de amplio uso clínico
+Venlafaxina; IRSN antidepresivo inhibidor de recaptación de serotonina y norepinefrina
+Clozapina; Antipsicótico atípico de segunda línea para esquizofrenia refractaria, requiere monitoreo hematológico
+Ácido Valproico; Anticonvulsivante y estabilizador del ánimo de amplio espectro
+Gabapentina; Antiepiléptico y analgésico neuropático análogo del GABA
+Levetiracetam; Antiepiléptico de amplio espectro con mecanismo único de unión a proteína SV2A
+Bupivacaína; Anestésico local amídico de acción prolongada para bloqueos nerviosos
+Cetamina; Anestésico disociativo con propiedades analgésicas y broncodilatadoras
+Succinilcolina; Relajante muscular despolarizante de acción ultracorta para intubación de secuencia rápida
+Vecuronio; Relajante muscular no despolarizante de acción intermedia para cirugía
+Doxorrubicina; Antibiótico antitumoral del grupo antraciclinas para múltiples tipos de cáncer
+Glucosa; Carbohidrato simple fuente energética para fluidoterapia intravenosa
+Cloruro de Sodio; Electrolito esencial para fluidoterapia, rehidratación y equilibrio osmótico
+Ringer Lactato; Solución cristaloide isotónica para rehidratación y reposición de volumen
+Levonorgestrel; Progestágeno sintético componente de anticonceptivos orales y anticonceptivo de emergencia
+Pertuzumab; Anticuerpo monoclonal anti-HER2 antineoplásico para cáncer de mama HER2 positivo
+Insulina recombinante humana NPH; Insulina humana de acción intermedia producida por tecnología de ADN recombinante
+Prasterona enantato; Precursor de hormonas sexuales (DHEA) con acción androgénica débil
+Sulfato ferroso; Suplemento de hierro oral para anemia ferropénica (ver también entrada 68)
+Lenalidomida; Inmunomodulador antineoplásico análogo de talidomida para mieloma múltiple
+Fluoxetina; ISRS pionero del grupo antidepresivo con larga vida media
+Tamoxifeno; Modulador selectivo de receptores de estrógeno (SERM) antineoplásico para cáncer de mama
+Metformina; Biguanida hipoglucemiante oral de primera línea en diabetes tipo 2 sin riesgo de hipoglucemia
+Clonazepam; Benzodiazepina antiepiléptica y ansiolítica de acción prolongada
+Lamivudina; INTI antirretroviral activo también frente a virus de hepatitis B
+Colchicina; Antiinflamatorio específico para gota aguda y pericarditis recurrente
+Irinotecan; Antineoplásico inhibidor de topoisomerasa I para cáncer colorrectal
+Dextrán 70; Expansor plasmático coloidal de alto peso molecular para shock hipovolémico
+Penicilamina; Quelante de metales pesados y DMARD para artritis reumatoide y enfermedad de Wilson
+Abiraterona Acetato; Antineoplásico inhibidor de biosíntesis de andrógenos para cáncer de próstata resistente a castración
+Carvedilol; Betabloqueador no selectivo con efecto alfa bloqueante para insuficiencia cardíaca e hipertensión
+Capecitabine; Profármaco oral del 5-fluorouracilo antineoplásico para cáncer colorrectal y de mama
+Warfarina; Anticoagulante oral antagonista de vitamina K para profilaxis y tratamiento tromboembólico
+Suero Antiescorpiónico; Inmunoglobulina específica para neutralizar el veneno de escorpión
+Ketamina (Cetamina); Anestésico disociativo con propiedades analgésicas de amplio uso en emergencias y pediatría
+Favipiravir; Antiviral de amplio espectro inhibidor de la ARN polimerasa viral ARN-dependiente
+Cefixima; Cefalosporina oral de 3ª generación activa frente a gram negativos
+Carbetocina; Análogo de oxitocina de acción prolongada para prevención de hemorragia postparto
+Clorfenamina (Clorfeniramina); Antihistamínico de 1ª generación sedante para alergias (nombre alternativo)
+Metilprednisolona succinato sódico; Forma soluble de metilprednisolona para administración intravenosa o intramuscular
+Timolol maleato; Betabloqueador tópico oftálmico en forma de sal maleato para glaucoma
+Cilastatina; Inhibidor de la dehidropeptidasa renal que previene la degradación del imipenem
+Ampicilina; Aminopenicilina semisintética de amplio espectro para infecciones diversas
+Formaldehido; Desinfectante antiséptico de amplio espectro y fijador histológico
+Metotrexato; Antimetabolito antagonista del folato antineoplásico e inmunosupresor para artritis reumatoide
+Testosterona undecanoato; Éster de andrógeno de depósito para terapia de reemplazo hormonal masculino
+Vacuna antineumococo (13 valente); Vacuna conjugada que protege contra 13 serotipos de Streptococcus pneumoniae
+Surfactante pulmonar; Agente tensioactivo para tratamiento del síndrome de dificultad respiratoria del recién nacido
+Hipoclorito de sodio; Antiséptico y desinfectante oxidante de amplio espectro
+Antitóxina tetánica; Inmunoglobulina antitetánica para tratamiento o profilaxis pasiva del tétanos
+Ketoprofeno; AINE del grupo profeno antiinflamatorio y analgésico oral y tópico
+Letrozol; Inhibidor de aromatasa de 3ª generación antineoplásico para cáncer de mama hormono-dependiente
+Fitomenadiona (Vitamina K1); Vitamina K natural esencial para síntesis de factores de coagulación
+B12); Vitamina B12 (cobalamina) esencial para eritropoyesis y mantenimiento de la mielina neuronal
+Ácido fólico; Vitamina B9 esencial para síntesis de ADN eritropoyesis y prevención de defectos del tubo neural
+Bortezomib; Inhibidor del proteasoma antineoplásico de primera línea para mieloma múltiple
+Azitromicina; Macrólido de amplio espectro con vida media prolongada y alta penetración tisular
+Cotrimoxazol (Sulfametoxazol; Trimetoprim); Antibiótico combinado sulfonamida-trimetoprim de amplio espectro
+Dolutegravir; Antirretroviral inhibidor de la integrasa con alta barrera genética para VIH
+Cloranfenicol; Antibiótico bacteriostático de amplio espectro reservado para infecciones graves
+Glicerina; Humectante osmótico de uso tópico lubricante y laxante rectal
+Amikacina; Aminoglucósido de amplio espectro activo frente a gram negativos multirresistentes
+Nifedipino; Bloqueador de canales de calcio dihidropiridínico antihipertensivo y tocolítico
+Oxígeno; Gas medicinal esencial para soporte ventilatorio y tratamiento de hipoxemia
+Amitriptilina; Antidepresivo tricíclico con propiedades analgésicas para dolor neuropático crónico
+Griseofulvina; Antifúngico oral para dermatofitosis de piel cabello y uñas
+Carbón medicinal activado; Adsorbente gastrointestinal para intoxicaciones y sobredosis agudas
+Misoprostol; Análogo de prostaglandina E1 para úlcera péptica inducción del parto y aborto farmacológico
+Metronidazol; Antibiótico y antiprotozoario nitroimidazólico de amplio espectro activo en anaerobiosis
+Duloxetina; IRSN antidepresivo y tratamiento del dolor neuropático y fibromialgia
+Trastuzumab; Anticuerpo monoclonal anti-HER2 antineoplásico de primera línea para cáncer de mama
+Pegaspargasa; Asparaginasa pegilada de mayor vida media antineoplásica para leucemia linfoblástica aguda
+Lactulosa; Laxante osmótico disacárido sintético también usado en encefalopatía hepática
+Dexametasona; Corticosteroide de alta potencia antiinflamatorio inmunosupresor y antiedema cerebral
+Verapamilo; Bloqueador de canales de calcio fenilalquilamínico antiarrítmico y antihipertensivo
+Gluconato Cálcico (Calcio Gluconato); Suplemento de calcio parenteral para hipocalcemia hiperpotasemia e hiperpotasemia
+Dasatinib; Inhibidor de tirosinquinasa BCR-ABL de segunda generación antineoplásico para LMC
+Ácido nalidíxico; Quinolona de 1ª generación antibacteriano de uso urinario
+Furosemida; Diurético de asa potente de acción rápida para edema e insuficiencia cardíaca
+Multivitaminas; Combinación de vitaminas esenciales para cubrir requerimientos nutricionales diarios
+Loperamida; Antidiarreico de acción local que reduce el peristaltismo intestinal sin efecto sistémico
+Espiramicina; Macrólido antibacteriano especialmente indicado en toxoplasmosis durante el embarazo
+Atenolol; Betabloqueador cardioselectivo antihipertensivo y antiarrítmico de acción prolongada
+Alprazolam; Benzodiazepina ansiolítica y sedante para trastornos de ansiedad y pánico
+Vacuna doble dT (difteria, Tétanos); Vacuna de refuerzo combinada contra difteria y tétanos para adultos
+Oligoelementos para nutricion parenteral; Mezcla de micronutrientes traza para nutrición parenteral total completa
+Nimodipina; Bloqueador de canales de calcio con selectividad cerebrovascular para vasoespasmo post-hemorragia subaracnoidea
+Meglumina antimoniato; Antiprotozoario pentavalente de primera línea para leishmaniasis visceral y cutánea
+Isoniazida (INH); Antibacteriano de primera línea bactericida para tuberculosis activa y profilaxis
+Eter alifático dietilamino etanol; Compuesto de síntesis farmacéutica relacionado con anestésicos locales
+Artemeter; Antimalárico derivado semisintético de la artemisinina para malaria por P. falciparum
+Acetil Cisteina; Mucolítico y antídoto del paracetamol precursor del glutatión con propiedades antioxidantes
+Terbinafina; Antifúngico de la clase alilaminas para dermatofitosis sistémica y tópica (onicomicosis)
+Trimetoprima); Antibacteriano diaminopirimidínico inhibidor de la dihidrofolato reductasa bacteriana
+Complemento nutricional (carmelo); Suplemento nutricional específico con mezcla de macro y micronutrientes
+Sevoflurano (Trifluorometil etil); Anestésico inhalado halogenado para inducción y mantenimiento anestésico
+Suxametonio (Succinil colina); Relajante muscular despolarizante de acción ultrabreve para intubación rápida
+Complemento nutricional (Nutribebé); Fórmula nutricional adaptada específicamente para lactantes
+Calcio (carbonato o citrato); Suplemento mineral de calcio para prevención y tratamiento de osteoporosis
+Tenofovir disoproxil fumarate; Profármaco INTI antirretroviral de primera línea para VIH y hepatitis B crónica
+Isosorbida Mononitrato; Nitrato orgánico vasodilatador de larga duración para profilaxis de angina de pecho
+Eritropoyetina; Hormona glucoproteica estimulante de eritropoyesis para anemia en insuficiencia renal crónica
+Fluoruro de sodio; Mineral preventivo de caries dental con efecto remineralizante del esmalte
+Interferon beta; Inmunomodulador para reducción de brotes en esclerosis múltiple recurrente-remitente
+Metilfenidato; Estimulante del SNC inhibidor de recaptación de dopamina y norepinefrina para TDAH
+Bencilpenicilina benzatínica; Penicilina de depósito de acción muy prolongada para sífilis y profilaxis reumática
+Zn; Zinc elemental micronutriente esencial cofactor de más de 300 enzimas
+Anastrozol; Inhibidor de aromatasa de 3ª generación antineoplásico para cáncer de mama posmenopáusico
+Vancomicina; Glucopéptido antibacteriano de reserva para gram positivos resistentes incluyendo MRSA y SARM
+Dacarbazina; Agente alquilante antineoplásico para melanoma metastásico y linfoma de Hodgkin
+Ofloxacina; Fluoroquinolona de 2ª generación antibacteriana de amplio espectro sistémico y tópico
+Dimenhidrinato; Antihistamínico con propiedades antieméticas y antivertiginosas para cinetosis
+Triptorelina; Análogo de GnRH de acción prolongada para cáncer de próstata endometriosis y pubertad precoz
+Complejo B (B1; B6); Vitaminas del grupo B incluyendo tiamina y piridoxina para metabolismo energético y nervioso
+Dicloxacilina sódica; Penicilina resistente a penicilinasas activa frente a Staphylococcus aureus sensible a meticilina
+Mebendazol; Antihelmintico de amplio espectro activo frente a nematodos intestinales como áscaris y oxiuros
+Naratriptan; Triptán agonista selectivo 5-HT1B/1D para tratamiento agudo de migraña con efecto prolongado
+Acetazolamida; Inhibidor de anhidrasa carbónica diurético antiepiléptico y para mal de altura
+Vaselina sólida; Emoliente petrolátum excipiente y protector cutáneo de uso tópico
+Ibuprofeno; AINE del grupo profeno analgésico antipirético y antiinflamatorio de amplio uso
+Dorzolamida; Inhibidor tópico oftálmico de anhidrasa carbónica para reducción de presión intraocular
+Etamsilato; Hemostático que estabiliza la pared capilar y reduce el tiempo de sangrado
+Ácido salicílico; Queratolítico y antiséptico tópico para hiperqueratosis y acné
+Eritromicina; Antibiótico macrólido de amplio espectro alternativa a la penicilina en alérgicos
+Propofol; Anestésico intravenoso de acción ultracorta para inducción y mantenimiento anestésico en UCI
+Ketorolaco; AINE parenteral y oral con potente efecto analgésico equivalente a opioides leves
+Ácido acético (Ácido tricloroacético); Agente cáustico queratolítico para verrugas y lesiones cervicales precancerosas
+Teofilina; Broncodilatador xantínico inhibidor de fosfodiesterasa para asma y EPOC grave
+Diazepam; Benzodiazepina ansiolítica anticonvulsivante relajante muscular y sedante
+Telmisartán; ARA II de larga vida media antihipertensivo con efecto metabólico adicional
+Cafeína Citrato; Estimulante del SNC metilxantina para tratamiento de apnea del prematuro
+Heparina de bajo peso molecular; Anticoagulante con mejor biodisponibilidad subcutánea y menor riesgo de trombocitopenia
+Gemcitabina; Antimetabolito análogo de citidina antineoplásico para cáncer de páncreas y pulmón
+Glibenclamida; Sulfonilurea de 2ª generación hipoglucemiante oral que estimula secreción de insulina
+Alimentos Terapéutico Listo para Uso (ATLU); Alimento terapéutico de alta densidad energética para desnutrición aguda severa
+Fluconazol; Antifúngico triazólico oral y parenteral para candidiasis sistémica y criptococosis meníngea
+Bencilpenicilina procaínica; Penicilina de depósito de absorción lenta para infecciones bacterianas moderadas
+Solución Básica; Solución de electrolitos de pH alcalino para uso en diálisis y preparaciones farmacéuticas
+Etambutol; Antibacteriano de primera línea para tuberculosis que inhibe síntesis de pared celular micobacteriana
+Vinblastina; Alcaloide de la vinca antineoplásico que inhibe la polimerización de tubulina
+Atazanavir (sulfato); Antirretroviral inhibidor de la proteasa del VIH en forma de sal sulfato
+Atazanavir; Antirretroviral inhibidor de la proteasa del VIH con dosificación una vez al día
+Vacuna BCG; Vacuna viva atenuada contra tuberculosis que previene formas graves en niños
+Fibra natural; Suplemento de fibra dietética soluble e insoluble para regulación intestinal
+Labetalol; Betabloqueador no selectivo con efecto alfa-1 bloqueante antihipertensivo oral y parenteral
+Albendazol; Antihelmintico de amplio espectro activo frente a nematodos cestodos y quistes hidatídicos
+Clofazimina; Antibacteriano antiinflamatorio derivado de riminofenazina para lepra y micobacterias no tuberculosas
+Mifepristona; Antiprogestágeno y antiglucocorticosteroide para aborto farmacológico y anticoncepción de emergencia
+Levotiroxina sódica; Hormona tiroidea sintética T4 de reemplazo para hipotiroidismo primario y central
+Clobetasol; Corticosteroide tópico de muy alta potencia para dermatosis inflamatorias graves y refractarias
+Amiodarona (clorhidrato); Antiarrítmico de clase III de amplio espectro para arritmias ventriculares y supraventriculares
+Erlotinib; Inhibidor selectivo del receptor EGFR tirosinquinasa antineoplásico para cáncer de pulmón no microcítico
+Cloranfenicol succinato sódico; Forma soluble de cloranfenicol para administración parenteral en infecciones graves
+Iodo povidona (Yodopovidona); Antiséptico de amplio espectro con yodo activo para heridas y preparación quirúrgica
+Dactinomicina; Antibiótico antitumoral actinomicina antineoplásico para tumores de Wilms y sarcomas
+Nitrofural (Nitrofurazona); Antibacteriano tópico nitrofuránico para quemaduras y heridas infectadas
+Etinilestradiol; Estrógeno sintético componente estrogénico de anticonceptivos orales combinados
+Rifampicina, Clofazimina, Dapsona; Poliquimioterapia estándar de la OMS para lepra multibacilar
+Rivaroxabán; Anticoagulante oral inhibidor directo del factor Xa para tromboembolismo venoso y fibrilación auricular
+Sucralfato; Citoprotector gástrico que forma barrera protectora sobre mucosa ulcerada
+Solución ringer lactato; Solución cristaloide isotónica con lactato para rehidratación y reposición de volumen
+Calcio; Mineral esencial para función ósea muscular cardíaca y coagulación sanguínea
+Carbidopa; Inhibidor de DOPA descarboxilasa periférica usado en combinación con levodopa para Parkinson
+Docetaxel; Taxano antineoplásico que estabiliza microtúbulos para cáncer de mama pulmón y próstata
+Pregabalina; Antiepiléptico y analgésico neuropático análogo del GABA para fibromialgia y dolor neuropático
+Solucion Acida; Solución de pH ácido para usos médicos específicos como preparación de dializados
+Ipratropio bromuro; Bromuro de ipratropio broncodilatador anticolinérgico inhalado para EPOC y asma
+Complemento nutricional; Suplemento de macronutrientes y micronutrientes esenciales para necesidades específicas
+Azatioprina; Inmunosupresor antimetabolito tiopurídico para trasplantes y enfermedades autoinmunes
+Terlipresina; Análogo de vasopresina vasoconstrictor esplácnico para hemorragia variceal y síndrome hepatorrenal
+Contraste iodado; Medio de contraste yodado iónico o no iónico para estudios de imagen radiológica
+Bisoprolol; Betabloqueador cardioselectivo de alta selectividad para insuficiencia cardíaca estable e hipertensión
+Medroxiprogesterona acetato; Progestágeno sintético inyectable de depósito como anticonceptivo trimestral
+Gentamicina sulfato; Aminoglucósido antibacteriano de amplio espectro para infecciones graves por gram negativos
+Proximetacaina (Proparacaina); Anestésico local tópico de acción rápida para uso oftalmológico diagnóstico
+Noretisterona acetato; Progestágeno sintético de 19-nortestosterona componente anticonceptivo y hemostático
+Diclofenaco Sódico; AINE en forma de sal sódica antiinflamatorio analgésico y antipirético
+Glicerol (Glicerina); Humectante y laxante osmótico rectal de uso tópico y oral
+Enzalutamida; Antiandrógeno de nueva generación inhibidor del receptor de andrógenos para cáncer de próstata
+Estradiol valerianato; Éster del estradiol de liberación prolongada para terapia hormonal femenina sustitutiva
+Suero Antiofídico Botrópico Crotàlico; Inmunoglobulina específica bivalente contra venenos de víboras Bothrops y Crotalus
+Nitroglicerina (Trinitrato de glicerol); Nitrato orgánico vasodilatador coronario para angina aguda y crónica
+Solución ringer normal; Solución cristaloide isotónica con electrolitos para reposición de volumen
+Sulfadiazina de plata; Antibacteriano tópico de amplio espectro para quemaduras e infecciones cutáneas graves
+Hidroxicloroquina sulfato; Antipalúdico y antirreumático con efecto inmunomodulador en lupus y artritis reumatoide
+Cloroquina fosfato; Sal fosfato de cloroquina antipalúdico y antiinflamatorio en enfermedades del tejido conectivo
+Bupivacaina clorhidrato con Epinefrina sin conservante; Anestésico local de acción prolongada con vasoconstrictor para mayor duración
+Bicalutamida; Antiandrógeno no esteroideo para cáncer de próstata avanzado
+Sofosbuvir; Antiviral pangenotípico de acción directa inhibidor de la ARN polimerasa NS5B del VHC
+Budesonida; Corticosteroide inhalado de alta potencia para asma EPOC y enfermedad inflamatoria intestinal
+Insulina zinc cristalina recombinante humana; Insulina recombinante en formulación zinc cristalina de acción ultrarrápida
+Valganciclovir; Profármaco oral del ganciclovir antiviral para retinitis y otras infecciones por citomegalovirus
+Estreptomicina sulfato; Aminoglucósido sal sulfato para tuberculosis pulmonar y brucelosis
+Fenobarbital; Barbitúrico antiepiléptico de primera línea en países en desarrollo y sedante
+Estradiol; Estrógeno natural endógeno para terapia hormonal femenina sustitutiva
+Ac. Fólico) (Chispitas nutricionales); Ácido fólico en formato de micronutrientes en polvo para prevención de desnutrición en niños
+Ledipasvir; Antiviral de acción directa inhibidor NS5A del virus de la hepatitis C para genotipo 1
+Hierro (como bisglicina quelato); Forma quelada orgánica de hierro con alta biodisponibilidad y mínimos efectos adversos
+Micofenolato de mofetilo; Inmunosupresor antimetabolito inhibidor de síntesis de purinas para prevención de rechazo
+Iodo (Yodo); Micronutriente esencial para síntesis de hormonas tiroideas T3 y T4
+Doxorrubicina liposomal pegilada; Antraciclina encapsulada en liposomas PEGilados para mayor tolerabilidad y menor cardiotoxicidad
+Nifurtimox; Antiprotozoario nitrofuránico para enfermedad de Chagas aguda y tripanosomiasis africana
+Estradiol valerato; Éster de estradiol de liberación prolongada para terapia hormonal femenina
+Agua para inyección; Agua estéril apirógena libre de endotoxinas para reconstitución de medicamentos parenterales
+Toxoide tetánico adsorbido; Vacuna antitetánica que induce inmunidad activa contra la toxina tetánica
+Finasterida; Inhibidor de la 5-alfa reductasa para hiperplasia prostática benigna y alopecia androgénica masculina
+Vacuna antipoliomielítica inactivada; Vacuna inactivada tipo Salk con tres serotipos para inmunización contra poliomielitis
+Norgestrel; Progestágeno sintético componente de anticonceptivos orales combinados
+Hierro; Mineral esencial para síntesis de hemoglobina mioglobina y citocromos
+Dobutamina clorhidrato; Inotrópico positivo selectivo beta-1 para insuficiencia cardíaca aguda y cardiogénica
+Ácido dimercaptosuccinico; Quelante oral de metales pesados especialmente plomo y mercurio para intoxicaciones
+Metadona; Opioide sintético de acción prolongada para dolor severo crónico y terapia de sustitución en dependientes de opioides
+Enzimas pancreáticas (Lipasa, Proteasa y Amilasa en combinación); Sustitución enzimática exógena en insuficiencia pancreática exocrina y fibrosis quística
+Bupivacaina clorhidrato; Anestésico local amídico de larga duración para infiltración y bloqueos nerviosos regionales
+Fingolimod; Inmunomodulador modulador del receptor S1P para esclerosis múltiple recurrente-remitente
+Sulfato de Bario; Medio de contraste radiopaco inerte para estudios gastrointestinales con rayos X
+Leucovorina (Folinato de calcio); Folato activo para rescate de toxicidad del metotrexato y potenciación del fluorouracilo
+Peróxido de hidrógeno (Agua oxigenada); Antiséptico oxidante de uso tópico para limpieza de heridas superficiales
+Darunavir; Antirretroviral inhibidor de proteasa del VIH de segunda generación con alta barrera genética
+Paclitaxel; Taxano antineoplásico que estabiliza microtúbulos para cáncer de ovario mama y pulmón
+Hidrocortisona acetato; Éster acetato de hidrocortisona corticosteroide tópico de baja-media potencia
+Resina de Podofilo (Podofilina); Citotóxico tópico que inhibe la mitosis para verrugas genitales y condilomas acuminados
+Daunorrubicina; Antraciclina antineoplásica para leucemia mieloide y linfoblástica aguda
+Micronutrientes (Vit. C; Fe, Zn); Vitamina C hierro y zinc micronutrientes para apoyo nutricional e inmunológico
+Levotiroxina sòdica; Hormona tiroidea T4 sintética para tratamiento del hipotiroidismo (ortografía alternativa)
+Eritromicina (estearato); Sal estearato de eritromicina para formulaciones orales con mejor sabor y tolerabilidad
+Vacuna antiamarílica; Vacuna de virus vivo atenuado cepa 17D contra la fiebre amarilla con protección duradera
+Vacuna SRP (Sarampión, Rubeola; Paperas); Vacuna triple viral combinada contra sarampión rubeola y parotiditis
+Litio carbonato; Sal carbonato de litio estabilizador del ánimo para manía y depresión bipolar
+Suero Antiofídico Botrópico Laquésico; Inmunoglobulina bivalente contra veneno de serpientes Bothrops y Lachesis muta
+Vacuna Antirotavírica; Vacuna oral de virus vivo atenuado para prevención de gastroenteritis por rotavirus en lactantes
+Solución Fisiológica; Solución isotónica de cloruro de sodio al 0,9% para uso intravenoso y lavados
+Etopósido; Inhibidor de topoisomerasa II antineoplásico para cáncer de pulmón testicular y linfomas
+Clorhexidina gluconato; Antiséptico de amplio espectro con efecto residual para piel mucosas y heridas quirúrgicas
+Ceftriaxona; Cefalosporina de 3ª generación parenteral de amplio espectro y larga vida media
+Ácido Ursodeoxicólico; Ácido biliar para disolución de cálculos biliares y tratamiento de colestasis hepática
+Solución de preservación de órganos sòlidos HTK; Solución cardiopléjica HTK para preservación hipotérmica de órganos sólidos en trasplante
+Quinina (diclorhidrato); Sal diclorhidrato de quinina antipalúdico clásico para malaria grave por P. falciparum
+Noretisterona; Progestágeno sintético de 19-nortestosterona para anticoncepción y regulación menstrual
+Prednisona; Corticosteroide oral profármaco de la prednisolona para enfermedades inflamatorias y autoinmunes
+Emulsión de lípidos; Fuente de ácidos grasos esenciales y calorías para nutrición parenteral total
+Propinoxato; Antiespasmódico anticolinérgico para espasmos del tracto gastrointestinal y urinario
+Fenitoína; Antiepiléptico estabilizador de membrana que inhibe canales de sodio voltaje-dependientes
+Leucovorina; Folato activo (ácido folínico) para rescate de metotrexato y potenciación de quimioterapia
+Formula Infantil; Fórmula láctea adaptada para lactantes cuando no es posible la lactancia materna
+Paracetamol (Acetaminofeno); Analgésico y antipirético ampliamente utilizado también conocido como acetaminofeno
+Atracurio besilato; Relajante muscular no despolarizante de acción intermedia con metabolismo independiente del hígado
+Fludarabina; Análogo nucleosídico purínico antineoplásico para leucemia linfocítica crónica y linfomas
+Amoxicilina; Aminopenicilina semisintética oral de amplio espectro para infecciones respiratorias y urinarias
+B6; Piridoxina vitamina B6 cofactor en metabolismo de aminoácidos y síntesis de neurotransmisores
+Estrógenos conjugados; Mezcla de estrógenos de origen equino para terapia hormonal en menopausia
+Flunarizina; Bloqueador de canales de calcio antimigrañoso y antivertiginoso para vértigo crónico
+Hidralazina clorhidrato; Vasodilatador arterial directo antihipertensivo para crisis y preeclampsia
+Gadobutrol; Medio de contraste macrocíclico de gadolinio de alta concentración para resonancia magnética
+Complemento nutricional (Diabético); Fórmula nutricional especializada de bajo índice glucémico para pacientes diabéticos
+Haloperidol; Antipsicótico típico del grupo butirofenona para psicosis aguda y crónica
+Fentanilo sin conservante; Opiáceo sintético en formulación libre de conservantes para uso intratecal o epidural
+Ciclofosfamida; Agente alquilante antineoplásico e inmunosupresor para linfomas leucemias y artritis reumatoide grave
+Tenecteplasa; Trombolítico fibrinolítico recombinante de administración en bolo para infarto agudo de miocardio
+Solución de glucosa; Solución de dextrosa al 5% o 10% para fluidoterapia y aporte calórico intravenoso
+Risperidona; Antipsicótico atípico antagonista D2/5-HT2A para esquizofrenia y trastorno bipolar
+Midazolam; Benzodiazepina de acción corta para sedación procedimiento anestesia y convulsiones
+Mesna (Mercapto etilsulfonato sódico); Uroprotector que inactiva la acroleína en orina previniendo cistitis hemorrágica por ciclofosfamida
+Eritromicina (etilsuccinato); Éster etilsuccinato de eritromicina con mejor absorción oral y menor irritación gástrica
+Solución glucosada clorurada; Solución combinada de glucosa y cloruro de sodio para fluidoterapia de mantenimiento
+Nimotuzumab; Anticuerpo monoclonal anti-EGFR con propiedades antiangiogénicas para glioblastoma y carcinomas
+Ondansetrón; Antiemético antagonista selectivo del receptor 5-HT3 altamente efectivo en quimioterapia y cirugía
+Rituximab; Anticuerpo monoclonal anti-CD20 para linfomas B no Hodgkin y enfermedades autoinmunes como AR
+Kanamicina; Aminoglucósido antibacteriano de segunda línea para tuberculosis multirresistente
+Artesunato; Antimalárico semisintético derivado de artemisinina de elección para malaria grave por P. falciparum
+Desmopresina acetato; Análogo sintético de vasopresina antidiurético y hemostático para diabetes insípida y hemofilia A leve
+Mivacuronio; Relajante muscular no despolarizante de acción muy corta para procedimientos quirúrgicos breves
+Corticoide; Corticosteroide genérico con propiedades antiinflamatorias inmunosupresoras y antialérgicas
+Ergometrina maleato; Alcaloide ergotamínico uterotónico para tratamiento y prevención de hemorragia postparto
+Complemento nutricional (Nutri Mama con Cañahua, probiótico y Omega-3); Suplemento especializado con nutrientes clave para mujeres embarazadas y lactantes
+Acido p-aminosalicilico; Antibacteriano bacteriostático de segunda línea para tuberculosis multirresistente y extensamente resistente
+Betametasona (fosfato); Corticosteroide inyectable de alta potencia para maduración pulmonar fetal en amenaza de parto prematuro
+Cabergolina; Agonista dopaminérgico D2 de larga acción para hiperprolactinemia y enfermedad de Parkinson
+Leflunomida; DMARD inmunomodulador inhibidor de síntesis de pirimidinas para artritis reumatoide activa
+Rocuronio bromuro; Relajante muscular no despolarizante de inicio de acción rápido para intubación y cirugía
+Heparina sódica; Anticoagulante parenteral de acción rápida sal sódica para trombosis venosa profunda y embolia pulmonar
+Espironolactona; Diurético ahorrador de potasio antagonista de aldosterona para insuficiencia cardíaca e hiperaldosteronismo
+Digoxina; Glucósido cardíaco inotrópico positivo para insuficiencia cardíaca y control de frecuencia en FA
+Cloruro de sodio; Electrolito fundamental para equilibrio hidroelectrolítico osmolaridad y fluidoterapia
+Antigripal (Paracetamol; Cafeína); Combinación de paracetamol con otros activos para alivio sintomático de gripe y resfriado
+Vacuna SR (Sarampión, Rubeola); Vacuna bivalente de virus vivos atenuados contra sarampión y rubeola
+Bromocriptina; Agonista dopaminérgico D2 para hiperprolactinemia galactorrea y enfermedad de Parkinson
+Cefotaxima; Cefalosporina de 3ª generación parenteral activa frente a gram negativos y meningitis bacteriana
+Aceite vitaminado (alimento); Suplemento oleoso con vitaminas liposolubles para apoyo nutricional
+Lidocaína; Anestésico local amídico y antiarrítmico de clase IB de amplio uso clínico
+Cefazolina; Cefalosporina de 1ª generación parenteral de primera elección para profilaxis quirúrgica
+Losartán; ARA II antihipertensivo y nefroprotector con efecto hiperuricosúrico
+Levofloxacina; Fluoroquinolona de 3ª generación para infecciones respiratorias comunitarias y urinarias
+Bedaquilina; Diariltiquinolina inhibidor de ATP sintasa micobacteriana para tuberculosis multirresistente
+Factor VIII de la coagulación; Concentrado de factor VIII para tratamiento de hemofilia A congénita o adquirida
+Hep. B; Vacuna recombinante de antígeno de superficie para inmunización activa contra hepatitis B
+Simeticona; Antiespumante de acción local que reduce la tensión superficial de gases intestinales
+Ácido acetil salicílico; Analgésico antipirético antiinflamatorio e inhibidor plaquetario irreversible de COX-1
+Fenofibrato; Fibrato activador de PPAR-alfa para hipertrigliceridemia y dislipemia mixta
+Vincristina; Alcaloide de la vinca antineoplásico que inhibe la polimerización de tubulina para leucemia y linfoma
+Metotrexate; Antimetabolito antagonista del folato antineoplásico e inmunosupresor (nombre alternativo de metotrexato)
+Cafeína; Metilxantina estimulante del SNC con efecto broncodilatador y analgésico coadyuvante
+Cefepima; Cefalosporina de 4ª generación parenteral de amplio espectro activa frente a Pseudomonas aeruginosa
+Amlodipina; Bloqueador de canales de calcio dihidropiridínico antihipertensivo de acción prolongada
+Ungüento dérmico eucalipto mentol; Emoliente tópico descongestionante con propiedades analgésicas y antisépticas leves
+Imipenem; Carbapenémico betalactámico de amplio espectro para infecciones graves por gérmenes multirresistentes
+Ivermectina; Antiparasitario de amplio espectro activo frente a nematodos y ectoparásitos como sarna y pediculosis
+anestésico; Agente farmacológico que produce pérdida reversible de la sensibilidad local o general
+Vasoconstrictor con o sin Cafeína); Combinación para uso dental o tópico que prolonga el efecto anestésico local
+Ciproterona acetato; Antiandrogénico esteroideo para hirsutismo acné severo y cáncer de próstata
+Busulfano; Agente alquilante antineoplásico para leucemia mieloide crónica y acondicionamiento en trasplante de médula
+inhibidor betalactamasa; Compuesto que inhibe enzimas betalactamasas bacterianas potenciando antibióticos betalactámicos
+Tenofovir; Análogo nucleotídico antirretroviral para VIH y hepatitis B en combinaciones
+Pirazinamida; Antibacteriano bactericida de primera línea para tuberculosis activo en ambiente ácido
+Enalapril maleato; Sal maleato del enalapril inhibidor de la ECA antihipertensivo y cardioprotector
+Tropicamida; Midriático y ciclopléjico anticolinérgico de acción corta para examen oftalmológico
+Oseltamivir; Antiviral inhibidor de neuraminidasa para tratamiento y profilaxis de influenza A y B
+Ketotifeno; Antihistamínico y estabilizador de mastocitos oral y tópico oftálmico antialérgico
+Tacrolimus; Inmunosupresor macrólido inhibidor de calcineurina para prevención de rechazo en trasplantes
+Bacitracina; Antibiótico polipeptídico tópico activo frente a gram positivos para infecciones cutáneas
+Propranolol; Betabloqueador no selectivo para hipertensión arritmias temblor y profilaxis de migraña
+Alcohol etílico (Etanol); Antiséptico y desinfectante cutáneo de amplio espectro al 70%
+Omeprazol; Inhibidor de la bomba de protones de primera línea para úlcera péptica y ERGE
+Etionamida; Antibacteriano de segunda línea que inhibe la síntesis de ácidos micólicos en tuberculosis multirresistente
+Bicarbonato de sodio p/hemodiálisis; Tampón bicarbonato alcalino concentrado para preparación de líquido de hemodiálisis
+Triclabendazol; Antihelmintico bencimidazólico específico para fasciolasis hepática por Fasciola hepatica
+Latanoprost; Análogo de prostaglandina F2-alfa para reducción de presión intraocular en glaucoma de ángulo abierto
+Rosuvastatina; Estatina de alta potencia inhibidora de HMG-CoA reductasa para reducción de colesterol LDL
+Tazobactam; Inhibidor de betalactamasas que potencia la actividad de la piperacilina frente a gram negativos
+Flutamida; Antiandrógeno no esteroideo para cáncer de próstata metastásico en combinación con agonistas GnRH
+Meglumina diatrizoato; Medio de contraste yodado iónico de alta osmolaridad para estudios radiológicos
+Edetato sódico de calcio (EDTA); Quelante de metales pesados especialmente plomo para intoxicaciones agudas y crónicas
+Epinefrina; Catecolamina endógena vasopresora broncodilatadora y cardioestimulante para emergencias
+carbonato de sodio; Agente alcalinizante utilizado en formulaciones farmacéuticas y como excipiente
+Dinitrato de isosorbida (Isosorbide dinitrato); Nitrato orgánico vasodilatador para angina de pecho crónica e insuficiencia cardíaca
+Adenosina; Nucleósido antiarrítmico para conversión de taquicardia supraventricular paroxística a ritmo sinusal
+Linezolid; Oxazolidinona antibacteriana de último recurso para gram positivos multirresistentes MRSA y VRE
+Neomicina sulfato; Aminoglucósido tópico antibacteriano para infecciones cutáneas y preparación intestinal preoperatoria
+Interferon alfa 2 b recombinante; Inmunomodulador antiviral y antitumoral para hepatitis C B y leucemia de células pilosas
+Dimercaprol (B.A.L.); Quelante de metales pesados arsénico mercurio y oro para intoxicaciones agudas
+Albúmina humana; Proteína plasmática coloidal para reposición de volumen y tratamiento de hipoalbuminemia grave
+Mefloquina; Antipalúdico para profilaxis y tratamiento de malaria resistente a cloroquina
+H. Influenzae B); Vacuna conjugada contra Haemophilus influenzae tipo b para prevención de meningitis en niños
+Meloxicam; AINE preferente inhibidor de COX-2 con menor riesgo gastrointestinal que AINEs clásicos
+Metamizol (Dipirona); Analgésico antipirético potente con efecto espasmolítico para dolor severo y fiebre refractaria
+Tocoferol (Vitamina E); Vitamina liposoluble antioxidante que protege membranas celulares de la peroxidación lipídica
+); Entrada incompleta en el listado original
+Zidovudina; INTI antirretroviral pionero para VIH también usado en profilaxis de transmisión vertical materno-fetal
+Vinorelbina; Alcaloide semisintético de la vinca antineoplásico para cáncer de pulmón no microcítico y mama
+Hidroquinona; Agente despigmentante tópico inhibidor de tirosinasa para hiperpigmentación cutánea y melasma
+Aripiprazol; Antipsicótico atípico agonista parcial de dopamina D2 y serotonina 5-HT1A para esquizofrenia
+Piridostigmina; Inhibidor de acetilcolinesterasa para tratamiento de miastenia gravis
+Sulfato de Magnesio; Electrolito para tratamiento de eclampsia preeclampsia hipomagnesemia y como tocolítico
+Corticotrofina (ACTH); Hormona adrenocorticotropa que estimula la síntesis y liberación de cortisol suprarrenal
+Daclatasvir; Antiviral de acción directa inhibidor NS5A pan-genotípico del virus de la hepatitis C
+Quetiapina; Antipsicótico atípico para esquizofrenia episodios maníacos y depresión bipolar
+Hidróxido de aluminio y magnesio; Antiácido combinado de acción local para pirosis y dispepsia
+Sildenafilo; Inhibidor selectivo de PDE-5 para disfunción eréctil e hipertensión arterial pulmonar
+Tramadol; Analgésico opioide atípico con mecanismo dual inhibición de recaptación de monoaminas para dolor moderado
+Naloxona; Antagonista competitivo de receptores opioides antídoto para sobredosis y depresión respiratoria
+Basiliximab; Anticuerpo monoclonal quimérico anti-CD25 inmunosupresor de inducción en trasplante renal
+Vitamina D; Vitamina liposoluble esencial para absorción de calcio función inmune y homeostasis ósea
+Haloperidol decanoato; Éster de depósito del haloperidol de administración intramuscular mensual para adherencia en psicosis
+Lidocaína clorhidrato sin conservante; Anestésico local libre de conservantes para uso intratecal epidural o intraarticular
+Atropina sulfato; Sal sulfato de atropina anticolinérgico para bradicardia e intoxicación por organofosforados
+Rifampicina, Dapsona; Combinación antibacteriana de dos fármacos para lepra paucibacilar según protocolo OMS
+Tiamina (Vitamina B 1); Vitamina B1 esencial para metabolismo de carbohidratos y función del sistema nervioso
+Telmisartan; ARA II de larga vida media (24h) con efecto metabólico favorable antihipertensivo
+Solución para diálisis intraperitoneal (de acuerdo a composición apropiada); Solución estéril de composición variable para diálisis peritoneal continua
+Ácido Ascorbico (Vitamina C); Ácido ascórbico vitamina antioxidante esencial para síntesis de colágeno e inmunidad celular
+Glicerol (Glicerina bidestilada); Glicerina de alta pureza bidestilada para formulaciones farmacéuticas parenterales y oftálmicas
+Gentamicina; Aminoglucósido antibacteriano de amplio espectro para infecciones graves por gram negativos incluyendo Pseudomonas
+Melfalán; Agente alquilante mostaza nitrogenada antineoplásico para mieloma múltiple y carcinoma de ovario
+Halotano; Anestésico inhalado halogenado de uso histórico actualmente desplazado por agentes más modernos
+Piperacilina; Ureidopenicilina de amplio espectro activa frente a Pseudomonas aeruginosa y gram negativos
+Sulfadoxina; Sulfonamida de acción prolongada usada en combinación con pirimetamina para malaria
+Cicloserina; Antibacteriano de segunda línea análogo de D-alanina para tuberculosis multirresistente y extensamente resistente
+Nistatina; Antifúngico poliénico tópico y oral para candidiasis mucocutánea oral vaginal e intestinal
+Fluorouracilo; Antimetabolito pirimidínico 5-FU antineoplásico para cáncer colorrectal mama y piel
+Aciclovir; Antiviral análogo de guanosina para herpes simple varicela y zóster con acción específica viral
+Codeína; Opioide débil analgésico y antitusivo prodrug de la morfina
+Vitamina C; Ácido ascórbico vitamina antioxidante esencial para función inmune y síntesis de colágeno
+Inmunoglobulina humana normal; Concentrado de inmunoglobulinas IgG para inmunodeficiencias humorales e infecciones graves
+Amilorida; Diurético ahorrador de potasio que bloquea canales de sodio epitelial en túbulo colector
+Suero Antilatrodectus; Inmunoglobulina equina específica contra el veneno de araña Latrodectus (viuda negra)
+Tiabendazol; Bencimidazol antihelmintico para estrongiloidosis larva migrans cutánea y visceral
+Lamotrigina; Antiepiléptico de amplio espectro y estabilizador del ánimo en trastorno bipolar
+Salbutamol; Broncodilatador beta-2 agonista de acción corta para crisis asmáticas y broncoespasmo
+Etilefrina; Simpaticomimético alfa y beta de acción mixta para hipotensión ortostática
+Doxiciclina; Tetraciclina semisintética de amplio espectro para infecciones por gérmenes atípicos ETS y malaria
+Ceftazidima; Cefalosporina de 3ª generación de elección para infecciones por Pseudomonas aeruginosa
+Leuprolide; Análogo de GnRH agonista para cáncer de próstata endometriosis y pubertad precoz
+Pazopanib; Inhibidor multikinasa antiangiogénico para carcinoma renal avanzado y sarcoma de partes blandas
+Ac. Fólico; Ácido fólico vitamina B9 para prevención de defectos del tubo neural y tratamiento de megaloblastosis
+Solución para dialisis peritoneal II; Segunda formulación de solución estéril para diálisis peritoneal continua ambulatoria
+Epinefrina (Adrenalina); Adrenalina catecolamina de emergencia para anafilaxia parada cardíaca y broncoespasmo severo
+Progesterona; Hormona progestágena natural para apoyo de fase lútea reproducción asistida y amenaza de aborto
+Beclometasona dipropionato; Éster dipropionato de beclometasona corticosteroide inhalado para control del asma
+Ritonavir; Inhibidor de proteasa del VIH usado principalmente como potenciador farmacocinético en dosis bajas
+Niclosamida; Antihelmintico para tenias intestinales (Taenia saginata T. solium e Hymenolepis)
+Permetrina; Piretroide sintético insecticida antiparasitario tópico para escabiosis y pediculosis
+Aminofilina; Xantina broncodilatadora sal de teofilina con etilendiamina para administración parenteral
+Mefloquina (clorhidrato); Sal clorhidrato de mefloquina antipalúdico para profilaxis y tratamiento en zonas de resistencia
+Tetraciclina; Antibiótico bacteriostático de amplio espectro para acné H. pylori y enfermedades transmitidas por vectores
+Fentanilo con conservante; Opiáceo sintético en formulación estándar con conservantes para uso sistémico analgésico
+Imatinib; Inhibidor de BCR-ABL tirosinquinasa revolucionario para leucemia mieloide crónica y GIST
+Clindamicina; Lincosamida antibacteriana activa frente a gram positivos y anaerobios para infecciones graves
+Ácido Fólico; Vitamina B9 esencial para hematopoyesis normal y prevención de defectos congénitos
+Gadopentato de dimeglumina; Sal de meglumina del gadopentato medio de contraste iónico para resonancia magnética
+Clotrimazol; Antifúngico imidazólico tópico ampliamente usado para candidiasis vaginal y dermatofitosis
+Primaquina (base); Forma base de primaquina antipalúdico para erradicación de hipnozoítos de P. vivax
+Citarabina; Análogo nucleosídico de citidina antineoplásico para leucemia aguda y linfoma
+Cisplatino; Compuesto de platino antineoplásico de primera generación para tumores sólidos gonadales y ORL
+Cianocobalamina (Vitamina B12); Forma cianocobalamina estable de vitamina B12 para inyección en deficiencias
+Inmunoglobulina anti D (RH; factor); Gammaglobulina anti-D (Rho) para prevención de sensibilización Rh en madres Rh negativas
+Ácido Ascórbica (Vitamina C); Vitamina C antioxidante esencial (entrada con tipografía alternativa, ver 451)
+Fibrinógeno humano; Concentrado del factor de coagulación I para hipofibrinogenemia congénita o adquirida
+Fluticasona; Corticosteroide inhalado de alta potencia para asma rinitis alérgica y EPOC
+Oxaliplatino; Compuesto de platino de 3ª generación antineoplásico para cáncer colorrectal en combinación con 5-FU
+Retinol (Vitamina A); Forma activa liposoluble de vitamina A esencial para visión crecimiento e inmunidad
+Dextrometorfano bromhidrato; Antitusivo no opioide de acción central agonista del receptor sigma para tos seca
+Claritromicina; Macrólido semisintético para infecciones por H. pylori micobacterias atípicas y vías respiratorias
+Milrinona; Inhibidor selectivo de PDE-3 inotrópico y vasodilatador para insuficiencia cardíaca aguda descompensada
+Complejo de vitaminas y minerales (Uso pediatría) CMV; Suplemento multivitamínico y mineral formulado específicamente para necesidades pediátricas
+Clomipramina; Antidepresivo tricíclico de elección para trastorno obsesivo-compulsivo y depresión severa
+Dexmedetomidina; Agonista selectivo alfa-2 adrenérgico sedante y analgésico para sedación en UCI y procedimientos
+Insulina Glulisina; Análogo de insulina de acción ultrarrápida de inicio más rápido que insulina regular
+Neostigmina; Inhibidor reversible de acetilcolinesterasa para reversión del bloqueo neuromuscular y miastenia gravis
+Insulina Glargina; Análogo de insulina basal de acción prolongada sin pico para control glucémico nocturno
+Mercaptopurina; Antimetabolito tiopurídico antineoplásico e inmunosupresor para leucemia linfoblástica aguda
+Propiltiouracilo; Antitirotídeo que inhibe la síntesis de hormonas tiroideas y la conversión de T4 a T3 periférica
+Levodopa; Precursor de dopamina que cruza la barrera hematoencefálica principal fármaco para Parkinson
+Oxitocina; Hormona uterotónica natural para inducción y conducción del parto y control de hemorragia postparto
+Gonadotrofina coriónica; Hormona con actividad LH para inducción de ovulación hipogonadismo masculino y criptorquidia
+Cefradina; Cefalosporina de 1ª generación oral para infecciones leves de piel y vías urinarias
+Violeta de genciana (Cloruro de metilrosanilina); Colorante antiséptico tópico para infecciones fúngicas y bacterianas superficiales
+Salmeterol; Beta-2 agonista inhalado de acción prolongada para mantenimiento del asma y EPOC siempre con corticosteroide
+Mitomicina; Agente alquilante antineoplásico antibiótico para cáncer de vejiga estómago y colon
+Betametasona (valerato); Éster valerato de betametasona corticosteroide tópico de alta potencia para dermatosis
+Estreptoquinasa; Fibrinolítico de origen estreptocócico para trombosis venosa profunda embolia pulmonar e IAM
+Fe; Hierro elemental micronutriente esencial para síntesis de hemoglobina y transporte de oxígeno
+Clorpromazina; Antipsicótico típico fenotiazínico de primera generación para psicosis aguda e hipo intratable
+N-acetilcisteina; Mucolítico y hepatoprotector antídoto de intoxicación por paracetamol y precursor del glutatión
+Noradrenalina; Catecolamina vasopresora de primera línea en shock séptico que aumenta la resistencia vascular
+Flumazenil; Antagonista competitivo de receptores de benzodiacepinas para reversión de sedación y sobredosis
+Ácido Tranexámico; Antifibrinolítico inhibidor competitivo de plasminógeno para control de hemorragia quirúrgica y trauma
+Quinina (bisulfato o sulfato); Antipalúdico clásico en sales de bisulfato o sulfato para malaria no complicada
+Abacavir sulfato; INTI antirretroviral para VIH en sal sulfato requiere test de HLA-B*5701 previo
+Fluoresceina (sal sódica); Colorante fluorescente de sal sódica para angiografía retiniana y diagnóstico de úlceras corneales
+Ciproterona (acetato); Progestágeno antiandrogénico para hirsutismo acné intenso y cáncer de próstata
+Carboplatino; Derivado del platino de 2ª generación antineoplásico con menor nefrotoxicidad que cisplatino
+Remifentanilo; Opioide sintético de acción ultrabreve (minutos) para analgesia durante procedimientos quirúrgicos
+Montelukast; Antagonista de receptores de cisteinil-leucotrienos para asma bronquial y rinitis alérgica
+Ácido Gadotérico; Quelato macrocíclico de gadolinio de alta estabilidad agente de contraste para resonancia magnética
+Metildopa (Alfametildopa); Antihipertensivo de acción central de primera elección para hipertensión en el embarazo
+Imipramina clorhidrato; Antidepresivo tricíclico para depresión mayor y enuresis nocturna en niños
+Solución para dialisis peritoneal I; Primera formulación de solución estéril de dextrosa para diálisis peritoneal
+Mesalazina; Antiinflamatorio aminosalicilato tópico intestinal para colitis ulcerosa y enfermedad de Crohn
+Colistina; Polimixina E antibiótica de último recurso parenteral e inhalada para gram negativos multirresistentes (XDR)
+Carbamazepina; Antiepiléptico estabilizador de membrana y de primera línea para neuralgia del trigémino y bipolar
+Tiopental sódico; Barbitúrico de acción ultrabreve inductor anestésico intravenoso histórico
+Morfina; Opioide agonista mu de referencia analgésico patrón para dolor severo oncológico y postoperatorio
+Talidomida; Inmunomodulador con actividad antiangiogénica para mieloma múltiple y eritema nudoso leproso (uso restringido)
+Butilbromuro de Hioscina (Butilescopolamina); Antiespasmódico anticolinérgico periférico para cólico abdominal biliar y ureteral
+Clopidogrel; Antiagregante plaquetario tienopiridínico para síndrome coronario agudo y prevención de eventos aterotrombóticos
+Prazicuantel; Antihelmintico para esquistosomiasis y tenias (ortografía alternativa de praziquantel)
+Asparaginasa; Enzima antineoplásica que depleta L-asparagina sérica para leucemia linfoblástica aguda
+Lamivudine; Nombre en inglés de lamivudina INTI antirretroviral (ver lamivudina entrada 106)
+Ciclosporina; Inmunosupresor calcineurínico inhibidor de IL-2 para prevención de rechazo en trasplantes y autoinmunes
+Dapsona; Sulfona antibacteriana antiinflamatoria para lepra neumocistosis y dermatitis herpetiforme
+Solución de Manitol; Diurético osmótico intravenoso al 15-20% para edema cerebral e hipertensión intracraneal
+Gadodiamida; Quelato lineal no iónico de gadolinio para contraste en resonancia magnética
+Ácido Valpróico ó Valproato sódico; Anticonvulsivante de amplio espectro y estabilizador del ánimo para epilepsia y bipolar
+Morfina (con y sin conservante); Opioide de referencia en formulaciones con o sin conservantes para vías sistémica espinal y epidural
+Pirantel pamoato; Antihelmintico para nematodos intestinales especialmente áscaris y oxiuros en dosis única
+Bupivacaina clorhidrato (pesada); Solución hiperbara de bupivacaína con glucosa para anestesia espinal subaracnoidea
+Rifampicina; Antibiótico rifamicínico bactericida de primera línea para tuberculosis y lepra
+Cloruro de potasio; Electrolito para corrección de hipopotasemia e hipocaliemia en fluidoterapia
+Vacuna Antirrábica; Vacuna inactivada para profilaxis pre y postexposición contra el virus de la rabia
+Cetirizina; Antihistamínico de 2ª generación con escasa sedación para alergias urticaria y rinitis
+Benznidazol; Antiprotozoario nitroimidazólico de primera línea para enfermedad de Chagas en fase aguda
+Hidrocortisona succinato sódico; Forma soluble de hidrocortisona para administración intravenosa en urgencias endocrinológicas
+Filgrastim; Factor estimulante de colonias granulocíticas G-CSF para neutropenia post-quimioterapia
+Lumefantrina; Antimalárico aminoalcohol usado exclusivamente en combinación con artemeter para malaria no complicada
+Trolamina; Base orgánica trietanolamina usada como neutralizante y emulsificante en formulaciones tópicas
+Resorcinol; Queratolítico antiséptico tópico para acné y dermatitis seborreica
+Tenofovir disoproxilo; Profármaco del tenofovir INTI para VIH y hepatitis B crónica (ver también entrada 181)
+Doxorubicina clorhidrato (Adriamicina clorh.); Antraciclina en forma de sal clorhidrato (Adriamicina) antineoplásica
+Colecalciferol (Vitamina D3); Vitamina D3 natural para metabolismo óseo absorción intestinal de calcio y función inmune
+Alopurinol; Inhibidor de xantina oxidasa que reduce la producción de ácido úrico para gota crónica
+Voriconazol; Antifúngico triazólico de amplio espectro de primera línea para aspergilosis invasiva y candidiasis
+Peróxido de Benzoílo; Agente antimicrobiano y queratolítico tópico de primera línea para acné vulgar
+Hidroclorotiazida; Diurético tiazídico para hipertensión arterial edema leve e insuficiencia cardíaca leve
+Nafazolina clorhidrato; Imidazolina simpaticomimética descongestionante nasal y ocular de acción local
+Gemfibrozilo; Fibrato ácido fíbrico hipolipemiante que reduce triglicéridos y aumenta HDL
+Vacuna cuadrivalente recombinante contra el Virus del Papiloma Humano; Vacuna preventiva contra los serotipos 6 11 16 y 18 del VPH causantes de verrugas y cáncer cervical
+Minociclina; Tetraciclina semisintética de amplio espectro para acné infecciones por gérmenes atípicos y MRSA
+Deferoxamina mesilato; Quelante parenteral de hierro para intoxicación aguda por hierro y hemocromatosis
+Protamina Sulfato; Proteína catiónica antídoto específico de la heparina que revierte su efecto anticoagulante
+Petidina (Meperidina); Opioide sintético de acción rápida y duración corta para dolor moderado a severo
+Lágrimas artificiales; Solución lubricante oftálmica que simula la película lagrimal para síndrome de ojo seco
+Clomipramina (clorhidrato); Sal clorhidrato del antidepresivo tricíclico clomipramina para TOC y depresión severa
+Nitrofurantoína; Antibacteriano nitrofuránico oral de primera línea para infecciones urinarias no complicadas
+Cloxacilina; Isoxazolil-penicilina resistente a penicilinasas para Staphylococcus aureus sensible a meticilina
+Bisacodilo; Laxante estimulante de contacto que actúa sobre la mucosa del colon para estreñimiento
+Antihistamínico; Fármaco antagonista de receptores H1 de histamina para reacciones alérgicas (genérico)
+Abacavir; INTI antirretroviral análogo de guanosina para combinaciones en VIH (requiere test HLA-B*5701)
+Bleomicina; Antibiótico glicopeptídico antitumoral para linfoma de Hodgkin carcinomas y derrame pleural maligno
+Metoclopramida; Procinético y antiemético antagonista dopaminérgico para náuseas vómitos y gastroparesia
+Amfotericina B; Antifúngico poliénico de amplio espectro para micosis sistémicas graves (ortografía alternativa)
+Vacuna pentavalente (DPT; HB; Hib); Vacuna combinada contra difteria tétanos tos ferina hepatitis B y Haemophilus influenzae b
+Sales de rehidratación oral (SRO) baja osmolaridad; Fórmula mejorada de la OMS con menor osmolaridad para rehidratación en diarrea aguda infantil
+Zinc (como sulfato); Zinc en forma de sulfato micronutriente para tratamiento de diarrea infantil y deficiencias
+Benzoato de bencilo; Antiparasitario tópico de primera línea para escabiosis y pediculosis
+Piridoxina clorhidrato (Vitamina B6); Forma clorhidrato de vitamina B6 para neuropatía periférica por isoniazida y deficiencias vitamínicas
+antiinfeccioso de accion tópico; Agente antimicrobiano de espectro variable para aplicación local en piel y mucosas
+Nitroprusiato de sodio; Vasodilatador arterial y venoso potente de acción inmediata para crisis hipertensivas graves
+Ifosfamida; Agente alquilante oxazafosforina antineoplásico para sarcomas y linfomas siempre con mesna
+Vacuna antihepatitis B; Vacuna recombinante del antígeno HBsAg para inmunización activa contra el virus de la hepatitis B
+Lidocaína clorhidrato; Sal clorhidrato del anestésico local lidocaína para infiltración y bloqueos nerviosos
+Bencilpenicilina sódica; Penicilina G cristalina sódica de alta solubilidad para administración intravenosa en infecciones graves
+Vacuna antipoliomielítica bivalente; Vacuna oral de virus vivos atenuados bivalente (Sabin) contra poliovirus tipo 1 y 3
+Suero Antirràbico (heterólogo); Inmunoglobulina antirrábica equina heteróloga para profilaxis postexposición pasiva inmediata
+Delamanid; Nitroimidazo-oxazol antibacteriano de nueva clase para tuberculosis multirresistente e intolerante a otros fármacos
+Pirimetamina; Antipalúdico inhibidor de dihidrofolato reductasa parasitaria para malaria y toxoplasmosis
+Atorvastatina; Estatina de alta potencia inhibidora de HMG-CoA reductasa ampliamente usada para dislipemia
+Biperideno clorhidrato; Anticolinérgico antiparkinsoniano para control de síntomas extrapiramidales por antipsicóticos
+Vit A; Vitamina A (retinol) para prevención de ceguera nocturna y déficit en países en desarrollo
+Hidroxiurea; Inhibidor de ribonucleótido reductasa antineoplásico e inmunomodulador para leucemia mieloide crónica y drepanocitosis
+Capreomicina; Antibiótico péptido cíclico inyectable de segunda línea para tuberculosis multirresistente
+Vaselina liquida; Aceite mineral de parafina lubricante emoliente y laxante oral
+Aminoácidos; Mezcla de aminoácidos esenciales y no esenciales para nutrición parenteral total
+Fluoresceina; Colorante fluorescente xanteno para angiografía retiniana y detección de lesiones corneales
+Proteinas para alimentación enteral (alimento); Suplemento proteico para soporte nutricional enteral en pacientes con necesidades aumentadas
+Oxido de Zinc con o sin aceite; Protector dérmico y cicatrizante para eritema del pañal y lesiones cutáneas
+Hidroclorotiazida; Diurético tiazídico antihipertensivo (entrada duplicada, ver entrada 574)
+Clomifeno citrato; Modulador selectivo de receptores de estrógeno (SERM) inductor de ovulación para infertilidad anovulatoria
+Vacuna Antirrábica de uso Humano (Cultivo Celular); Vacuna antirrábica inactivada producida en células Vero para profilaxis pre y postexposición
+Dopamina clorhidrato; Catecolamina con efectos dopaminérgicos inotrópicos y vasopresores dependientes de la dosis infundida
+Ácido Zoledrónico; Bifosfonato de 3ª generación de alta potencia para osteoporosis metástasis óseas e hipercalcemia maligna
+Nitazoxanida; Antiprotozoario y antihelmintico tiazolida de amplio espectro para giardiasis criptosporidiosis y helmintos
+Meropenem; Carbapenémico de amplio espectro con mejor perfil de tolerabilidad neurológica que imipenem
+Bicarbonato de sodio; Tampón alcalino para corrección de acidosis metabólica y alcalinización urinaria
+Nevirapina; INNTI antirretroviral de primera generación para VIH especialmente en profilaxis de transmisión vertical
+Domperidona; Procinético y antiemético antagonista periférico D2 con escaso efecto central
+Ciprofloxacina; Fluoroquinolona de 2ª generación de amplio espectro (forma alternativa de ciprofloxacino)
+Moxifloxacina; Fluoroquinolona de 4ª generación con actividad anaeróbica atípica y antituberculosa
+Globulina Anti-timocito; Inmunoglobulina para aplasia medular grave y profilaxis de rechazo agudo en trasplante
+Pentamidina; Antiprotozoario diamidínico para neumocistosis por P. jirovecii y leishmaniasis visceral
+Factor IX de la coagulación; Concentrado de factor IX para tratamiento de hemofilia B (enfermedad de Christmas)
+Ácido aminocapróico; Antifibrinolítico inhibidor de la activación del plasminógeno para hemorragia quirúrgica grave
+Ácido Alendrónico (Alendronato); Bifosfonato de primera línea para osteoporosis posmenopáusica y enfermedad de Paget ósea
+Vacuna contra Influenza (Pediátrica); Vacuna antigripal trivalente o tetravalente formulada y dosificada para niños
+Tioridazina; Antipsicótico típico fenotiazínico actualmente restringido por riesgo de arritmias cardíacas (QTc)
+lidocaína clorhidrato; Anestésico local sal clorhidrato para infiltración y bloqueos (entrada duplicada, ver 601 y 636)
+Tiamazol (Metimazol); Antitirotídeo que inhibe la síntesis de hormonas tiroideas para hipertiroidismo y tiroides de Graves
+Temozolomida; Agente alquilante antineoplásico oral para glioblastoma multiforme y astrocitoma anaplásico
+Gadoversetamida; Quelato lineal no iónico de gadolinio para contraste en resonancia magnética del SNC
+Agentes con gelatina; Hemostáticos locales absorbibles o expansores plasmáticos (gelatinas modificadas) para reposición de volumen
+Bevacizumab; Anticuerpo monoclonal anti-VEGF antiangiogénico para cáncer colorrectal pulmón y ovario metastásico
+Indometacina; AINE potente inhibidor de COX para artritis gotosa aguda y cierre del ductus arterioso en neonatos
+Ergotamina tartrato; Alcaloide del ergot agonista alfa-adrenérgico y serotoninérgico para tratamiento agudo de migraña
+Vacuna contra Influenza (Adulto); Vacuna antigripal trivalente o tetravalente inactivada para adultos actualizada anualmente
+Aceite mineral; Laxante lubricante que reblandece las heces y parafina líquida emoliente tópica
+Isoniazida; Antibacteriano bactericida de primera línea para tuberculosis activa y quimioprofilaxis
+Vacuna Triple DPT (Difteria, Pertusis, Tetanos); Vacuna combinada de toxoides y antígenos contra difteria tos ferina y tétanos

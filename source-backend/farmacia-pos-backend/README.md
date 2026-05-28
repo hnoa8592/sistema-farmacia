@@ -39,6 +39,7 @@ docker exec -i farmacia-postgres psql -U postgres -d farmacia_pos < src/main/res
 
 ```bash
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
+mvn spring-boot:run "-Dspring-boot.run.profiles=dev" "-Dmaven.test.skip=true"
 ```
 ```bash 2.0
 mvn --% -Dmaven.test.skip=true -Dspring-boot.run.profiles=dev spring-boot:run
@@ -62,7 +63,7 @@ Esto crea automáticamente el schema con todas las tablas, recursos, perfiles y 
 ### 6. Cargar datos demo (opcional)
 
 ```bash
-docker exec -i farmacia-postgres psql -U postgres -d farmacia_pos < src/main/resources/db/07-seed-data-demo.sql
+docker exec -i farmacia-postgres psql -U postgres -d farmacia_pos < src/main/resources/db/07-seed-data-init.sql
 ```
 
 Usuarios demo:

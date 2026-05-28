@@ -17,6 +17,7 @@ public class InventarioResponseDTO {
     private String sucursalNombre;
     private UUID productoId;
     private String productoNombre;
+    private String concentracion;
     private Integer stockActual;
     private Integer stockMinimo;
     private String ubicacion;

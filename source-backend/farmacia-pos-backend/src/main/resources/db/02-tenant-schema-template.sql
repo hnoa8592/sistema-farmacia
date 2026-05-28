@@ -264,4 +264,34 @@ CREATE TABLE IF NOT EXISTS parametros (
 CREATE UNIQUE INDEX IF NOT EXISTS idx_parametros_clave ON parametros(clave);
 CREATE INDEX IF NOT EXISTS idx_parametros_modulo ON parametros(modulo);
 
+-- 17. Caja
+CREATE TABLE IF NOT EXISTS cajas (
+    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    sucursal_id       UUID NOT NULL,
+    usuario_id        UUID NOT NULL,
+    fecha_apertura    TIMESTAMP NOT NULL DEFAULT NOW(),
+    monto_apertura    NUMERIC(10,2) NOT NULL,
+    fecha_cierre      TIMESTAMP,
+    monto_contado     NUMERIC(10,2),
+    efectivo_esperado NUMERIC(10,2),
+    diferencia        NUMERIC(10,2),
+    observacion       VARCHAR(500),
+    estado            VARCHAR(20) NOT NULL DEFAULT 'ABIERTA' CHECK (estado IN ('ABIERTA','CERRADA'))
+);
+CREATE INDEX IF NOT EXISTS idx_caja_sucursal ON cajas(sucursal_id);
+CREATE INDEX IF NOT EXISTS idx_caja_usuario  ON cajas(usuario_id);
+CREATE INDEX IF NOT EXISTS idx_caja_estado   ON cajas(estado);
+CREATE INDEX IF NOT EXISTS idx_caja_fecha    ON cajas(fecha_apertura);
+
+CREATE TABLE IF NOT EXISTS movimientos_caja (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    caja_id     UUID NOT NULL REFERENCES cajas(id),
+    tipo        VARCHAR(20) NOT NULL CHECK (tipo IN ('RETIRO','INGRESO_MANUAL')),
+    monto       NUMERIC(10,2) NOT NULL,
+    descripcion VARCHAR(500) NOT NULL,
+    fecha       TIMESTAMP NOT NULL DEFAULT NOW(),
+    usuario_id  UUID NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_mov_caja ON movimientos_caja(caja_id);
+
 SET search_path TO public;

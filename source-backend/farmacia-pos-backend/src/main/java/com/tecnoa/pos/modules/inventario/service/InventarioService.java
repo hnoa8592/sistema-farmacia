@@ -8,6 +8,7 @@ import com.tecnoa.pos.modules.inventario.dto.ProductoPrecioDTO;
 import com.tecnoa.pos.modules.inventario.model.*;
 import com.tecnoa.pos.modules.inventario.repository.*;
 import com.tecnoa.pos.modules.parametros.service.ParametroService;
+import com.tecnoa.pos.modules.usuarios.repository.UsuarioRepository;
 import com.tecnoa.pos.shared.exception.BusinessException;
 import com.tecnoa.pos.shared.exception.ResourceNotFoundException;
 import com.tecnoa.pos.shared.security.SecurityUtils;
@@ -33,6 +34,7 @@ public class InventarioService {
     private final ParametroService parametroService;
     private final SucursalService sucursalService;
     private final ProductoService productoService;
+    private final UsuarioRepository usuarioRepository;
     private final SecurityUtils securityUtils;
 
     @Transactional(readOnly = true)
@@ -45,7 +47,7 @@ public class InventarioService {
                 productoId, sucursalId, loteId, nombreFiltro);
 
         if (Boolean.TRUE.equals(soloConStock)) {
-            list = list.stream().filter(i -> i.getStockActual() > 0).collect(Collectors.toList());
+            list = list.stream().filter(i -> i.getStockActual() > 0).toList();
         }
         return list.stream().map(this::toResponse).collect(Collectors.toList());
     }
@@ -144,6 +146,7 @@ public class InventarioService {
                 .sucursalNombre(i.getSucursal().getNombre())
                 .productoId(i.getLote().getProducto().getId())
                 .productoNombre(i.getLote().getProducto().getNombre())
+                .concentracion(i.getLote().getProducto().getConcentracion())
                 .stockActual(i.getStockActual())
                 .stockMinimo(i.getStockMinimo())
                 .ubicacion(i.getUbicacion())
@@ -153,6 +156,9 @@ public class InventarioService {
     }
 
     private MovimientoResponseDTO toMovimientoResponse(MovimientoInventario m) {
+        String usuarioNombre = (m.getUsuarioId() != null)
+                ? usuarioRepository.findById(m.getUsuarioId()).map(u -> u.getNombre()).orElse("—")
+                : "—";
         return MovimientoResponseDTO.builder()
                 .id(m.getId()).inventarioId(m.getInventario().getId())
                 .loteId(m.getLoteId()).productoId(m.getProductoId())
@@ -161,6 +167,7 @@ public class InventarioService {
                 .productoNombre(productoService.obtener(m.getProductoId()).getNombre())
                 .cantidad(m.getCantidad()).stockAnterior(m.getStockAnterior())
                 .stockResultante(m.getStockResultante()).fecha(m.getFecha())
-                .usuarioId(m.getUsuarioId()).observacion(m.getObservacion()).build();
+                .usuarioId(m.getUsuarioId()).usuarioNombre(usuarioNombre)
+                .observacion(m.getObservacion()).build();
     }
 }
